@@ -52,40 +52,37 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 			ri_vo = r_dao.selectRoomInfo(room_id);
 			rif.getLblRCnt().setText(ri_vo.getP_min() + "명~" + ri_vo.getP_max() + "명");
 			rif.getJtaInfo().setText(ri_vo.getRoomInfo());
-			rif.getLblImg().setIcon(new ImageIcon(path + "/src/studyroom/img/" + ri_vo.getImage()));
+			rif.getLblImg().setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + ri_vo.getImage()));
 			List<String> Equip = r_dao.selectEquip(room_id);
 
 			for (int i = 0; i < rif.getLblEquipment().length; i++) {// 비품 초기화
-				rif.getLblEquipment()[i]
-						.setIcon(new ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/white.png"));
+				rif.getLblEquipment()[i].setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "white.png"));
 			} // end for
-				// new
-				// ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/computer.png")
 			for (int i = 0; i < Equip.size(); i++) {// 비품 채우기
 				rif.getLblEquipment()[i].setText(Equip.get(i));
 				if (rif.getLblEquipment()[i].getText().equals("컴퓨터")) {
 					rif.getLblEquipment()[i]
-							.setIcon(new ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/computer.png"));
+							.setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "computer.png"));
 				} // end if
 				if (rif.getLblEquipment()[i].getText().equals("공유기")) {
 					rif.getLblEquipment()[i]
-							.setIcon(new ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/wifi.png"));
+							.setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "wifi.png"));
 				} // end if
 				if (rif.getLblEquipment()[i].getText().equals("화이트보드")) {
 					rif.getLblEquipment()[i]
-							.setIcon(new ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/whiteboard.png"));
+							.setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "whiteboard.png"));
 				} // end if
 				if (rif.getLblEquipment()[i].getText().equals("책상")) {
 					rif.getLblEquipment()[i]
-							.setIcon(new ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/table.png"));
+							.setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "table.png"));
 				} // end if
 				if (rif.getLblEquipment()[i].getText().equals("빔프로젝터")) {
 					rif.getLblEquipment()[i]
-							.setIcon(new ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/bim.png"));
+							.setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "bim.png"));
 				} // end if
 				if (rif.getLblEquipment()[i].getText().equals("의자")) {
 					rif.getLblEquipment()[i]
-							.setIcon(new ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/chair.png"));
+							.setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "chair.png"));
 				} // end if
 			} // end for
 
