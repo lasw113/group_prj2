@@ -25,12 +25,12 @@ import kr.co.sist.client.controller.RoomInfoFrmEvt;
 public class RoomInfoFrm extends JPanel {
 	private JRadioButton rb1, rb2, rb3, rb4, rbRoom3, rbRoom4;
 	private ButtonGroup groupType;
-	private JLabel lblInfo, lblTime, lblCnt, lblRTime, lblImg, lblRCnt, lblMonth, lblDay;;
+	private JLabel lblInfo, lblTime, lblCnt, lblRTime, lblImg, lblRCnt, lblMonth, lblDay, logo;
 	private JLabel[] lblEquipment;
 	private JTextArea jtaInfo;
 	private JRadioButton[] rbRoom1, rbRoom2;
 	private ButtonGroup groupRoom1, groupRoom2;
-	private JButton logo, btnNext;
+	private JButton btnNext;
 	private JPanel roomLogo, roomInfo, room1, room2, room3, room4, equip, selectRoom;
 	private JTable jtTime;
 	private DefaultTableModel dtmTime;
@@ -63,7 +63,8 @@ public class RoomInfoFrm extends JPanel {
 		lblMonth = new JLabel("월");
 		lblDay = new JLabel("일");
 
-		logo = new JButton("로고이미지");
+		String path = System.getProperty("user.dir");
+		logo = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "logo.jpg"));
 		btnNext = new JButton("다음");
 
 		jtaInfo = new JTextArea();
@@ -91,9 +92,9 @@ public class RoomInfoFrm extends JPanel {
 		JScrollPane jspTime = new JScrollPane(jtTime);
 
 		dcmbMonth = new DefaultComboBoxModel<String>();
-		for (int i = 1; i < 13; i++) {
-			dcmbMonth.addElement(i + "");
-		}
+//		for (int i = 1; i < 13; i++) {
+//			dcmbMonth.addElement(i + "");
+//		}
 		jcbMonth = new JComboBox<String>(dcmbMonth);
 
 		dcmbDay = new DefaultComboBoxModel<String>();
@@ -136,13 +137,17 @@ public class RoomInfoFrm extends JPanel {
 
 		roomLogo = new JPanel();
 		roomLogo.setLayout(null);
-		roomLogo.setBounds(0, 50, 990, 750);
+		roomLogo.setBounds(0, 50, 1000, 1000);
 		roomLogo.add(logo);
 
 		room1 = new JPanel();
 		room2 = new JPanel();
 		room3 = new JPanel();
 		room4 = new JPanel();
+		room1.setVisible(false);
+		room2.setVisible(false);
+		room3.setVisible(false);
+		room4.setVisible(false);
 		room1.setBounds(0, 50, 990, 50);
 		room2.setBounds(0, 50, 990, 50);
 		room3.setBounds(0, 50, 990, 50);
@@ -218,10 +223,10 @@ public class RoomInfoFrm extends JPanel {
 		lblCnt.setBounds(420, 170, 60, 30);
 		lblRCnt.setBounds(490, 170, 100, 30);
 
-		logo.setBounds(0, 0, 1000, 450);
+		logo.setBounds(0, 0, 1000, 1000);
 
 		btnNext.setBounds(800, 320, 100, 30);
-		
+
 		type.setBackground(Color.white);
 		date.setBackground(Color.white);
 		p_cnt.setBackground(Color.white);
