@@ -1,6 +1,10 @@
 package kr.co.sist.client.frm;
 
+import java.awt.Color;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 @SuppressWarnings("serial")
@@ -9,11 +13,18 @@ public class ClientMainFrm extends JFrame {
 	
 	public ClientMainFrm() {
 		jtpClient = new JTabbedPane();
-		jtpClient.add("∑Î¡§∫∏(øπæ‡)", new RoomInfoFrm());
 		
+		JPanel roomInfo = new RoomInfoFrm();
+		roomInfo.setBackground(Color.white);
+		
+		JScrollPane jspRoomInfo = new JScrollPane(roomInfo);
+		
+		jtpClient.add("∑Î¡§∫∏(øπæ‡)", jspRoomInfo);		
+
 		add(jtpClient);
 		
-		setBounds(100, 100, 500, 800);
+		setBounds(100, 100, 1000, 600);
+		setResizable(false);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}//RoomUserFrm

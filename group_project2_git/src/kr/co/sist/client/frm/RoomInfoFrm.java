@@ -1,15 +1,23 @@
 package kr.co.sist.client.frm;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.List;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.client.controller.RoomInfoFrmEvt;
 
@@ -17,18 +25,25 @@ import kr.co.sist.client.controller.RoomInfoFrmEvt;
 public class RoomInfoFrm extends JPanel {
 	private JRadioButton rb1, rb2, rb3, rb4, rbRoom3, rbRoom4;
 	private ButtonGroup groupType;
-	private JLabel lblInfo, lblTime, lblCnt, lblRTime, lblImg, lblRCnt;
+	private JLabel lblInfo, lblTime, lblCnt, lblRTime, lblImg, lblRCnt, lblMonth, lblDay;;
 	private JLabel[] lblEquipment;
-	private List<String> equipment;
 	private JTextArea jtaInfo;
-	private JButton btnNext;
 	private JRadioButton[] rbRoom1, rbRoom2;
-	private ButtonGroup groupRoom1,groupRoom2;
-	private JButton logo;
-	private JPanel roomLogo,roomInfo, room1, room2, room3, room4;
+	private ButtonGroup groupRoom1, groupRoom2;
+	private JButton logo, btnNext;
+	private JPanel roomLogo, roomInfo, room1, room2, room3, room4, equip, selectRoom;
+	private JTable jtTime;
+	private DefaultTableModel dtmTime;
+	private JComboBox<String> jcbMonth, jcbDay, jcbCnt;
+	private DefaultComboBoxModel<String> dcmbMonth, dcmbDay, dcmbCnt;
 
 	public RoomInfoFrm() {
 		setLayout(null);
+
+		lblEquipment = new JLabel[6];
+		for (int i = 0; i < lblEquipment.length; i++) {
+			lblEquipment[i] = new JLabel();
+		}
 
 		rb1 = new JRadioButton("1~4인실");
 		rb2 = new JRadioButton("5~9인실");
@@ -42,38 +57,78 @@ public class RoomInfoFrm extends JPanel {
 		lblInfo = new JLabel("방 소개");
 		lblTime = new JLabel("예약시간");
 		lblCnt = new JLabel("예약인원");
-		lblImg = new JLabel(new ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/room.png"));
+		lblImg = new JLabel(new ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/s_01.png"));
 		lblRTime = new JLabel("최소 1시간 부터");
-		lblRCnt = new JLabel("DB");
+		lblRCnt = new JLabel();
+		lblMonth = new JLabel("월");
+		lblDay = new JLabel("일");
 
 		logo = new JButton("로고이미지");
+		btnNext = new JButton("다음");
 
 		jtaInfo = new JTextArea();
+		jtaInfo.setEditable(false);
+		jtaInfo.setWrapStyleWord(true);
+		jtaInfo.setLineWrap(true);
 
 		groupType.add(rb1);
 		groupType.add(rb2);
 		groupType.add(rb3);
 		groupType.add(rb4);
 
+		String[] orderTime = { "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22입실불가" };
+		String[][] orderEmpty = new String[1][1];
+
+		dtmTime = new DefaultTableModel(orderEmpty, orderTime);
+		jtTime = new JTable(dtmTime) {
+			// 셀 편집 막기
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}// isCellEditable
+		};
+		jtTime.getTableHeader().setReorderingAllowed(false);
+		JScrollPane jspTime = new JScrollPane(jtTime);
+
+		dcmbMonth = new DefaultComboBoxModel<String>();
+		for (int i = 1; i < 13; i++) {
+			dcmbMonth.addElement(i + "");
+		}
+		jcbMonth = new JComboBox<String>(dcmbMonth);
+
+		dcmbDay = new DefaultComboBoxModel<String>();
+		jcbDay = new JComboBox<String>(dcmbDay);
+
+		dcmbCnt = new DefaultComboBoxModel<String>();
+		jcbCnt = new JComboBox<String>(dcmbCnt);
+
+		for (int i = 0; i < orderTime.length; i++) {
+			jtTime.getColumnModel().getColumn(i).setPreferredWidth(60);
+		}
+		jtTime.setRowHeight(50);
+
 		rbRoom1 = new JRadioButton[4];
 		for (int i = 0; i < rbRoom1.length; i++) {
 			rbRoom1[i] = new JRadioButton((i + 1) + "번방");
+			rbRoom1[i].setBackground(Color.white);
 			groupRoom1.add(rbRoom1[i]);
 		} // end for
 		rbRoom1[0].setSelected(true);
 		rbRoom2 = new JRadioButton[3];
 		for (int i = 0; i < rbRoom2.length; i++) {
 			rbRoom2[i] = new JRadioButton((i + 1) + "번방");
+			rbRoom2[i].setBackground(Color.white);
 			groupRoom2.add(rbRoom2[i]);
 		} // end for
 		rbRoom2[0].setSelected(true);
-		
-		rbRoom3 = new JRadioButton("1번방");
-		rbRoom4 = new JRadioButton("1번방");
 
+		rbRoom3 = new JRadioButton("1번방");
+		rbRoom3.setBackground(Color.white);
+		rbRoom4 = new JRadioButton("1번방");
+		rbRoom4.setBackground(Color.white);
 
 		JPanel type = new JPanel();
-		type.setBounds(0, 0, 500, 50);
+		type.setBounds(0, 0, 990, 50);
 		type.add(rb1);
 		type.add(rb2);
 		type.add(rb3);
@@ -81,17 +136,17 @@ public class RoomInfoFrm extends JPanel {
 
 		roomLogo = new JPanel();
 		roomLogo.setLayout(null);
-		roomLogo.setBounds(0, 50, 500, 750);
+		roomLogo.setBounds(0, 50, 990, 750);
 		roomLogo.add(logo);
 
 		room1 = new JPanel();
 		room2 = new JPanel();
 		room3 = new JPanel();
 		room4 = new JPanel();
-		room1.setBounds(0, 50, 500, 50);
-		room2.setBounds(0, 50, 500, 50);
-		room3.setBounds(0, 50, 500, 50);
-		room4.setBounds(0, 50, 500, 50);
+		room1.setBounds(0, 50, 990, 50);
+		room2.setBounds(0, 50, 990, 50);
+		room3.setBounds(0, 50, 990, 50);
+		room4.setBounds(0, 50, 990, 50);
 
 		for (int i = 0; i < rbRoom1.length; i++) {
 			room1.add(rbRoom1[i]);
@@ -104,11 +159,17 @@ public class RoomInfoFrm extends JPanel {
 		room3.add(rbRoom3);
 		room4.add(rbRoom4);
 
+		equip = new JPanel();
+		equip.setLayout(new GridLayout(2, 3));
+		equip.setBounds(430, 210, 501, 180);
+		for (int i = 0; i < lblEquipment.length; i++) {
+			equip.add(lblEquipment[i]);
+		} // end for
+
 		roomInfo = new JPanel();
-		roomInfo.setVisible(false);
+		roomInfo.setBorder(new TitledBorder("방 정보"));
 		roomInfo.setLayout(null);
-		roomInfo.setBounds(0, 100, 500, 400);
-		roomInfo.setBackground(Color.LIGHT_GRAY);
+		roomInfo.setBounds(0, 100, 960, 400);
 		roomInfo.add(lblImg);
 		roomInfo.add(lblInfo);
 		roomInfo.add(jtaInfo);
@@ -116,20 +177,67 @@ public class RoomInfoFrm extends JPanel {
 		roomInfo.add(lblRTime);
 		roomInfo.add(lblCnt);
 		roomInfo.add(lblRCnt);
+		roomInfo.add(equip);
 
+		JPanel date = new JPanel();
+		date.setBounds(0, 0, 960, 100);
+		date.add(jcbMonth);
+		date.add(lblMonth);
+		date.add(jcbDay);
+		date.add(lblDay);
+		date.setBorder(new TitledBorder("날짜 선택"));
 
-		lblImg.setBounds(10, 10, 200, 380);
+		JPanel p_cnt = new JPanel();
+		p_cnt.setBounds(0, 200, 960, 100);
+		p_cnt.add(jcbCnt);
+		p_cnt.setBorder(new TitledBorder("인원 선택"));
 
-		lblInfo.setBounds(230, 10, 60, 30);
-		jtaInfo.setBounds(300, 10, 170, 100);
+		JPanel Time = new JPanel();
+		Time.setLayout(new BorderLayout());
+		Time.setBounds(0, 100, 960, 100);
+		Time.add(jspTime);
+		Time.setBorder(new TitledBorder("시간 선택"));
 
-		lblTime.setBounds(230, 120, 60, 30);
-		lblRTime.setBounds(300, 120, 100, 30);
+		selectRoom = new JPanel();
+		selectRoom.setLayout(null);
+		selectRoom.setVisible(false);
+		selectRoom.add(date);
+		selectRoom.add(p_cnt);
+		selectRoom.add(Time);
+		selectRoom.add(btnNext);
+		selectRoom.setBounds(0, 500, 990, 400);
 
-		lblCnt.setBounds(230, 160, 60, 30);
-		lblRCnt.setBounds(300, 160, 100, 30);
+		lblImg.setBounds(50, 20, 300, 370);
 
-		logo.setBounds(0, 0, 500, 750);
+		lblInfo.setBounds(420, 20, 60, 30);
+		jtaInfo.setBounds(490, 20, 350, 100);
+
+		lblTime.setBounds(420, 130, 60, 30);
+		lblRTime.setBounds(490, 130, 100, 30);
+
+		lblCnt.setBounds(420, 170, 60, 30);
+		lblRCnt.setBounds(490, 170, 100, 30);
+
+		logo.setBounds(0, 0, 1000, 450);
+
+		btnNext.setBounds(800, 320, 100, 30);
+		
+		type.setBackground(Color.white);
+		date.setBackground(Color.white);
+		p_cnt.setBackground(Color.white);
+		Time.setBackground(Color.white);
+		rb1.setBackground(Color.white);
+		rb2.setBackground(Color.white);
+		rb3.setBackground(Color.white);
+		rb4.setBackground(Color.white);
+		roomInfo.setBackground(Color.white);
+		room1.setBackground(Color.white);
+		room2.setBackground(Color.white);
+		room3.setBackground(Color.white);
+		room4.setBackground(Color.white);
+		selectRoom.setBackground(Color.white);
+
+		setPreferredSize(new Dimension(0, 900));
 
 		add(type);
 		add(roomLogo);
@@ -137,21 +245,28 @@ public class RoomInfoFrm extends JPanel {
 		add(room2);
 		add(room3);
 		add(room4);
-		add(roomInfo);		
-		
+		add(roomInfo);
+		add(selectRoom);
+
 		RoomInfoFrmEvt rife = new RoomInfoFrmEvt(this);
 		rb1.addItemListener(rife);
 		rb2.addItemListener(rife);
 		rb3.addItemListener(rife);
 		rb4.addItemListener(rife);
-		for(int i =0; i < rbRoom1.length;i++) {
-			rbRoom1[i].addItemListener(rife);			
-		}//end for
-		for(int i =0; i < rbRoom2.length;i++) {
-			rbRoom2[i].addItemListener(rife);			
-		}//end for
-		rbRoom3.addItemListener(rife);			
-		rbRoom4.addItemListener(rife);			
+		for (int i = 0; i < rbRoom1.length; i++) {
+			rbRoom1[i].addItemListener(rife);
+		} // end for
+		for (int i = 0; i < rbRoom2.length; i++) {
+			rbRoom2[i].addItemListener(rife);
+		} // end for
+		rbRoom3.addItemListener(rife);
+		rbRoom4.addItemListener(rife);
+
+		jcbMonth.addActionListener(rife);
+		jcbDay.addItemListener(rife);
+		jtTime.addMouseListener(rife);
+
+		btnNext.addActionListener(rife);
 	}// RoomInfoFrm
 
 	public JRadioButton getRb1() {
@@ -170,32 +285,12 @@ public class RoomInfoFrm extends JPanel {
 		return rb4;
 	}
 
-	public ButtonGroup getGroupType() {
-		return groupType;
-	}
-
-	public JLabel getLblInfo() {
-		return lblInfo;
-	}
-
-	public JLabel getLblTime() {
-		return lblTime;
-	}
-
-	public JLabel getLblCnt() {
-		return lblCnt;
-	}
-
 	public JLabel getLblRTime() {
 		return lblRTime;
 	}
 
 	public JLabel getLblRCnt() {
 		return lblRCnt;
-	}
-
-	public List<String> getEquipment() {
-		return equipment;
 	}
 
 	public JTextArea getJtaInfo() {
@@ -254,8 +349,39 @@ public class RoomInfoFrm extends JPanel {
 		return rbRoom4;
 	}
 
-	public static void main(String[] args) {
-		new RoomInfoFrm();
-	}// main
+	public JComboBox<String> getJcbMonth() {
+		return jcbMonth;
+	}
 
+	public DefaultComboBoxModel<String> getDcmbMonth() {
+		return dcmbMonth;
+	}
+
+	public DefaultComboBoxModel<String> getDcmbDay() {
+		return dcmbDay;
+	}
+
+	public DefaultComboBoxModel<String> getDcmbCnt() {
+		return dcmbCnt;
+	}
+
+	public JComboBox<String> getJcbDay() {
+		return jcbDay;
+	}
+
+	public DefaultTableModel getDtmTime() {
+		return dtmTime;
+	}
+
+	public JTable getJtTime() {
+		return jtTime;
+	}
+
+	public JComboBox<String> getJcbCnt() {
+		return jcbCnt;
+	}
+
+	public JPanel getSelectRoom() {
+		return selectRoom;
+	}
 }// class
