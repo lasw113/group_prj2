@@ -11,15 +11,18 @@ import javax.swing.JTabbedPane;
 public class ClientMainFrm extends JFrame {
 	private JTabbedPane jtpClient;
 	
-	public ClientMainFrm() {
+	public ClientMainFrm(String id) {
 		jtpClient = new JTabbedPane();
 		
-		JPanel roomInfo = new RoomInfoFrm();
+		JPanel roomInfo = new RoomInfoFrm(id);
 		roomInfo.setBackground(Color.white);
 		
 		JScrollPane jspRoomInfo = new JScrollPane(roomInfo);
 		
 		jtpClient.add("룸정보(예약)", jspRoomInfo);		
+		jtpClient.addTab("예약확인", new JPanel());
+		jtpClient.addTab("건의 사항", new JPanel());
+		jtpClient.addTab("개인정보 수정", new JPanel());
 
 		add(jtpClient);
 		
@@ -30,7 +33,7 @@ public class ClientMainFrm extends JFrame {
 	}//RoomUserFrm
 	
 	public static void main(String[] args) {
-		new ClientMainFrm();
+		new ClientMainFrm("ham");
 	}//main
 	
 }//class

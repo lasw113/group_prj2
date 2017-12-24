@@ -27,26 +27,32 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 	public static final int CLICK = 1;
 
 	private RoomInfoFrm rif;
-	private String room = "S_01,S_02,S_03,S_04,M_05,M_06,M_07,L_08,X_09";
-	private String[] room_id = room.split(",");
+	private String[] room_id = { "S_01", "S_02", "S_03", "S_04", "M_05", "M_06", "M_07", "L_08", "X_09" };
+	private RoomInfoVO ri_vo;
+	private String room_num;
+	private int in, out, year, y_month, day;
 
 	public RoomInfoFrmEvt(RoomInfoFrm rif) {
 		this.rif = rif;
 		Calendar ca = Calendar.getInstance();
-		int month = ca.get(Calendar.MONTH) - 1;
-		int day = ca.get(Calendar.DAY_OF_MONTH) - 1;
-		setDay(month);
-		rif.getJcbMonth().setSelectedIndex((month + 1));
+		year = ca.get(Calendar.YEAR);
+		y_month = ca.get(Calendar.MONTH) + 1;
+		day = ca.get(Calendar.DAY_OF_MONTH) - 1;
+		rif.getDcmbMonth().addElement(String.valueOf(y_month));
+		setDay(year, y_month);
+		if ((y_month + 1) == 13) {
+			y_month = 13;
+			rif.getDcmbMonth().addElement("1");
+		} else {
+			rif.getDcmbMonth().addElement(String.valueOf(y_month + 1));
+		}
+		rif.getJcbMonth().setSelectedIndex((0));
 		rif.getJcbDay().setSelectedIndex(day);
 	}// RoomInfoFrmEvt
-
-	RoomInfoVO ri_vo = null;
-	String room_num = null;
 
 	public String setRoomInfo(String room_id) {// 방 정보를 보여주는 method
 		RoomCDAO r_dao = RoomCDAO.getInstance();
 		room_num = room_id;
-
 		try {
 			String path = System.getProperty("user.dir");
 			ri_vo = r_dao.selectRoomInfo(room_id);
@@ -94,7 +100,7 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 				rif.getDcmbCnt().addElement(i + "");
 			} // end for
 
-			setResChk(room_id);
+			setResChk(room_id, year);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -102,11 +108,11 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		return ri_vo.getP_min();
 	}// setRoomInfo
 
-	private void setDay(int month) {// 월별 일 설정 메소드
+	private void setDay(int year, int month) {// 월별 일 설정 메소드
 		Calendar ca = Calendar.getInstance();
 		int lastDay = 0;
 
-		ca.set(ca.get(Calendar.YEAR), month - 1, 1);
+		ca.set(year, month - 1, 1);
 		lastDay = ca.getActualMaximum(Calendar.DATE);
 		rif.getDcmbDay().removeAllElements();
 		for (int i = 1; i <= lastDay; i++) {
@@ -114,12 +120,20 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		} // end for
 	}// setDay
 
-	private void setResChk(String room_id) {
+	private void setResChk(String room_id, int year) {// 예약된 방
 		RoomCDAO r_dao = RoomCDAO.getInstance();
 		try {
-			Calendar ca = Calendar.getInstance();
-			int year = ca.get(Calendar.YEAR);
-			String date = year + "-" + rif.getDcmbMonth().getSelectedItem() + "-" + rif.getDcmbDay().getSelectedItem();
+			String month = (String) rif.getDcmbMonth().getSelectedItem();
+			String day = (String) rif.getDcmbDay().getSelectedItem();
+			if (String.valueOf(rif.getDcmbMonth().getSelectedItem()).length() != 2) {
+				month = "0" + rif.getDcmbMonth().getSelectedItem();
+			}
+			if ((String.valueOf(rif.getDcmbDay().getSelectedItem()).length()) != 2) {
+				day = "0" + rif.getDcmbDay().getSelectedItem();
+			}
+
+			String date = year + "-" + month + "-" + day;
+			System.out.println(date);
 			SelectTimeChkVO stc_vo = new SelectTimeChkVO(date, room_id);
 			List<SelectTimeVO> listTime;
 			listTime = r_dao.selectTimeChk(stc_vo);
@@ -139,8 +153,6 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 			e.printStackTrace();
 		}
 	}// setResChk
-
-	int in = 0, out = 0;
 
 	@Override
 	public void mouseClicked(MouseEvent me) {
@@ -165,7 +177,6 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 
 			if (res.equals("예약")) { // 예약 체크 취소
 				rif.getDtmTime().setValueAt("", 0, col);
-				return;
 			} // end if
 
 			for (int i = 0; i < rif.getJtTime().getColumnCount(); i++) {
@@ -182,11 +193,13 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 			} // end for
 
 			for (int i = in; i < out; i++) {
-				rif.getJtTime().setValueAt("예약", 0, i);
+				if (!rif.getJtTime().getValueAt(0, col).equals("")) {
+					rif.getJtTime().setValueAt("예약", 0, i);
+				} // end if
 				for (int j = in; j < out; j++) {
 					if (rif.getJtTime().getValueAt(0, j).equals("예약완료")) {
 						JOptionPane.showMessageDialog(rif, "예약 완료된 시간이 있습니다.");
-						setResChk(room_num);
+						setResChk(room_num, year);
 						return;
 					} // end if
 				} // end for
@@ -198,22 +211,45 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if (rif.getJcbMonth() == ae.getSource()) {
+
 			if (rif.getJcbMonth().getSelectedIndex() != -1) {
 				int month = Integer.parseInt((String) rif.getJcbMonth().getSelectedItem());
-				setDay(month);
+				Calendar ca = Calendar.getInstance();
+				year = ca.get(Calendar.YEAR);
+				setDay(year, month);
+				if ((y_month) == 13) {
+					if (rif.getJcbMonth().getSelectedItem().equals("1")) {
+						setDay(year + 1, 1);
+						year += 1;
+					} // end if
+
+				} // end if
 			} // end if
+			setResChk(room_num, year);
 		} // end if
 
 		if (rif.getJcbDay() == ae.getSource()) {
-			setResChk(room_num);
+			if (rif.getJcbMonth().getSelectedIndex() == 0) {
+				if (Integer.parseInt((String) rif.getJcbDay().getSelectedItem()) < day) {
+					JOptionPane.showMessageDialog(rif, "당일 이전은 예약 할 수 없습니다.");
+					rif.getJcbDay().setSelectedIndex(day);
+					return;
+				} // end if
+			}
+			setResChk(room_num, year);
 		} // end if
 
 		if (rif.getBtnNext() == ae.getSource()) {
 
+			for (int j = in; j < out; j++) {
+				if (rif.getJtTime().getValueAt(0, j).equals("")) {
+					JOptionPane.showMessageDialog(rif, "빈 시간이 있습니다..");
+					return;
+				} // end if
+			} // end for
+
 			for (int i = 0; i < rif.getJtTime().getColumnCount(); i++) {
 				if (rif.getDtmTime().getValueAt(0, i).equals("예약")) {
-					Calendar ca = Calendar.getInstance();
-					int year = ca.get(Calendar.YEAR);
 					int p_cnt = Integer.parseInt((String) rif.getJcbCnt().getSelectedItem());
 					String month = rif.getJcbMonth().getSelectedItem() + "-" + rif.getJcbDay().getSelectedItem();
 					String date = year + "-" + month;
@@ -221,9 +257,9 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 					SelectRoomResVO srr_vo = new SelectRoomResVO(date, String.valueOf(in + 9), String.valueOf(out + 9),
 							room_num, p_cnt);
 					ClientMainFrm cmf = null;
-					new SelectUserFrm(srr_vo, cmf);
+					new SelectUserFrm(srr_vo, cmf, rif.getId());
 
-					setResChk(room_num);
+					setResChk(room_num, year);
 					return;
 				} // end if
 			} // end for
