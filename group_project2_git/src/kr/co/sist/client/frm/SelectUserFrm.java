@@ -21,18 +21,19 @@ public class SelectUserFrm extends JDialog {
 	private JTextField jtfName, jtfPhoneM, jtfPhoneL, jtfEmail, jtfMillege, jtfPrice;
 	private JTextArea jtaReq;
 
-	private String room_id, in_time, out_time;
+	private String room_id, in_time, out_time,id;
 	private int p_cnt;
 
 	private SelectRoomResVO srr_vo;
 
-	public SelectUserFrm(SelectRoomResVO srr_vo, ClientMainFrm cmf) {
+	public SelectUserFrm(SelectRoomResVO srr_vo, ClientMainFrm cmf,String id) {
 		super(cmf, "사용자 정보", true);
 
 		this.room_id = srr_vo.getRoom_id();
 		this.in_time = srr_vo.getIn_time();
 		this.out_time = srr_vo.getOut_time();
 		this.p_cnt = srr_vo.getP_cnt();
+		this.id = id;
 		this.srr_vo = srr_vo;
 		setLayout(null);
 
@@ -179,6 +180,10 @@ public class SelectUserFrm extends JDialog {
 
 	public SelectRoomResVO getSrr_vo() {
 		return srr_vo;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 }

@@ -36,10 +36,13 @@ public class RoomInfoFrm extends JPanel {
 	private DefaultTableModel dtmTime;
 	private JComboBox<String> jcbMonth, jcbDay, jcbCnt;
 	private DefaultComboBoxModel<String> dcmbMonth, dcmbDay, dcmbCnt;
+	
+	private String id;
 
-	public RoomInfoFrm() {
+	public RoomInfoFrm(String id) {
+		this.id = id;
 		setLayout(null);
-
+		
 		lblEquipment = new JLabel[6];
 		for (int i = 0; i < lblEquipment.length; i++) {
 			lblEquipment[i] = new JLabel();
@@ -268,7 +271,7 @@ public class RoomInfoFrm extends JPanel {
 		rbRoom4.addItemListener(rife);
 
 		jcbMonth.addActionListener(rife);
-		jcbDay.addItemListener(rife);
+		jcbDay.addActionListener(rife);
 		jtTime.addMouseListener(rife);
 
 		btnNext.addActionListener(rife);
@@ -388,5 +391,9 @@ public class RoomInfoFrm extends JPanel {
 
 	public JPanel getSelectRoom() {
 		return selectRoom;
+	}
+
+	public String getId() {
+		return id;
 	}
 }// class
