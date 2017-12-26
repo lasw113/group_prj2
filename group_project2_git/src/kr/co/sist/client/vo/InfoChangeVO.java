@@ -1,27 +1,23 @@
 package kr.co.sist.client.vo;
 
-public class MyInfoVO {
+public class InfoChangeVO {
+	String id,name,birth,phone,email,pass_ans,pass_index;
 	
-	String id,name,birth,phone,email,pass_index,pass_ans;
-	int mileage;
-
-	public MyInfoVO() {
+	public InfoChangeVO() {
 		super();
 	}//MyInfoVO
 
-	public MyInfoVO(String id, String name, String birth, String phone, String email,String pass_index,String pass_ans,int mileage) {
+	public InfoChangeVO(String id, String name, String birth, String phone, String email,String pass_ans,String pass_index) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.birth = birth;
 		this.phone = phone;
 		this.email = email;
-		this.pass_index=pass_index;
 		this.pass_ans=pass_ans;
-		this.mileage = mileage;
+		this.pass_index=pass_index;
 	}
 
-	
 	public String getPass_ans() {
 		return pass_ans;
 	}
@@ -36,14 +32,6 @@ public class MyInfoVO {
 
 	public void setPass_index(String pass_index) {
 		this.pass_index = pass_index;
-	}
-
-	public int getMileage() {
-		return mileage;
-	}
-
-	public void setMileage(int mileage) {
-		this.mileage = mileage;
 	}
 
 	public String getId() {
@@ -87,7 +75,4 @@ public class MyInfoVO {
 	}
 	
 	
-
-
-
 }//class

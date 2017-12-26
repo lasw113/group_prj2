@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import kr.co.sist.manager.dao.ManagerDAO;
 import kr.co.sist.manager.view.LoginMgrView;
+import kr.co.sist.manager.view.ManagerView;
 import kr.co.sist.manager.vo.LoginVO;
 
 public class LoginMgrViewEvt implements ActionListener {
@@ -44,7 +45,7 @@ public class LoginMgrViewEvt implements ActionListener {
 			boolean logChk = m_dao.selectLogin(lv);
 			if (logChk) {
 				// 메인창 띄우고 로그인 창 끄기(관리자)
-
+				new ManagerView();
 				lmv.dispose();
 			} else {
 				// 일치하는 회원정보가 없을때

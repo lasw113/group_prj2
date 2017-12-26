@@ -17,7 +17,6 @@ public class SelectUserFrmEvt implements ActionListener {
 	private SelectUserFrm suf;
 	private int mille;
 
-
 	public SelectUserFrmEvt(SelectUserFrm suf) {
 		this.suf = suf;
 		setIdInfo(suf.getId(), suf.getRoom_id());
@@ -53,7 +52,7 @@ public class SelectUserFrmEvt implements ActionListener {
 	private void useMillege() {// 사용 마일리지 적용
 		int useMile = Integer.parseInt(suf.getJtfMillege().getText());
 		int price = (Integer.parseInt(su_vo.getPrice())
-				* (Integer.parseInt(suf.getOut_time()) - Integer.parseInt(suf.getIn_time()) + 1) * suf.getP_cnt())
+				* (Integer.parseInt(suf.getOut_time()) - Integer.parseInt(suf.getIn_time())) * suf.getP_cnt())
 				- useMile;
 		if (useMile <= mille && useMile > 0) {
 			suf.getJtfPrice().setText(String.valueOf(price));

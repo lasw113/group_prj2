@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import kr.co.sist.client.vo.HistoryVO;
 import kr.co.sist.client.vo.ModiUserVO;
+import kr.co.sist.client.vo.ResChkVO;
 import kr.co.sist.client.vo.RoomInfoVO;
 import kr.co.sist.client.vo.SelectRoomResVO;
 import kr.co.sist.client.vo.SelectTimeChkVO;
@@ -37,7 +39,7 @@ public class RoomCDAO {
 
 		Properties prop = new Properties();
 		try {
-			prop.load(new FileReader("C:/Users/a/git/group_prj2/group_project2_git/src/kr/co/sist/client/dao/database.properties"));
+			prop.load(new FileReader("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/client/dao/database.properties"));
 
 			Class.forName(prop.getProperty("driverClass"));
 
@@ -66,6 +68,9 @@ public class RoomCDAO {
 		}
 	}// dbClose
 
+	
+	
+	///////////////////////김태영////////////////////////////////
 	public RoomInfoVO selectRoomInfo(String room_id) throws SQLException {
 		RoomInfoVO ri_vo = null;
 
@@ -226,5 +231,137 @@ public class RoomCDAO {
 			dbClose(con, pstmt, null);
 		} // end finally
 	}// insertRes
+	///////////////////////김태영////////////////////////////////
+	
+	///////////////////////함민이////////////////////////////////
+	//회원의 이름을 가지고 오는 일
+		public String searchName(String id) throws SQLException{
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			
+			String name ="";
+			try {
+				con=getConn();
+				String selectName="select name from member where id=?";
+				pstmt=con.prepareStatement(selectName);
+				//바인드 변수에 값 넣기
+				pstmt.setString(1, id);
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {			
+					name =rs.getString("name");
+				}
+				
+			}finally {
+				dbClose(con, pstmt, null);
+			}//end finally
+			return name;
+		}//end searchName
+		
+		
+		//예약을 조회하는 일
+		public List<ResChkVO> ResChk(String id) throws SQLException{
+			List<ResChkVO> listRes=new ArrayList<ResChkVO>();
+			
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			
+			try {
+				con=getConn();
+				StringBuilder selectRes=new StringBuilder();
+				selectRes.append("select rr.res_id, res_i.res_name, ri.room_id, p_cnt, ri.price*rr.p_cnt-nvl(res_i.use_mile,0) price, rr.in_time, rr.out_time ,to_char(rr.res_date,'yyyy-mm-dd')res_date ")
+							.append("from room_res rr, room_info ri, res_info res_i,member mem ")
+							.append("where rr.res_id=res_i.res_id and ri.room_id=rr.room_id and mem.id= rr.id and to_char(sysdate,'yyyymmdd')<=to_char(res_date,'yyyymmdd') and mem.id= ?");
+				pstmt=con.prepareStatement(selectRes.toString());
+				pstmt.setString(1, id);
+				
+				rs=pstmt.executeQuery();
+				
+				ResChkVO rcvo=null;
+				while(rs.next()) {
+					rcvo=new ResChkVO(rs.getString("res_id"),rs.getString("res_name"),rs.getString("room_id"), rs.getString("in_time"),
+							rs.getString("out_time"),rs.getString("res_date") ,rs.getInt("p_cnt"),rs.getInt("price"));
+					listRes.add(rcvo);
+				}//end while
+			}finally {
+				dbClose(con,pstmt,rs);
+			}//end finally
+				return listRes;
+		}//ResChk
+		
+		public List<HistoryVO> setHistory(String id) throws SQLException{
+			List<HistoryVO> listHis=new ArrayList<HistoryVO>();
+			
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			
+			try {
+				con=getConn();
+				StringBuilder selectRes=new StringBuilder();
+				selectRes.append("select to_char(rr.res_date,'yyyy-mm-dd')res_date,res_i.res_name,ri.room_id,rr.p_cnt,ri.price*rr.p_cnt-nvl(res_i.use_mile,0) price,rr.in_time,rr.out_time ")
+							.append("from room_info ri, room_res rr, member mem , res_info res_i ")
+							.append("where rr.res_id=res_i.res_id and ri.room_id=rr.room_id and mem.id= rr.id and mem.id=? and to_char(sysdate,'yyyymmdd')>to_char(res_date,'yyyymmdd') and rr.pay_opt is not null");
+				pstmt=con.prepareStatement(selectRes.toString());
+				pstmt.setString(1, id);
+				
+				rs=pstmt.executeQuery();
+				
+				HistoryVO hvo=null;
+				while(rs.next()) {
+					hvo=new HistoryVO(rs.getString("res_name"), rs.getString("room_id"), 
+							rs.getString("in_time"), rs.getString("out_time"), rs.getString("res_date"),
+							rs.getInt("p_cnt"), rs.getInt("price"));
+					listHis.add(hvo);
+				}//end while
+			}finally {
+				dbClose(con,pstmt,rs);
+			}//end finally
+				return listHis;
+			
+		}//setHistory
+
+		//예약 삭제
+			public void cancelRes(String id) throws SQLException{
+				Connection con=null;
+				PreparedStatement pstmt=null;
+				try {
+					con=getConn();
+							
+					String cancelRes="delete from res_info where res_id=? ";
+					pstmt=con.prepareStatement(cancelRes);
+					//바인드 변수에 값 넣기
+					pstmt.setString(1, id);
+					
+							
+					int cnt=pstmt.executeUpdate();
+					System.out.println(cnt);
+					
+					pstmt.close();
+					con.close();
+					
+					con=getConn();
+					
+					String cancelRes1="delete from room_res where res_id=?";
+					pstmt=con.prepareStatement(cancelRes1);
+					pstmt.setString(1, id);
+					
+					int cnt2=pstmt.executeUpdate();
+					System.out.println(cnt2);
+							
+					int cnt3=pstmt.executeUpdate();
+					System.out.println(cnt3);
+							
+			} finally {
+				dbClose(con, pstmt, null);
+			} // end finally
+		}// cancelRes
+		///////////////////////함민이////////////////////////////////
+
+	
+
+
 
 }// class

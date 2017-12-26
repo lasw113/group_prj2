@@ -7,33 +7,55 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import kr.co.sist.client.controller.ClientMainFrmEvt;
+
 @SuppressWarnings("serial")
 public class ClientMainFrm extends JFrame {
-	private JTabbedPane jtpClient;
-	
-	public ClientMainFrm(String id) {
-		jtpClient = new JTabbedPane();
-		
-		JPanel roomInfo = new RoomInfoFrm(id);
-		roomInfo.setBackground(Color.white);
-		
-		JScrollPane jspRoomInfo = new JScrollPane(roomInfo);
-		
-		jtpClient.add("룸정보(예약)", jspRoomInfo);		
-		jtpClient.addTab("예약확인", new JPanel());
-		jtpClient.addTab("건의 사항", new JPanel());
-		jtpClient.addTab("개인정보 수정", new JPanel());
 
-		add(jtpClient);
-		
-		setBounds(100, 100, 1000, 600);
-		setResizable(false);
+	private JTabbedPane jtpClient;
+	private String id, pass;
+	private boolean adminLoginStatus;
+
+	public ClientMainFrm(String id, String pass) {
+		super("주) 스터디 룸 관리 - 회원");
+		this.id = id;
+		this.pass = pass;
+
+		jtpClient = new JTabbedPane();
+
+		add("Center", jtpClient);
+
+		ClientMainFrmEvt cmve = new ClientMainFrmEvt(this);
+		jtpClient.addMouseListener(cmve); // JTab 이벤트
+
+		setBounds(100, 100, 1000, 650);
 		setVisible(true);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}//RoomUserFrm
-	
-	public static void main(String[] args) {
-		new ClientMainFrm("ham");
-	}//main
-	
-}//class
+	}// ClientMainFrm
+
+	public JTabbedPane getJtpClient() {
+		return jtpClient;
+	}
+
+	public void setJtpClient(JTabbedPane jtpClient) {
+		this.jtpClient = jtpClient;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public boolean isAdminLoginStatus() {
+		return adminLoginStatus;
+	}
+
+	public void setAdminLoginStatus(boolean adminLoginStatus) {
+		this.adminLoginStatus = adminLoginStatus;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+}// class

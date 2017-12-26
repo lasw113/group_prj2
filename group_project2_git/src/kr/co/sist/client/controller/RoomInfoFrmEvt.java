@@ -240,6 +240,9 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		} // end if
 
 		if (rif.getBtnNext() == ae.getSource()) {
+			System.out.println(in);
+			System.out.println(out);
+			System.out.println("--------------------------------------");
 
 			for (int j = in; j < out; j++) {
 				if (rif.getJtTime().getValueAt(0, j).equals("")) {
