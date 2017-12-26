@@ -7,6 +7,7 @@ public class RunMgr {
 	public static void main(String[] args) {
 
 		new LoginMgrView();
+		//Ä¿¹ÔµÇ³Ä?
 
 	}// main
 
