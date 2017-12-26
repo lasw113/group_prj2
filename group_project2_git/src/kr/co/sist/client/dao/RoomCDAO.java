@@ -37,7 +37,7 @@ public class RoomCDAO {
 
 		Properties prop = new Properties();
 		try {
-			prop.load(new FileReader("C:/dev/workspace/group_project2/src/studyroom/dao/database.properties"));
+			prop.load(new FileReader("C:/Users/a/git/group_prj2/group_project2_git/src/kr/co/sist/client/dao/database.properties"));
 
 			Class.forName(prop.getProperty("driverClass"));
 

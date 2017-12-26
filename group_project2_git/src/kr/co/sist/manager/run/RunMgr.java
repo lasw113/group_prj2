@@ -1,10 +1,13 @@
 package kr.co.sist.manager.run;
 
+import kr.co.sist.manager.view.LoginMgrView;
+
 public class RunMgr {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-	}
+		new LoginMgrView();
 
-}
+	}// main
+
+}// class
