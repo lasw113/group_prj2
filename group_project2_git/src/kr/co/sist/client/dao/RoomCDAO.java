@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import kr.co.sist.client.vo.CancelResVO;
 import kr.co.sist.client.vo.HistoryVO;
 import kr.co.sist.client.vo.ModiUserVO;
 import kr.co.sist.client.vo.ResChkVO;
@@ -342,40 +343,56 @@ public class RoomCDAO {
 
 	}// setHistory
 
-	// 예약 삭제
-	public void cancelRes(String id) throws SQLException {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		try {
-			con = getConn();
-
-			String cancelRes = "delete from res_info where res_id=? ";
-			pstmt = con.prepareStatement(cancelRes);
-			// 바인드 변수에 값 넣기
-			pstmt.setString(1, id);
-
-			int cnt = pstmt.executeUpdate();
-			System.out.println(cnt);
-
-			pstmt.close();
-			con.close();
-
-			con = getConn();
-
-			String cancelRes1 = "delete from room_res where res_id=?";
-			pstmt = con.prepareStatement(cancelRes1);
-			pstmt.setString(1, id);
-
-			int cnt2 = pstmt.executeUpdate();
-			System.out.println(cnt2);
-
-			int cnt3 = pstmt.executeUpdate();
-			System.out.println(cnt3);
-
-		} finally {
-			dbClose(con, pstmt, null);
-		} // end finally
-	}// cancelRes
+	//예약 삭제
+			public void cancelRes(CancelResVO cr_vo) throws SQLException{
+				Connection con=null;
+				PreparedStatement pstmt=null;
+				try {
+					con=getConn();
+					StringBuilder updateRes=new StringBuilder();
+					updateRes.append("update member ") 
+							.append("set mileage = mileage +nvl((select use_mile from res_info where res_id=?),0)")//마일리지 사용 안하면 null이라서 null값 처리 했엉^^
+							.append("where id =?");
+					pstmt=con.prepareStatement(updateRes.toString());
+					//바인드 변수에 값 넣기
+					pstmt.setString(1, cr_vo.getRes_id());
+					pstmt.setString(2, cr_vo.getId());
+					
+							
+					int cnt=pstmt.executeUpdate();
+					System.out.println(cnt);
+					
+					pstmt.close();
+					con.close();
+					
+					con=getConn();
+							
+					String cancelRes="delete from res_info where res_id=? ";
+					pstmt=con.prepareStatement(cancelRes);
+					//바인드 변수에 값 넣기
+					pstmt.setString(1, cr_vo.getRes_id());
+					
+					pstmt.executeUpdate();
+					
+					pstmt.close();
+					con.close();
+					
+					con=getConn();
+					
+					String cancelRes1="delete from room_res where res_id=?";
+					pstmt=con.prepareStatement(cancelRes1);
+					pstmt.setString(1, cr_vo.getRes_id());
+					
+					int cnt2=pstmt.executeUpdate();
+					System.out.println(cnt2);
+							
+					int cnt3=pstmt.executeUpdate();
+					System.out.println(cnt3);
+							
+			} finally {
+				dbClose(con, pstmt, null);
+			} // end finally
+		}// cancelRes
 		/////////////////////// 함민이////////////////////////////////
 
 }// class

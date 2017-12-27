@@ -41,8 +41,7 @@ public class ManagerDAO {
 		Properties prop = new Properties();
 		String path = System.getProperty("user.dir");
 		try {
-			prop.load(new FileReader(
-					path+"/src/kr/co/sist/client/dao/database.properties"));
+			prop.load(new FileReader(path + "/src/kr/co/sist/client/dao/database.properties"));
 
 			Class.forName(prop.getProperty("driverClass"));
 
@@ -385,6 +384,7 @@ public class ManagerDAO {
 	}// ResChk
 
 	// 아이디로 회원 조회
+	// 아이디로 회원 조회
 	public List<UserVO> searchUser(String id) throws SQLException {
 		List<UserVO> listMem = new ArrayList<UserVO>();
 
@@ -397,6 +397,7 @@ public class ManagerDAO {
 			StringBuilder selectMem = new StringBuilder();
 			selectMem.append("select id, name, phone, mileage from member where id=?");
 			pstmt = con.prepareStatement(selectMem.toString());
+			pstmt.setString(1, id);
 
 			rs = pstmt.executeQuery();
 
@@ -501,7 +502,7 @@ public class ManagerDAO {
 			String selectMile = "select  sum(rei.use_mile) milesales " + " from    room_res rr,res_info rei "
 					+ " where  (rr.res_id = rei.res_id) and(rr.res_date= to_char(sysdate,'yyyy-mm-dd'))and (rr.checkin is not null)";
 			pstmt = con.prepareStatement(selectMile);
-			
+
 			rs = pstmt.executeQuery();
 			rs.next();
 			s_vo.setMilleage(rs.getInt(1));

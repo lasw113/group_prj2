@@ -12,7 +12,6 @@ import kr.co.sist.client.vo.HistoryVO;
 
 public class HistoryFrmEvt {
 	private HistoryFrm hv;
-	private List<HistoryVO> lv;
 
 	public HistoryFrmEvt(HistoryFrm hv, ResChkFrmEvt rcfe, String id) {
 		this.hv = hv;

@@ -10,20 +10,18 @@ import javax.swing.JOptionPane;
 import kr.co.sist.client.dao.RoomCDAO;
 import kr.co.sist.client.frm.CancelFrm;
 import kr.co.sist.client.frm.ResChkFrm;
+import kr.co.sist.client.vo.CancelResVO;
 
 public class CancelEvt implements ActionListener {
 
 	private CancelFrm cf;
-	private ResChkFrm rcf;
 
+	private String admin_pass;
 
 	public CancelEvt(CancelFrm cf, ResChkFrm rcf) throws IOException {
 		this.cf = cf;// ?
-		this.rcf = rcf;
 
 	}// CanecelEvt
-
-	String admin_pass;
 
 	public boolean chkPass(String pass) {
 		boolean flag = false;
@@ -40,11 +38,13 @@ public class CancelEvt implements ActionListener {
 
 	}// chkPass
 
-	public void cacelRes(String res_id) {
+	public void cacelRes(String id, String res_id) {
 
 		RoomCDAO r_cdao = RoomCDAO.getInstance();
+		CancelResVO cr_vo = null;
 		try {
-			r_cdao.cancelRes(res_id);
+			cr_vo = new CancelResVO(res_id, id);
+			r_cdao.cancelRes(cr_vo);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -60,7 +60,7 @@ public class CancelEvt implements ActionListener {
 			if (flag) {
 				switch (JOptionPane.showConfirmDialog(cf, "예약을 취소하시겠습니까?")) {
 				case JOptionPane.OK_OPTION:
-					cacelRes(cf.getRes_id());
+					cacelRes(cf.getId(), cf.getRes_id());
 					cf.getRcfe().resChk();
 					System.out.println("예약취소");
 				case JOptionPane.NO_OPTION:
