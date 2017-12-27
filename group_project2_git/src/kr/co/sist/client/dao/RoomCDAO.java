@@ -16,7 +16,6 @@ import kr.co.sist.client.vo.HistoryVO;
 import kr.co.sist.client.vo.ModiUserVO;
 import kr.co.sist.client.vo.ResChkVO;
 import kr.co.sist.client.vo.RoomInfoVO;
-import kr.co.sist.client.vo.SelectRoomResVO;
 import kr.co.sist.client.vo.SelectTimeChkVO;
 import kr.co.sist.client.vo.SelectTimeVO;
 import kr.co.sist.client.vo.SelectUserVO;
