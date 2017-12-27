@@ -49,8 +49,10 @@ public class ClientDAO {
 	private Connection getConn() throws SQLException {
 		Connection con = null;
 		Properties prop = new Properties();
+		String path = System.getProperty("user.dir");
 		try {
-			prop.load(new FileReader("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/client/dao/database.properties"));
+			prop.load(new FileReader(
+					path+"/src/kr/co/sist/client/dao/database.properties"));
 
 			Class.forName(prop.getProperty("driverClass"));
 

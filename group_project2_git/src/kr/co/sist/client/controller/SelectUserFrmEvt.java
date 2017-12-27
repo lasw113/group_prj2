@@ -11,11 +11,12 @@ import kr.co.sist.client.frm.SelectUserFrm;
 import kr.co.sist.client.vo.ModiUserVO;
 import kr.co.sist.client.vo.SelectRoomResVO;
 import kr.co.sist.client.vo.SelectUserVO;
+import kr.co.sist.client.vo.UpdateMileVO;
 
 public class SelectUserFrmEvt implements ActionListener {
 
 	private SelectUserFrm suf;
-	private int mille;
+	private int mille, updateMile;
 
 	public SelectUserFrmEvt(SelectUserFrm suf) {
 		this.suf = suf;
@@ -54,8 +55,11 @@ public class SelectUserFrmEvt implements ActionListener {
 		int price = (Integer.parseInt(su_vo.getPrice())
 				* (Integer.parseInt(suf.getOut_time()) - Integer.parseInt(suf.getIn_time())) * suf.getP_cnt())
 				- useMile;
+		int afterMile = Integer.parseInt(su_vo.getMillege()) - useMile;
 		if (useMile <= mille && useMile > 0) {
 			suf.getJtfPrice().setText(String.valueOf(price));
+			suf.getLblCanUse().setText("사용가능마일리지 : " + afterMile);
+			updateMile = useMile;
 		} else {
 			JOptionPane.showMessageDialog(suf, "사용 가능한 마일리지 금액이 아닙니다.");
 		}
@@ -72,15 +76,18 @@ public class SelectUserFrmEvt implements ActionListener {
 	private void reservation() {// 예약 정보를 DB에 insert
 		String phone = suf.getJcbPhoneF().getSelectedItem() + "-" + suf.getJtfPhoneM().getText() + "-"
 				+ suf.getJtfPhoneL().getText();
-		ModiUserVO mu_vo = new ModiUserVO(suf.getJtfName().getText(), phone, suf.getJtfEmail().getText(),
-				suf.getJtaReq().getText(), suf.getJtfMillege().getText());
-
 		SelectRoomResVO srr_vo = suf.getSrr_vo();
+
+		ModiUserVO mu_vo = new ModiUserVO(suf.getJtfName().getText(), phone, suf.getJtfEmail().getText(),
+				suf.getJtaReq().getText(), suf.getJtfMillege().getText(), suf.getId(), srr_vo);
+
+		UpdateMileVO um_vo = new UpdateMileVO(suf.getId(), updateMile);
 
 		RoomCDAO r_dao = RoomCDAO.getInstance();
 
 		try {
-			r_dao.insertRes(mu_vo, srr_vo, suf.getId());
+			r_dao.insertRes(mu_vo);
+			r_dao.updateMile(um_vo);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

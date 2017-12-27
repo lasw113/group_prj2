@@ -21,12 +21,12 @@ public class SelectUserFrm extends JDialog {
 	private JTextField jtfName, jtfPhoneM, jtfPhoneL, jtfEmail, jtfMillege, jtfPrice;
 	private JTextArea jtaReq;
 
-	private String room_id, in_time, out_time,id;
+	private String room_id, in_time, out_time, id;
 	private int p_cnt;
 
 	private SelectRoomResVO srr_vo;
 
-	public SelectUserFrm(SelectRoomResVO srr_vo, ClientMainFrm cmf,String id) {
+	public SelectUserFrm(SelectRoomResVO srr_vo, ClientMainFrm cmf, String id) {
 		super(cmf, "사용자 정보", true);
 
 		this.room_id = srr_vo.getRoom_id();
