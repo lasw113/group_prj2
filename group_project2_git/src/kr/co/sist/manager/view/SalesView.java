@@ -1,6 +1,7 @@
 package kr.co.sist.manager.view;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 
 import kr.co.sist.manager.controller.SalesViewEvt;
 
+@SuppressWarnings("serial")
 public class SalesView extends JPanel {
 	private JLabel lblDate;
 	private JLabel[] lblSalesName;
@@ -22,6 +24,7 @@ public class SalesView extends JPanel {
 	
 	public SalesView() {
 		setLayout(null);
+		this.setBackground(Color.white);
 		Date date= new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String today = sdf.format(date);
@@ -61,7 +64,7 @@ public class SalesView extends JPanel {
 	}
 	
 	protected void paintComponent(Graphics g) {
-
+		 super.paintComponent(g);  
 
 	    Graphics2D g2=(Graphics2D)g;
 	 
