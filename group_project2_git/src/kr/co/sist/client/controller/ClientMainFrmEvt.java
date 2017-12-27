@@ -40,12 +40,13 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 
 		JPanel roomInfo = new RoomInfoFrm(id);
 		roomInfo.setBackground(Color.white);
+		
 		JScrollPane jspRoomInfo = new JScrollPane(roomInfo);
-
 		cmf.getJtpClient().addTab("  룸 정보 (예약)  ", jspRoomInfo);
 
 		rcf = new ResChkFrm(id, pass);
 		cmf.getJtpClient().addTab("  예 약 확 인  ", rcf);
+		
 		cmf.getJtpClient().addTab("  건 의 사 항  ", new JLabel("입실한 사용자 대상으로 사용하는 탭입니다."));
 		cmf.getJtpClient().addTab("  내 정보 확인  ", new JLabel());
 
@@ -68,7 +69,7 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 				JOptionPane.showMessageDialog(cmf, "환영합니다.잠시만 기다려주세요");
 				RequestFrm rf = new RequestFrm(this);
 				tempTab.remove(2);// 탭을 삭제 후
-				tempTab.add("  건 의 사 항  ", rf);// 디자인을 가진 컴포넌트 배치
+				tempTab.insertTab("  건 의 사 항  ",null, rf,null, 2);// 디자인을 가진 컴포넌트 배치
 				// 탭이 메뉴로 넘어가는 걸 막는다.
 				tempTab.setSelectedIndex(2);
 				break;

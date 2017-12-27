@@ -22,7 +22,9 @@ public class RequestFrm extends JPanel {
 	private String id, room_id;
 	private ClientMainFrmEvt cmve;
 	private JLabel lblRoom_id;
-
+	public RequestFrm() {
+		
+	}
 	public RequestFrm(ClientMainFrmEvt cmve) {
 		this.cmve = cmve;
 		id = cmve.getId();
@@ -33,7 +35,7 @@ public class RequestFrm extends JPanel {
 		btnSent = new JButton(" 전송 ");
 		jtaChat = new JTextArea();
 		JScrollPane jspChat = new JScrollPane(jtaChat);
-		lblRoom_id = new JLabel("방이름");
+		lblRoom_id = new JLabel(room_id);
 
 		setLayout(null);
 
@@ -47,14 +49,17 @@ public class RequestFrm extends JPanel {
 		btnSent.setBounds(680, 30, 115, 40);
 		jpbottom.setBounds(70, 470, 830, 100);
 
+		jpbottom.add(lblRoom_id);
 		jpbottom.add(jtfMessage);
 		jpbottom.add(btnSent);
-
+		
 		add(jspChat);
 		add(jpbottom);
 
+		setBackground(Color.white);
+		lblRoom_id.setFont(new Font("Dialog", Font.BOLD, 15));
 		jtaChat.setFont(new Font("Dialog", Font.BOLD, 15));
-		btnSent.setFont(new Font("Dialog", Font.BOLD, 25));
+		btnSent.setFont(new Font("Dialog", Font.BOLD, 20));
 
 		RequestFrmEvt rfe = new RequestFrmEvt(this);
 		btnSent.addActionListener(rfe);

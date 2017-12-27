@@ -59,14 +59,14 @@ public class ChatMgrView extends JDialog {
 
 		add(jspChat);
 		add(jpbottom);
+		this.getContentPane().setBackground( Color.white );
 
 		jtaChat.setFont(new Font("Dialog", Font.BOLD, 15));
 		btnSent.setFont(new Font("Dialog", Font.BOLD, 25));
-		lblRoom_id.setFont(new Font("Dialog", Font.BOLD, 25));
-		jtaChat.setText(room_id + " 에서 보내온 메세지가 없습니다. \n");
+		lblRoom_id.setFont(new Font("Dialog", Font.BOLD, 20));
+		jtaChat.setText(room_id + " 에서 보내온 메세지입니다. \n");
 		ChatMgrViewEvt cmve = new ChatMgrViewEvt(this, rmv);
 		btnSent.addActionListener(cmve);
-
 		setBounds(100, 100, 1000, 650);
 		// setVisible(true);
 	}// ChatMgrView

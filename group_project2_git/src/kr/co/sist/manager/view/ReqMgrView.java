@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import kr.co.sist.manager.controller.ServerHelper2;
+import kr.co.sist.manager.controller.ServerHelper;
 
 @SuppressWarnings("serial")
 public class ReqMgrView extends JPanel implements Runnable,ActionListener{
@@ -20,15 +20,15 @@ public class ReqMgrView extends JPanel implements Runnable,ActionListener{
 	int[] pNum;
 	private Thread tListen;
 	private int[] serverport;
-	public static List<ServerHelper2> listServer; 
+	public static List<ServerHelper> listServer; 
 	
 	public ReqMgrView() {
 		
 		serverport=new int[9];
 		btnRoom=new JButton[9];
 		cmv= new ChatMgrView[9];
-		listServer = new ArrayList<ServerHelper2>();		
-		room_num = new String[] {"S_01","S_02","S_03","S_04","M_01","M_02","M_03","L_01","X_01"};
+		listServer = new ArrayList<ServerHelper>();		
+		room_num = new String[] {"S_01","S_02","S_03","S_04","M_05","M_06","M_07","L_08","X_09"};
 		pNum = new int[] {65000,64900,64800,64700,64600,64500,64400,64300,64200,64100};
 
 		for(int i=0 ; i < serverport.length ; i++  ) {
@@ -48,10 +48,11 @@ public class ReqMgrView extends JPanel implements Runnable,ActionListener{
 			 add(btnRoom[i+6]);
 		 }//end for
 		 for(int i=0;i<9;i++) {
+			 btnRoom[i].setBackground(Color.lightGray);
 			 btnRoom[i].addActionListener(this);
 			 cmv[i] = new ChatMgrView(room_num[i],serverport[i],this);
 		 }//end for
-		 
+		 setBackground(Color.white);
 		 isStart();
 	}
 	
@@ -60,8 +61,6 @@ public class ReqMgrView extends JPanel implements Runnable,ActionListener{
 			tListen=new Thread(this);
 			tListen.start();
 			JOptionPane.showMessageDialog(this, "서버가동시작");
-		}else{
-			JOptionPane.showMessageDialog(this, "이미 서버 가동중");
 		}//end if
 	}//isStart
 	
@@ -93,7 +92,7 @@ public class ReqMgrView extends JPanel implements Runnable,ActionListener{
 	@Override
 	public void run() {
 		for(int i=0 ; i < serverport.length ; i++) {
-			ServerHelper2 sh=new ServerHelper2(this,btnRoom[i] ,serverport[i]);
+			ServerHelper sh=new ServerHelper(this,btnRoom[i] ,serverport[i]);
 			listServer.add(sh);
 			System.out.println(listServer);
 			sh.start();
@@ -104,7 +103,7 @@ public class ReqMgrView extends JPanel implements Runnable,ActionListener{
 					System.out.println(listServer.get(i));
 					listServer.remove(i);
 					System.out.println(i+"번 째"+"없앴어");
-					ServerHelper2 sh=new ServerHelper2(this,btnRoom[i] ,serverport[i]);
+					ServerHelper sh=new ServerHelper(this,btnRoom[i] ,serverport[i]);
 					listServer.add(sh);
 					System.out.println(sh);
 					sh.start();
@@ -123,12 +122,11 @@ public class ReqMgrView extends JPanel implements Runnable,ActionListener{
 		this.cmv = cmv;
 	}
 
-	public static List<ServerHelper2> getListServer() {
+	public  List<ServerHelper> getListServer() {
 		return listServer;
 	}
 
-	public static void setListServer(List<ServerHelper2> listServer) {
+	public void setListServer(List<ServerHelper> listServer) {
 		ReqMgrView.listServer = listServer;
 	}
-	
 }//class

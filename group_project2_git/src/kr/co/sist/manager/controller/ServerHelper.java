@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import kr.co.sist.manager.view.ChatMgrView;
 import kr.co.sist.manager.view.ReqMgrView;
 
+
 public class ServerHelper extends Thread{
 	private ServerSocket ss;
 	private Socket client;
@@ -47,22 +48,27 @@ public class ServerHelper extends Thread{
 			//대화를 읽고 보낼수 있도록 스트림 연결
 			disReadStream = new DataInputStream(client.getInputStream());
 			dosWriteStream = new DataOutputStream(client.getOutputStream());
-			btnDisp.setBackground(Color.RED);
-			JOptionPane.showInputDialog(client.getInetAddress()	+"번 방에서 요청사항있음");
-		} catch (IOException e) {
+			//btnDisp.setBackground(Color.ORANGE);
+			//JOptionPane.showInputDialog(client.getInetAddress()	+"번 방에서 요청사항있음");
+		}catch(java.net.BindException be){
+			return;
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 		try {
 			while(true) {
 				//메세지를 읽어들여 대화창에 설정한다. 
-				String msg;
-				msg =disReadStream.readUTF();
-				cmv[cmvIndex].getJtaChat().append(msg +"\n");
+				String msg="";
+					msg =disReadStream.readUTF();
+					btnDisp.setBackground(Color.ORANGE);
+					cmv[cmvIndex].getJtaChat().append(msg +"\n");
+				
 			}//end while
 		}catch(EOFException eof) { 
 			JOptionPane.showMessageDialog(null, "접속자 접속 종료");
+			btnDisp.setBackground(Color.LIGHT_GRAY);
 		}catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}//end catch
 		try {
 			chk=true;
@@ -72,7 +78,6 @@ public class ServerHelper extends Thread{
 			client.close();
 			ss.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}//run

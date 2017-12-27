@@ -1,10 +1,6 @@
 package kr.co.sist.client.frm;
 
-import java.awt.Color;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import kr.co.sist.client.controller.ClientMainFrmEvt;

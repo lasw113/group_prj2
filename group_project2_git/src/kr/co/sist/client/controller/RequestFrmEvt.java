@@ -57,8 +57,7 @@ public class RequestFrmEvt implements Runnable, ActionListener {
 		// 211.63.89.xx :ipV4(A class
 		// String ip = JOptionPane.showInputDialog(" 서버 주소 입력 마지막 구간 입력");
 		// client = new Socket("211.63.89."+ip,65000);
-		System.out.println("????????");
-		client = new Socket("211.63.89.147", portNum);
+		client = new Socket("211.63.89.139", portNum);
 		System.out.println(portNum);
 		System.out.println(client.getLocalPort());
 
@@ -106,7 +105,7 @@ public class RequestFrmEvt implements Runnable, ActionListener {
 
 	private int pNum(String room_id) {
 		int num = 0;
-		String[] room_num = new String[] { "S_01", "S_02", "S_03", "S_04", "M_01", "M_02", "M_03", "L_01", "X_01" };
+		String[] 	room_num = new String[] {"S_01","S_02","S_03","S_04","M_05","M_06","M_07","L_08","X_09"};
 		int[] pNum = new int[] { 65000, 64900, 64800, 64700, 64600, 64500, 64400, 64300, 64200, 64100 };
 
 		for (int i = 0; i < room_num.length; i++) {

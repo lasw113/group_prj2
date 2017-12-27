@@ -14,6 +14,7 @@ public class ChatMgrViewEvt implements ActionListener  {
 		this.cmv = cmv;
 		this.rmv =rmv;
 	}//ChatMgrViewEvt
+	@SuppressWarnings("static-access")
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource()==cmv.getBtnSent()) {
