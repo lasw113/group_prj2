@@ -211,7 +211,7 @@ public class RoomCDAO {
 		return su_vo;
 	}// selectUserInfo
 
-	public void insertRes(ModiUserVO mu_vo, SelectRoomResVO srr_vo, String id) throws SQLException {
+	public void insertRes(ModiUserVO mu_vo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -221,12 +221,12 @@ public class RoomCDAO {
 			String insertRoom = "insert into room_res(RES_ID, IN_TIME, OUT_TIME, RES_DATE, P_CNT, ID, ROOM_ID) values(concat('RES_',lpad(seq_res.nextval,5,0)),?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(insertRoom);
 			// 바인드 변수에 값 넣기
-			pstmt.setString(1, srr_vo.getIn_time());
-			pstmt.setString(2, srr_vo.getOut_time());
-			pstmt.setString(3, srr_vo.getDate());
-			pstmt.setInt(4, srr_vo.getP_cnt());
-			pstmt.setString(5, id);
-			pstmt.setString(6, srr_vo.getRoom_id());
+			pstmt.setString(1, mu_vo.getSrr_vo().getIn_time());
+			pstmt.setString(2, mu_vo.getSrr_vo().getOut_time());
+			pstmt.setString(3, mu_vo.getSrr_vo().getDate());
+			pstmt.setInt(4, mu_vo.getSrr_vo().getP_cnt());
+			pstmt.setString(5, mu_vo.getId());
+			pstmt.setString(6, mu_vo.getSrr_vo().getRoom_id());
 
 			pstmt.executeUpdate();
 
@@ -242,7 +242,7 @@ public class RoomCDAO {
 			pstmt.setString(3, mu_vo.getRes_email());
 			pstmt.setString(4, mu_vo.getRequest());
 			pstmt.setString(5, mu_vo.getUse_mile());
-			pstmt.setString(6, id);
+			pstmt.setString(6, mu_vo.getId());
 
 			pstmt.executeUpdate();
 
