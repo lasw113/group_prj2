@@ -140,6 +140,7 @@ public class RoomInfoFrm extends JPanel {
 
 		roomLogo = new JPanel();
 		roomLogo.setLayout(null);
+		roomLogo.setBackground(new Color(0xEE4223));
 		roomLogo.setBounds(0, 50, 1000, 1000);
 		roomLogo.add(logo);
 
@@ -226,7 +227,7 @@ public class RoomInfoFrm extends JPanel {
 		lblCnt.setBounds(420, 170, 60, 30);
 		lblRCnt.setBounds(490, 170, 100, 30);
 
-		logo.setBounds(0, 0, 1000, 1000);
+		logo.setBounds(0, 0, 1000, 600);
 
 		btnNext.setBounds(800, 320, 100, 30);
 

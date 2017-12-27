@@ -79,7 +79,7 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 
 		case INFO_TAB:
 			if (cmf.isAdminLoginStatus() == false) { // 내 정보 확인 처음 들어올때만 비밀번호 치도록
-				ChkPassFrm cpf = new ChkPassFrm(cmf);
+				new ChkPassFrm(cmf);
 			} // end if
 			if (cmf.isAdminLoginStatus() == true) {
 				MyInfoFrm mif = new MyInfoFrm();

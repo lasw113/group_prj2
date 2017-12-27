@@ -57,7 +57,7 @@ public class RequestFrmEvt implements Runnable, ActionListener {
 		// 211.63.89.xx :ipV4(A class
 		// String ip = JOptionPane.showInputDialog(" 서버 주소 입력 마지막 구간 입력");
 		// client = new Socket("211.63.89."+ip,65000);
-		client = new Socket("211.63.89.139", portNum);
+		client = new Socket("211.63.89.147", portNum);
 		System.out.println(portNum);
 		System.out.println(client.getLocalPort());
 
