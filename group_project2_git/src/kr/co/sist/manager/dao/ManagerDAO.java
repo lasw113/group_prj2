@@ -458,20 +458,18 @@ public class ManagerDAO {
 		try {
 			con = getConn();
 
-			String selectCard = "select (card-useMile) cardsales " + " from("
+			String selectCard = "select (card-nvl(useMile,0)) cardsales " + " from("
 					+ "	select sum(ri.price * (to_number(rr.out_time)-to_number(rr.in_time))* rr.p_cnt)card, sum(rei.use_mile) useMile "
 					+ "	from  room_info ri, room_res rr, res_info rei"
-					+ "	where (ri.room_id = rr.room_id)and (rr.res_id = rei.res_id) and(rr.pay_opt='카드')and(rr.checkin='y')and (rr.res_date= to_char(sysdate,'yyyy-mm-dd'))"
+					+ "	where (ri.room_id = rr.room_id)and (rr.res_id = rei.res_id) and(rr.pay_opt='카드')and(rr.checkin is not null)and (rr.res_date= to_char(sysdate,'yyyy-mm-dd'))"
 					+ "	)";
 			pstmt = con.prepareStatement(selectCard);
-			System.out.println(selectCard);
 
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				s_vo.setCard(rs.getInt("cardsales"));
-				total += rs.getInt("cardsales");
-			} // end if
-			System.out.println(rs.getInt("cardsales"));
+			rs.next();
+			s_vo.setCard(rs.getInt(1));
+			total += rs.getInt("cardsales");
+			System.out.println(rs.getInt(1));
 			if (rs != null) {
 				rs.close();
 			}
@@ -479,19 +477,18 @@ public class ManagerDAO {
 				pstmt.close();
 			}
 
-			String selectCash = "select cash-useMile cashsales " + " from("
+			String selectCash = "select (cash-nvl(useMile,0)) cashsales " + " from("
 					+ "	select sum(ri.price * (to_number(rr.out_time)-to_number(rr.in_time))* rr.p_cnt)cash, sum(rei.use_mile) useMile "
 					+ "	from  room_info ri, room_res rr, res_info rei"
-					+ "	where (ri.room_id = rr.room_id)and (rr.res_id = rei.res_id) and(rr.pay_opt='현금')and(rr.checkin='y')and (rr.res_date= to_char(sysdate,'yyyy-mm-dd'))"
+					+ "	where (ri.room_id = rr.room_id)and (rr.res_id = rei.res_id) and(rr.pay_opt='현금')and(rr.checkin is not null)and (rr.res_date= to_char(sysdate,'yyyy-mm-dd'))"
 					+ "	)";
 			pstmt = con.prepareStatement(selectCash);
 
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				s_vo.setCash(rs.getInt("cashsales"));
-				total += rs.getInt("cashsales");
-			} // end if
-			System.out.println(rs.getInt("cashsales"));
+			rs.next();
+			s_vo.setCash(rs.getInt(1));
+			total += rs.getInt(1);
+			System.out.println(rs.getInt(1));
 
 			if (rs != null) {
 				rs.close();
@@ -501,15 +498,14 @@ public class ManagerDAO {
 			}
 
 			String selectMile = "select  sum(rei.use_mile) milesales " + " from    room_res rr,res_info rei "
-					+ " where  (rr.res_id = rei.res_id) and(rr.res_date= to_char(sysdate,'yyyy-mm-dd'))and (rr.checkin='y')";
+					+ " where  (rr.res_id = rei.res_id) and(rr.res_date= to_char(sysdate,'yyyy-mm-dd'))and (rr.checkin is not null)";
 			pstmt = con.prepareStatement(selectMile);
-
+			
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				s_vo.setMilleage(rs.getInt("milesales"));
-				total += rs.getInt("milesales");
-			} // end if
-			System.out.println(rs.getInt("milesales"));
+			rs.next();
+			s_vo.setMilleage(rs.getInt(1));
+			total += rs.getInt(1);
+			System.out.println(rs.getInt(1));
 
 			if (rs != null) {
 				rs.close();
@@ -519,12 +515,11 @@ public class ManagerDAO {
 			}
 
 			String countClient = "select  sum(rr.p_cnt) countclient " + " from    room_res rr "
-					+ " where   (rr.res_date= to_char(sysdate,'yyyy-mm-dd'))and (rr.checkin='y')";
+					+ " where   (rr.res_date= to_char(sysdate,'yyyy-mm-dd'))and (rr.checkin is not null)";
 			pstmt = con.prepareStatement(countClient);
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				s_vo.setT_cnt(rs.getInt("countclient"));
-			} // end if
+			rs.next();
+			s_vo.setT_cnt(rs.getInt("countclient"));
 			System.out.println(rs.getInt("countclient"));
 
 		} finally {
