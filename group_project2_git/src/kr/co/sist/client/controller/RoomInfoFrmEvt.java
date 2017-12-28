@@ -29,8 +29,8 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 	private RoomInfoFrm rif;
 	private String[] room_id = { "S_01", "S_02", "S_03", "S_04", "M_05", "M_06", "M_07", "L_08", "X_09" };
 	private RoomInfoVO ri_vo;
-	private String room_num;
-	private int in, out, year, y_month, day;
+	private String room_num, in, out;
+	private int year, y_month, day;
 
 	public RoomInfoFrmEvt(RoomInfoFrm rif) {
 		this.rif = rif;
@@ -154,57 +154,92 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		}
 	}// setResChk
 
+	private void goNext() {// 다음 버튼 눌리면 날짜, 입실, 퇴실, 방번호, 인원 저장하고 사용자 정보창 띄우기
+		for (int j = Integer.parseInt(in); j < Integer.parseInt(out); j++) {
+			if (rif.getJtTime().getValueAt(0, j).equals("")) {
+				JOptionPane.showMessageDialog(rif, "빈 시간이 있습니다..");
+				return;
+			} // end if
+		} // end for
+
+		for (int i = 0; i < rif.getJtTime().getColumnCount(); i++) {
+			if (rif.getDtmTime().getValueAt(0, i).equals("예약")) {
+				int p_cnt = Integer.parseInt((String) rif.getJcbCnt().getSelectedItem());
+				String month = rif.getJcbMonth().getSelectedItem() + "-" + rif.getJcbDay().getSelectedItem();
+				String date = year + "-" + month;
+				out = String.valueOf(Integer.parseInt(out) + 9);
+				if (in.equals("0")) {
+					in += 9;
+				} else {
+					in = String.valueOf(Integer.parseInt(in) + 9);
+				}
+				System.out.println(in + " / " + out);
+				SelectRoomResVO srr_vo = new SelectRoomResVO(date, in, out, room_num, p_cnt);
+				ClientMainFrm cmf = null;
+				new SelectUserFrm(srr_vo, cmf, rif.getId());
+
+				setResChk(room_num, year);
+				return;
+			} // end if
+		} // end for
+
+		JOptionPane.showMessageDialog(rif, "예약 시간을 정해주세요");
+	}// goNext
+
+	private void timeChk() {// 시간 테이블 예약 표시
+		int col = rif.getJtTime().getSelectedColumn();
+		int row = rif.getJtTime().getSelectedRow();
+		String res = rif.getDtmTime().getValueAt(row, col).toString();
+
+		if (rif.getJtTime().getSelectedColumn() == 13) {
+			JOptionPane.showMessageDialog(rif, "마감시간입니다.");
+			return;
+		} // end if
+		if (res.equals("예약완료")) { // 예약 완료 클릭하면 메세지
+			JOptionPane.showMessageDialog(rif, "예약 완료된 방입니다");
+			return;
+		} // end if
+
+		if (res.equals("")) {// 예약 체크
+			rif.getDtmTime().setValueAt("예약", 0, col);
+		} // end if
+
+		if (res.equals("예약")) { // 예약 체크 취소
+			rif.getDtmTime().setValueAt("", 0, col);
+		} // end if
+
+		for (int i = 0; i < rif.getJtTime().getColumnCount(); i++) {
+			if (rif.getJtTime().getValueAt(0, i).equals("예약")) {
+				in = String.valueOf(i);
+				break;
+			} // end if
+		} // end for
+
+		for (int i = 0; i < rif.getJtTime().getColumnCount(); i++) {
+			if (rif.getJtTime().getValueAt(0, i).equals("예약")) {
+				out = String.valueOf(i + 1);
+			} // end if
+		} // end for
+
+		for (int i = Integer.parseInt(in); i < Integer.parseInt(out); i++) {
+			if (!rif.getJtTime().getValueAt(0, col).equals("")) {
+				rif.getJtTime().setValueAt("예약", 0, i);
+			} // end if
+			for (int j = Integer.parseInt(in); j < Integer.parseInt(out); j++) {
+				if (rif.getJtTime().getValueAt(0, j).equals("예약완료")) {
+					JOptionPane.showMessageDialog(rif, "예약 완료된 시간이 있습니다.");
+					setResChk(room_num, year);
+					return;
+				} // end if
+			} // end for
+		} // end for
+	}// timeChk
+
 	@Override
 	public void mouseClicked(MouseEvent me) {
 		switch (me.getClickCount()) {
 		case CLICK:
-			int col = rif.getJtTime().getSelectedColumn();
-			int row = rif.getJtTime().getSelectedRow();
-			String res = rif.getDtmTime().getValueAt(row, col).toString();
-
-			if (rif.getJtTime().getSelectedColumn() == 13) {
-				JOptionPane.showMessageDialog(rif, "마감시간입니다.");
-				return;
-			} // end if
-			if (res.equals("예약완료")) { // 예약 완료 클릭하면 메세지
-				JOptionPane.showMessageDialog(rif, "예약 완료된 방입니다");
-				return;
-			} // end if
-
-			if (res.equals("")) {// 예약 체크
-				rif.getDtmTime().setValueAt("예약", 0, col);
-			} // end if
-
-			if (res.equals("예약")) { // 예약 체크 취소
-				rif.getDtmTime().setValueAt("", 0, col);
-			} // end if
-
-			for (int i = 0; i < rif.getJtTime().getColumnCount(); i++) {
-				if (rif.getJtTime().getValueAt(0, i).equals("예약")) {
-					in = i;
-					break;
-				} // end if
-			} // end for
-
-			for (int i = 0; i < rif.getJtTime().getColumnCount(); i++) {
-				if (rif.getJtTime().getValueAt(0, i).equals("예약")) {
-					out = i + 1;
-				} // end if
-			} // end for
-
-			for (int i = in; i < out; i++) {
-				if (!rif.getJtTime().getValueAt(0, col).equals("")) {
-					rif.getJtTime().setValueAt("예약", 0, i);
-				} // end if
-				for (int j = in; j < out; j++) {
-					if (rif.getJtTime().getValueAt(0, j).equals("예약완료")) {
-						JOptionPane.showMessageDialog(rif, "예약 완료된 시간이 있습니다.");
-						setResChk(room_num, year);
-						return;
-					} // end if
-				} // end for
-			} // end for
-
+			timeChk();
 		} // end switch
 	}// mouseClicked
 
@@ -240,35 +275,7 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		} // end if
 
 		if (rif.getBtnNext() == ae.getSource()) {
-			System.out.println(in);
-			System.out.println(out);
-			System.out.println("--------------------------------------");
-
-			for (int j = in; j < out; j++) {
-				if (rif.getJtTime().getValueAt(0, j).equals("")) {
-					JOptionPane.showMessageDialog(rif, "빈 시간이 있습니다..");
-					return;
-				} // end if
-			} // end for
-
-			for (int i = 0; i < rif.getJtTime().getColumnCount(); i++) {
-				if (rif.getDtmTime().getValueAt(0, i).equals("예약")) {
-					int p_cnt = Integer.parseInt((String) rif.getJcbCnt().getSelectedItem());
-					String month = rif.getJcbMonth().getSelectedItem() + "-" + rif.getJcbDay().getSelectedItem();
-					String date = year + "-" + month;
-
-					SelectRoomResVO srr_vo = new SelectRoomResVO(date, String.valueOf(in + 9), String.valueOf(out + 9),
-							room_num, p_cnt);
-					ClientMainFrm cmf = null;
-					new SelectUserFrm(srr_vo, cmf, rif.getId());
-
-					setResChk(room_num, year);
-					return;
-				} // end if
-			} // end for
-
-			JOptionPane.showMessageDialog(rif, "예약 시간을 정해주세요");
-
+			goNext();
 		} // end if
 
 	}// actionPerformed

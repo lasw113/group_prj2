@@ -517,6 +517,7 @@ public class ClientDAO {
 				" from room_res " + 
 				" where id=? and checkin='y' and res_date=to_char(sysdate,'yyyy-mm-dd') " + 
 				" and (to_char(sysdate,'hh24')>=in_time and to_char(sysdate,'hh24')< out_time)and room_id=? ";
+		//누나꺼 여기 문제 있다. 9시는 안돼 문자열끼리 비교라 10시에는 9시예약된거 못들어가
 				
 		pstmt=con.prepareStatement(right_User);
 		pstmt.setString(1, id);
@@ -527,7 +528,7 @@ public class ClientDAO {
 		rs.next();
 			System.out.println(rs.getInt(1));
 			cnt=rs.getInt(1);
-		System.out.println(cnt);
+		System.out.println(cnt+"이거잖아?");
 		}finally {
 			dbClose(con,pstmt,rs);
 		}
