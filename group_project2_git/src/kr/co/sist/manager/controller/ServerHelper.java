@@ -60,9 +60,12 @@ public class ServerHelper extends Thread{
 				//메세지를 읽어들여 대화창에 설정한다. 
 				String msg="";
 					msg =disReadStream.readUTF();
+					if(cmv[cmvIndex].isVisible()==true) {
+						btnDisp.setBackground(Color.LIGHT_GRAY);
+					}else {
 					btnDisp.setBackground(Color.ORANGE);
+					}//end else
 					cmv[cmvIndex].getJtaChat().append(msg +"\n");
-				
 			}//end while
 		}catch(EOFException eof) { 
 			JOptionPane.showMessageDialog(null, "접속자 접속 종료");

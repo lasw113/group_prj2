@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.swing.JOptionPane;
+
 import kr.co.sist.client.frm.RequestFrm;
 
 public class RequestFrmEvt implements Runnable, ActionListener {
@@ -28,9 +30,12 @@ public class RequestFrmEvt implements Runnable, ActionListener {
 
 		try {
 			connectToServer(portNum);
+			rf.setFlagMgrIn(true);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "관리자가 접속중이 아닙니다. 잠시후 다시 시도해주세요");
+			rf.setFlagMgrIn(false);
 			System.out.println("해당 포트 안열림aaaaa");
 			e.printStackTrace();
 		}
@@ -57,7 +62,7 @@ public class RequestFrmEvt implements Runnable, ActionListener {
 		// 211.63.89.xx :ipV4(A class
 		// String ip = JOptionPane.showInputDialog(" 서버 주소 입력 마지막 구간 입력");
 		// client = new Socket("211.63.89."+ip,65000);
-		client = new Socket("211.63.89.147", portNum);
+		client = new Socket("211.63.89.139", portNum);
 		System.out.println(portNum);
 		System.out.println(client.getLocalPort());
 

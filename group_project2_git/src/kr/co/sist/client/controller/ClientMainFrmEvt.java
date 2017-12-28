@@ -28,6 +28,7 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 	public static final int INFO_TAB = 3;
 	private ClientMainFrm cmf;
 	private ResChkFrm rcf;
+	private RequestFrm rf; 
 	private String id, pass;
 	private String room_id;
 	private boolean isIn = false;
@@ -68,10 +69,12 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 			if (isRight()) {
 				JOptionPane.showMessageDialog(cmf, "환영합니다.잠시만 기다려주세요");
 				RequestFrm rf = new RequestFrm(this);
+				if(rf.isFlagMgrIn()) {
 				tempTab.remove(2);// 탭을 삭제 후
 				tempTab.insertTab("  건 의 사 항  ",null, rf,null, 2);// 디자인을 가진 컴포넌트 배치
 				// 탭이 메뉴로 넘어가는 걸 막는다.
 				tempTab.setSelectedIndex(2);
+				}
 				break;
 			}
 			JOptionPane.showMessageDialog(cmf, "사용중이 아닙니다. 사용불가합니다.");

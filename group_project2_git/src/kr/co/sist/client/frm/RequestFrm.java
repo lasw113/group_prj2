@@ -22,9 +22,8 @@ public class RequestFrm extends JPanel {
 	private String id, room_id;
 	private ClientMainFrmEvt cmve;
 	private JLabel lblRoom_id;
-	public RequestFrm() {
-		
-	}
+	private boolean flagMgrIn;
+
 	public RequestFrm(ClientMainFrmEvt cmve) {
 		this.cmve = cmve;
 		id = cmve.getId();
@@ -121,4 +120,19 @@ public class RequestFrm extends JPanel {
 		this.cmve = cmve;
 	}
 
+	public JLabel getLblRoom_id() {
+		return lblRoom_id;
+	}
+
+	public void setLblRoom_id(JLabel lblRoom_id) {
+		this.lblRoom_id = lblRoom_id;
+	}
+
+	public boolean isFlagMgrIn() {
+		return flagMgrIn;
+	}
+
+	public void setFlagMgrIn(boolean flagMgrIn) {
+		this.flagMgrIn = flagMgrIn;
+	}
 }// class

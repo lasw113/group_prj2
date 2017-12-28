@@ -36,7 +36,6 @@ public class ChkPassEvt implements ActionListener {
 			String admin_pass = c_dao.myInfoLogin(LoginFrmEvt.id);
 			if (inputPass.equals(admin_pass)) {
 				cmf.setAdminLoginStatus(true);
-				
 				cpf.dispose();
 			} else {
 				// 로그인 실패
