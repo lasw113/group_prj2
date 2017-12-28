@@ -290,9 +290,9 @@ public class RoomCDAO {
 			con = getConn();
 			StringBuilder selectRes = new StringBuilder();
 			selectRes.append(
-					"select rr.res_id, res_i.res_name, ri.room_id, p_cnt, ri.price*rr.p_cnt-nvl(res_i.use_mile,0) price, rr.in_time, rr.out_time ,to_char(rr.res_date,'yyyy-mm-dd')res_date ")
+					"select rr.res_id, res_i.res_name, ri.room_id, p_cnt, (ri.price*rr.p_cnt*(rr.out_time-rr.in_time))-nvl(res_i.use_mile,0) price, rr.in_time, rr.out_time ,to_char(rr.res_date,'yyyy-mm-dd')res_date ")
 					.append("from room_res rr, room_info ri, res_info res_i,member mem ")
-					.append("where rr.res_id=res_i.res_id and ri.room_id=rr.room_id and mem.id= rr.id and to_char(sysdate,'yyyymmdd')<=to_char(res_date,'yyyymmdd') and mem.id= ?");
+					.append("where rr.res_id=res_i.res_id and ri.room_id=rr.room_id and mem.id= rr.id and to_char(sysdate,'yyyymmdd')<=to_char(res_date,'yyyymmdd') and mem.id= ? and rr.checkin is null");
 			pstmt = con.prepareStatement(selectRes.toString());
 			pstmt.setString(1, id);
 
@@ -322,22 +322,22 @@ public class RoomCDAO {
 			con = getConn();
 			StringBuilder selectRes = new StringBuilder();
 			selectRes.append(
-					"select to_char(rr.res_date,'yyyy-mm-dd')res_date,res_i.res_name,ri.room_id,rr.p_cnt,ri.price*rr.p_cnt-nvl(res_i.use_mile,0) price,rr.in_time,rr.out_time ")
+					"select to_char(rr.res_date,'yyyy-mm-dd')res_date,res_i.res_name,ri.room_id,(ri.price*rr.p_cnt*(rr.out_time-rr.in_time))-nvl(res_i.use_mile,0) price,rr.in_time,rr.out_time ")
 					.append("from room_info ri, room_res rr, member mem , res_info res_i ")
-					.append("where rr.res_id=res_i.res_id and ri.room_id=rr.room_id and mem.id= rr.id and mem.id=? and to_char(sysdate,'yyyymmdd')>to_char(res_date,'yyyymmdd') and rr.pay_opt is not null");
+					.append("where rr.res_id=res_i.res_id and ri.room_id=rr.room_id and mem.id= rr.id and mem.id=? and to_char(sysdate,'yyyymmdd')>to_char(res_date,'yyyymmdd') and rr.checkin='n'");
 			pstmt = con.prepareStatement(selectRes.toString());
 			pstmt.setString(1, id);
 
 			rs = pstmt.executeQuery();
 
-			HistoryVO hvo = null;
+			HistoryVO hvo = new HistoryVO();
 			while (rs.next()) {
 				hvo = new HistoryVO(rs.getString("res_name"), rs.getString("room_id"), rs.getString("in_time"),
 						rs.getString("out_time"), rs.getString("res_date"), rs.getInt("p_cnt"), rs.getInt("price"));
 				listHis.add(hvo);
 			} // end while
 		} finally {
-			dbClose(con, pstmt, rs);
+			dbClose(con, pstmt, null);
 		} // end finally
 		return listHis;
 
