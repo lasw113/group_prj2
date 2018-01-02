@@ -1,5 +1,7 @@
 package kr.co.sist.client.frm;
 
+import java.awt.Color;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -36,7 +38,8 @@ public class SelectUserFrm extends JDialog {
 		this.id = id;
 		this.srr_vo = srr_vo;
 		setLayout(null);
-
+		this.getContentPane().setBackground(Color.WHITE);
+		
 		lblName = new JLabel("예약자");
 		lblPhone = new JLabel("연락처");
 		lblEmail = new JLabel("이메일");

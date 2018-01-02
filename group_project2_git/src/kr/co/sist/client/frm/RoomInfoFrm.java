@@ -25,7 +25,7 @@ import kr.co.sist.client.controller.RoomInfoFrmEvt;
 public class RoomInfoFrm extends JPanel {
 	private JRadioButton rb1, rb2, rb3, rb4, rbRoom3, rbRoom4;
 	private ButtonGroup groupType;
-	private JLabel lblInfo, lblTime, lblCnt, lblRTime, lblImg, lblRCnt, lblMonth, lblDay, logo;
+	private JLabel lblInfo, lblTime, lblCnt, lblRTime, lblImg, lblRCnt, lblMonth, lblDay, logo, logo2;
 	private JLabel[] lblEquipment;
 	private JTextArea jtaInfo;
 	private JRadioButton[] rbRoom1, rbRoom2;
@@ -67,7 +67,8 @@ public class RoomInfoFrm extends JPanel {
 		lblDay = new JLabel("일");
 
 		String path = System.getProperty("user.dir");
-		logo = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "logo.jpg"));
+		logo = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "siststudyroom.png"));
+		logo2 = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "siststudyroom2.png"));
 		btnNext = new JButton("다음");
 
 		jtaInfo = new JTextArea();
@@ -140,9 +141,10 @@ public class RoomInfoFrm extends JPanel {
 
 		roomLogo = new JPanel();
 		roomLogo.setLayout(null);
-		roomLogo.setBackground(new Color(0xEE4223));
+		roomLogo.setBackground(Color.white);
 		roomLogo.setBounds(0, 50, 1000, 1000);
 		roomLogo.add(logo);
+		roomLogo.add(logo2);
 
 		room1 = new JPanel();
 		room2 = new JPanel();
@@ -206,6 +208,8 @@ public class RoomInfoFrm extends JPanel {
 		Time.setBounds(0, 100, 960, 100);
 		Time.add(jspTime);
 		Time.setBorder(new TitledBorder("시간 선택"));
+		
+		JLabel hand = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "hand.png"));
 
 		selectRoom = new JPanel();
 		selectRoom.setLayout(null);
@@ -214,6 +218,7 @@ public class RoomInfoFrm extends JPanel {
 		selectRoom.add(p_cnt);
 		selectRoom.add(Time);
 		selectRoom.add(btnNext);
+		selectRoom.add(hand);
 		selectRoom.setBounds(0, 500, 990, 400);
 
 		lblImg.setBounds(50, 20, 300, 370);
@@ -226,10 +231,13 @@ public class RoomInfoFrm extends JPanel {
 
 		lblCnt.setBounds(420, 170, 60, 30);
 		lblRCnt.setBounds(490, 170, 100, 30);
-
-		logo.setBounds(0, 0, 1000, 600);
+		
+		logo.setBounds(0, 0, 970, 540);
+		logo2.setBounds(0, 540, 970, 320);
 
 		btnNext.setBounds(800, 320, 100, 30);
+		hand.setBounds(40, 300, 800, 100);
+		hand.setToolTipText("예약해주세요~");
 
 		type.setBackground(Color.white);
 		date.setBackground(Color.white);

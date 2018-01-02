@@ -155,34 +155,37 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 	}// setResChk
 
 	private void goNext() {// 다음 버튼 눌리면 날짜, 입실, 퇴실, 방번호, 인원 저장하고 사용자 정보창 띄우기
-		for (int j = Integer.parseInt(in); j < Integer.parseInt(out); j++) {
-			if (rif.getJtTime().getValueAt(0, j).equals("")) {
-				JOptionPane.showMessageDialog(rif, "빈 시간이 있습니다..");
-				return;
-			} // end if
-		} // end for
+		if (!(in == null) && !(out == null)) {
+			for (int j = Integer.parseInt(in); j < Integer.parseInt(out); j++) {
+				if (rif.getJtTime().getValueAt(0, j).equals("")) {
+					JOptionPane.showMessageDialog(rif, "빈 시간이 있습니다.");
+					return;
+				} // end if
+			} // end for
 
-		for (int i = 0; i < rif.getJtTime().getColumnCount(); i++) {
-			if (rif.getDtmTime().getValueAt(0, i).equals("예약")) {
-				int p_cnt = Integer.parseInt((String) rif.getJcbCnt().getSelectedItem());
-				String month = rif.getJcbMonth().getSelectedItem() + "-" + rif.getJcbDay().getSelectedItem();
-				String date = year + "-" + month;
-				out = String.valueOf(Integer.parseInt(out) + 9);
-				if (in.equals("0")) {
-					in += 9;
-				} else {
-					in = String.valueOf(Integer.parseInt(in) + 9);
-				}
-				System.out.println(in + " / " + out);
-				SelectRoomResVO srr_vo = new SelectRoomResVO(date, in, out, room_num, p_cnt);
-				ClientMainFrm cmf = null;
-				new SelectUserFrm(srr_vo, cmf, rif.getId());
+			for (int i = 0; i < rif.getJtTime().getColumnCount(); i++) {
+				if (rif.getDtmTime().getValueAt(0, i).equals("예약")) {
+					int p_cnt = Integer.parseInt((String) rif.getJcbCnt().getSelectedItem());
+					String month = rif.getJcbMonth().getSelectedItem() + "-" + rif.getJcbDay().getSelectedItem();
+					String date = year + "-" + month;
+					out = String.valueOf(Integer.parseInt(out) + 9);
+					if (in.equals("0")) {
+						in += 9;
+					} else {
+						in = String.valueOf(Integer.parseInt(in) + 9);
+					}
+					System.out.println(in + " / " + out);
+					SelectRoomResVO srr_vo = new SelectRoomResVO(date, in, out, room_num, p_cnt);
+					ClientMainFrm cmf = null;
+					new SelectUserFrm(srr_vo, cmf, rif.getId());
 
-				setResChk(room_num, year);
-				return;
-			} // end if
-		} // end for
-
+					setResChk(room_num, year);
+					in = null;
+					out = null;
+					return;
+				} // end if
+			} // end for
+		} // end if
 		JOptionPane.showMessageDialog(rif, "예약 시간을 정해주세요");
 	}// goNext
 
@@ -206,6 +209,8 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 
 		if (res.equals("예약")) { // 예약 체크 취소
 			rif.getDtmTime().setValueAt("", 0, col);
+			in = null;
+			out = null;
 		} // end if
 
 		for (int i = 0; i < rif.getJtTime().getColumnCount(); i++) {
@@ -220,19 +225,20 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 				out = String.valueOf(i + 1);
 			} // end if
 		} // end for
-
-		for (int i = Integer.parseInt(in); i < Integer.parseInt(out); i++) {
-			if (!rif.getJtTime().getValueAt(0, col).equals("")) {
-				rif.getJtTime().setValueAt("예약", 0, i);
-			} // end if
-			for (int j = Integer.parseInt(in); j < Integer.parseInt(out); j++) {
-				if (rif.getJtTime().getValueAt(0, j).equals("예약완료")) {
-					JOptionPane.showMessageDialog(rif, "예약 완료된 시간이 있습니다.");
-					setResChk(room_num, year);
-					return;
+		if (!(in == null) && !(out == null)) {
+			for (int i = Integer.parseInt(in); i < Integer.parseInt(out); i++) {
+				if (!rif.getJtTime().getValueAt(0, col).equals("")) {
+					rif.getJtTime().setValueAt("예약", 0, i);
 				} // end if
+				for (int j = Integer.parseInt(in); j < Integer.parseInt(out); j++) {
+					if (rif.getJtTime().getValueAt(0, j).equals("예약완료")) {
+						JOptionPane.showMessageDialog(rif, "예약 완료된 시간이 있습니다.");
+						setResChk(room_num, year);
+						return;
+					} // end if
+				} // end for
 			} // end for
-		} // end for
+		} // end if
 	}// timeChk
 
 	@Override
