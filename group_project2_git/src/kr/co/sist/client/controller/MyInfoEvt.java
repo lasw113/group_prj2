@@ -55,7 +55,25 @@ public class MyInfoEvt implements ActionListener {
 		mif.getJtfBirth().setText(infoBirth);
 		mif.getJtfMileage().setText(String.valueOf(infoMileage));
 		mif.getJtfMileage().setEditable(false);
-		mif.getDcbPhoneF().setSelectedItem(fidPhoneF);
+
+		String[] arr = { "010", "011", "016", "017" };
+
+		// dcbm에 있는 핸드폰번호 내용과 회원의 핸드폰 번호가 같으면 먼저추가
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i].equals(fidPhoneF)) {
+				mif.getDcbPhoneF().addElement(fidPhoneF);
+			}
+		} // end for
+
+		// dcbm에 있는 핸드폰내용과 회원의 폰번호가 다르면
+		for (int i = 0; i < arr.length; i++) {
+			if (!(arr[i].equals(fidPhoneF))) {
+				mif.getDcbPhoneF().addElement(arr[i]);
+
+			}
+
+		} // end for
+
 		mif.getJtfPhoneM().setText(fidPhoneM);
 		mif.getJtfPhoneL().setText(fidPhoneL);
 		mif.getJtfEmail().setText(infoEmail);
@@ -66,6 +84,8 @@ public class MyInfoEvt implements ActionListener {
 	public void modiMyInfo() throws SQLException {// 내 정보 수정 매서드
 		c_dao = ClientDAO.getInstance();
 		icv = new InfoChangeVO();
+
+		// 비밀번호입력 또는 비밀번호 확인 창에 내용 입력했을 때 비밀번호 수정메소드 호출
 		if (!(new String(mif.getJtfChkPass().getPassword()).equals(""))
 				|| !(new String(mif.getJtfPass().getPassword()).equals(""))) {
 			changeMypass();
@@ -169,9 +189,12 @@ public class MyInfoEvt implements ActionListener {
 
 					JOptionPane.showMessageDialog(mif, "회원정보가 수정되었습니다.");
 				}
-			} catch (SQLException e) {
+			} catch (SQLException se) {
+				if (se.getErrorCode() == 12899) {
+					JOptionPane.showMessageDialog(mif, "문자열이 너무 큽니다.");
+				}
 				JOptionPane.showMessageDialog(mif, "시스템오류 발생 ");
-				e.printStackTrace();
+				se.printStackTrace();
 			} // end catch
 		}// switch
 

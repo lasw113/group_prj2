@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 
 import kr.co.sist.client.dao.ClientDAO;
 import kr.co.sist.client.frm.JoinFrm;
-import kr.co.sist.client.frm.LoginFrm;
 import kr.co.sist.client.vo.JoinVO;
 
 public class JoinFrmEvt implements ActionListener {
@@ -40,11 +39,6 @@ public class JoinFrmEvt implements ActionListener {
 		}
 	}// JoinFrmEvt
 
-	private void chkEmpty() { // 누락된 정보가 있는지 확인하는 매서드
-		
-
-	}// chkEmpty
-
 	private boolean chkDupleId() throws SQLException { // 중복 id가 있는지 확인할 매서드
 		c_dao = ClientDAO.getInstance();
 		String id = jf.getJtfId().getText().trim();
@@ -66,13 +60,6 @@ public class JoinFrmEvt implements ActionListener {
 		return chkId;
 	}// chkDupleId
 
-	private boolean chkEmail() {// 이메일형태가 올바른지 확인할 매서드
-
-		boolean result = false;
-
-		return result;
-	}// chkEmail
-
 	private void join() {// 회원가입 메서드
 
 		c_dao = ClientDAO.getInstance();
@@ -93,6 +80,16 @@ public class JoinFrmEvt implements ActionListener {
 
 		if (flag) {
 			try {
+
+				// 아이디가 영문자,숫자가 아닐때
+				for (int i = 0; i < id.length(); i++) {
+					char c2 = id.charAt(i);
+					if (!((c2 >= 0x61 && c2 <= 0x7A) || (c2 >= 0x41 && c2 <= 0x5A) || (c2 >= 0x30 && c2 <= 0x39))) {
+						JOptionPane.showMessageDialog(jf, "아이디는 영문자,숫자로 이루어져야 합니다.");
+						return;
+					} // end if
+				} // end for
+
 				// 비밀번호, 비밀번호 확인 부분이 입력하지 않았을때
 				if (pw.equals("null")) {
 					JOptionPane.showMessageDialog(jf, "사용할 수 없는 비밀번호입니다.");
@@ -174,17 +171,17 @@ public class JoinFrmEvt implements ActionListener {
 						return;
 					} // end if
 				} // end for
-				
-				//비밀번호 질문내용을 인덱스로 바꾸기
-				String temp =String.valueOf(jf.getDcbPassHint().getSelectedItem());
+
+				// 비밀번호 질문내용을 인덱스로 바꾸기
+				String temp = String.valueOf(jf.getDcbPassHint().getSelectedItem());
 				List<String> listQu = c_dao.passHint();
-				int tempInt=0;
-				for(int i=0;i<listQu.size();i++) {
-					if((listQu.get(i)).equals(temp)) {
-						tempInt=i;
+				int tempInt = 0;
+				for (int i = 0; i < listQu.size(); i++) {
+					if ((listQu.get(i)).equals(temp)) {
+						tempInt = i;
 						break;
-					}//
-				}//
+					} //
+				} //
 
 				// JoinVO를 통해 회원정보를 DB에 넣기
 				jv.setId(id);
@@ -201,8 +198,17 @@ public class JoinFrmEvt implements ActionListener {
 				JOptionPane.showMessageDialog(jf, "가입이 완료되었습니다.");
 				jf.dispose();
 			} catch (SQLException se) {
+				if (se.getErrorCode() == 1) {
+					JOptionPane.showMessageDialog(jf, "아이디가 중복되었습니다.");
+				}
+
+				if (se.getErrorCode() == 12899) {
+					JOptionPane.showMessageDialog(jf, "문자열이 너무 큽니다.");
+				}
+				JOptionPane.showMessageDialog(jf, "시스템오류 발생 ");
 				se.printStackTrace();
-			} // end catch
+			}
+
 		} else {
 			// 아이디 중복 체크 버튼을 클릭하지 않았을때
 			JOptionPane.showMessageDialog(jf, "아이디 중복 체크를 먼저 해주세요.");

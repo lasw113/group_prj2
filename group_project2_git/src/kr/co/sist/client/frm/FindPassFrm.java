@@ -1,6 +1,9 @@
 package kr.co.sist.client.frm;
 
+import java.awt.Color;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -10,6 +13,7 @@ import javax.swing.JTextField;
 
 import kr.co.sist.client.controller.FindPassFrmEvt;
 
+@SuppressWarnings("serial")
 public class FindPassFrm extends JDialog {
 
 	private LoginFrm lf;
@@ -32,7 +36,8 @@ public class FindPassFrm extends JDialog {
 		jcbPassHint = new JComboBox<>(dcbm);
 		jcbPassHint.setModel(dcbm);
 
-		btnFindPass = new JButton("비밀번호 찾기");
+		String path = System.getProperty("user.dir");
+		btnFindPass = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/비밀번호 찾기.png"));
 		lblId = new JLabel("아이디");
 		lblBirth = new JLabel("생년월일");
 		lblPassHint = new JLabel("비밀번호 힌트");
@@ -52,7 +57,7 @@ public class FindPassFrm extends JDialog {
 		lblPassAns.setBounds(30, 180, 100, 25);
 		jtfPassAns.setBounds(180, 180, 140, 25);
 
-		btnFindPass.setBounds(130, 230, 130, 30);
+		btnFindPass.setBounds(130, 230, 120, 30);
 
 		// 이벤트 추가
 		FindPassFrmEvt fpfe = new FindPassFrmEvt(this);
@@ -69,6 +74,8 @@ public class FindPassFrm extends JDialog {
 		add(lblBirth);
 		add(lblPassHint);
 		add(lblPassAns);
+		
+		this.getContentPane().setBackground(Color.WHITE);
 
 		setBounds(420, 100, 420, 320);
 		setResizable(false);
@@ -197,10 +204,4 @@ public class FindPassFrm extends JDialog {
 		this.lblPassAns = lblPassAns;
 	}
 
-
-	public static void main(String[] args) {
-		/*
-		 * LoginFrm lf = new LoginFrm(); FindPassFrm lef = new FindPassFrm(lf);
-		 */
-	}// main
 }// class

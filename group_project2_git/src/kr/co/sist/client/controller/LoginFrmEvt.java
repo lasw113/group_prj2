@@ -24,10 +24,6 @@ public class LoginFrmEvt implements ActionListener {
 		this.lf = lf;
 	}// LoginFrmEvt
 
-	private void chkVacant() {// 누락된 사항이 있는지 확인하는 메서드
-
-	}// chkVacant
-
 	private void chkLogin() {// 로그인 메서드
 		id = lf.getJtfId().getText();
 		pass = new String(lf.getJtfPass().getPassword());
@@ -79,29 +75,13 @@ public class LoginFrmEvt implements ActionListener {
 
 	}// chkLogin
 
-	private void goFindPass() {// findPassFrm불러줄 메서드
-
-	}// goFindPass
-
-	private void goFindID() {// findIDFrm 불러줄 메서드
-
-	}// goFindID
-
-	private void goJoin() {// joinFrm 불러줄 메서드
-
-	}// goJoin
-
-	private void goMain() {// clientMainFrm 불러줄 메서드
-
-	}// goMain
-
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 
-		if (ae.getSource()==lf.getJtfId()) {
+		if (ae.getSource() == lf.getJtfId()) {
 			lf.getJtfPass().requestFocus();
 		} // end if
-		if ((ae.getSource()==lf.getBtnLogin()) || (ae.getSource()==lf.getJtfPass())) {
+		if ((ae.getSource() == lf.getBtnLogin()) || (ae.getSource() == lf.getJtfPass())) {
 			chkLogin();
 		} // end if
 

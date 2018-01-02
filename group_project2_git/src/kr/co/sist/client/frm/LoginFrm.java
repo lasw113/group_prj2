@@ -1,5 +1,8 @@
 package kr.co.sist.client.frm;
 
+import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,6 +12,7 @@ import javax.swing.JTextField;
 import kr.co.sist.client.controller.LoginFrmEvt;
 
 
+@SuppressWarnings("serial")
 public class LoginFrm extends JFrame {
 
 	private JTextField jtfId;
@@ -17,18 +21,28 @@ public class LoginFrm extends JFrame {
 	private JLabel lblId,lblPass;
 
 	public LoginFrm() {
+		
 		super("스터디룸 사용자 로그인");
 
 		jtfId = new JTextField();
 		jtfPass = new JPasswordField();
 		jtfPass.setEchoChar('*');
-		btnLogin = new JButton("로그인");
-		btnJoin = new JButton("회원가입");
-		btnFindId=new JButton("아이디 찾기");
-		btnFindPass=new JButton("비밀번호 찾기");
+		//btnLogin = new JButton("로그인");
+		String path = System.getProperty("user.dir");
+		btnLogin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/로그인 그라데이션.png"));
+		btnJoin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/LoginFrm-회원가입.png"));
+		btnFindId=new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/아이디찾기.png"));
+		btnFindPass=new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/비밀번호 찾기.png"));
 		lblId = new JLabel("아이디", JLabel.CENTER);
 		lblPass = new JLabel("비밀번호", JLabel.CENTER);
-	
+		
+		//btnLogin.setBorderPainted(false);
+		btnLogin.setContentAreaFilled(false);
+		btnLogin.setFocusPainted(false);
+		
+		btnJoin.setContentAreaFilled(false);
+		btnJoin.setFocusPainted(false);
+		
 		setLayout(null);
 		
 		btnLogin.setBounds(85, 120, 120, 30);
@@ -58,14 +72,14 @@ public class LoginFrm extends JFrame {
 		add(lblPass);
 		add(jtfId);
 		add(jtfPass);
-
+		
+		this.getContentPane().setBackground(Color.WHITE);
 		
 		setBounds(100, 100, 310, 400);
 		setResizable(false);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}// LoginFrm
-
 
 	public JTextField getJtfId() {
 		return jtfId;
@@ -101,6 +115,7 @@ public class LoginFrm extends JFrame {
 	
 	public static void main(String[] args) {
 		new LoginFrm();
+		
 	}// main
 
 }// class

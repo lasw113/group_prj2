@@ -1,6 +1,9 @@
 package kr.co.sist.client.frm;
 
+import java.awt.Color;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -11,11 +14,12 @@ import javax.swing.JTextField;
 
 import kr.co.sist.client.controller.JoinFrmEvt;
 
+@SuppressWarnings("serial")
 public class JoinFrm extends JDialog {
 
 	private LoginFrm lf;
 	private JLabel lblId, lblPass, lblChkPass, lblHintPass, lblHintPassAns, lblName, lblBirth, lblEmail, lblPhone,
-			lbldupleChk;
+			lblIdGuide;
 	private JTextField jtfId, jtfHintAns, jtfName, jtfBirth, jtfEmail, jtfPhoneM, jtfPhoneL;
 	private JPasswordField jtfPass, jtfChkPass;
 	private JComboBox<String> jcbPhoneF, jcbPassHint;
@@ -43,14 +47,13 @@ public class JoinFrm extends JDialog {
 		jcbPhoneF.setModel(dcbPhone);
 
 		jcbPassHint = new JComboBox<>();
-	/*	dcbPassHint = new DefaultComboBoxModel<>(new String[] { "나의 보물 1호는?", "내가 나온 초등학교는?", "나의 별명은?", 
-				"나의 가장 친한친구 이름은?", "가장 좋아하는 캐릭터는?" });*/
 		dcbPassHint = new DefaultComboBoxModel<>(new String[] {});
 		jcbPassHint.setModel(dcbPassHint);
 
-		btnDuplicate = new JButton("중복체크");
-		btnJoin = new JButton("가입");
-		btnCancel = new JButton("취소");
+		String path = System.getProperty("user.dir");
+		btnDuplicate = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/JoinFrm-중복체크.png"));
+		btnJoin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/JoinFrm-가입.png"));
+		btnCancel = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/JoinFrm-취소.png"));
 
 		lblId = new JLabel("아이디");
 		lblPass = new JLabel("비밀번호");
@@ -61,14 +64,16 @@ public class JoinFrm extends JDialog {
 		lblBirth = new JLabel("생년월일");
 		lblEmail = new JLabel("이메일");
 		lblPhone = new JLabel("핸드폰");
-		lbldupleChk = new JLabel("사용 불가능한 아이디입니다");
-
+		lblIdGuide = new JLabel("*아이디는 4자 이상의 영문자,숫자만 사용 가능합니다.");
+		lblIdGuide.setForeground(Color.RED);
+		
 		JLabel jl1 = new JLabel("-");
 		JLabel jl2 = new JLabel("-");
 
 		setLayout(null);
 
 		lblId.setBounds(30, 30, 80, 15);
+		lblIdGuide.setBounds(30, 55, 320, 15);
 		jtfId.setBounds(150, 25, 100, 25);
 
 		lblPass.setBounds(30, 80, 80, 15);
@@ -118,7 +123,7 @@ public class JoinFrm extends JDialog {
 		add(lblBirth);
 		add(lblEmail);
 		add(lblPhone);
-		add(lbldupleChk);
+		add(lblIdGuide);
 
 		add(jtfId);
 		add(jtfPass);
@@ -139,6 +144,8 @@ public class JoinFrm extends JDialog {
 
 		add(jl1);
 		add(jl2);
+		
+		this.getContentPane().setBackground(Color.WHITE);
 
 		setBounds(420, 100, 400, 580);
 		// setResizable(false);
@@ -227,13 +234,7 @@ public class JoinFrm extends JDialog {
 		this.lblPhone = lblPhone;
 	}
 
-	public JLabel getLbldupleChk() {
-		return lbldupleChk;
-	}
-
-	public void setLbldupleChk(JLabel lbldupleChk) {
-		this.lbldupleChk = lbldupleChk;
-	}
+	
 
 	public JTextField getJtfId() {
 		return jtfId;

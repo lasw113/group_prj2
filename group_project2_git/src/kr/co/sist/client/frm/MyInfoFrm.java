@@ -3,6 +3,7 @@ package kr.co.sist.client.frm;
 import java.awt.Color;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -12,10 +13,11 @@ import javax.swing.JTextField;
 
 import kr.co.sist.client.controller.MyInfoEvt;
 
+@SuppressWarnings("serial")
 public class MyInfoFrm extends JPanel{
 	
 	private JLabel lblId, lblPass, lblChkPass, lblHintPass, lblHintPassAns, 
-	lblName, lblBirth, lblEmail,lblPhone,lblMileage,lblPassGuide;;
+	lblName, lblBirth, lblEmail,lblPhone,lblMileage,lblPassGuide,lblChar;
 	private JTextField jtfId,jtfName,jtfAnsPass,
 	jtfBirth,jtfEmail,jtfPhoneM,jtfPhoneL,jtfMileage;
 	private JPasswordField jtfPass,jtfChkPass;
@@ -47,8 +49,9 @@ public class MyInfoFrm extends JPanel{
 		dcbPassHint = new DefaultComboBoxModel<>(new String[] {});
 		jdbPassHint.setModel(dcbPassHint);
 
-		btnModify = new JButton("수정하기");
-		btnDropOut = new JButton("탈퇴하기");
+		String path = System.getProperty("user.dir");
+		btnModify = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/수정하기.png"));
+		btnDropOut = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/탈퇴하기.png"));
 		
 		lblId = new JLabel("아이디");
 		lblPass = new JLabel("비밀번호");
@@ -62,6 +65,7 @@ public class MyInfoFrm extends JPanel{
 		lblMileage=new JLabel("마일리지");
 		lblPassGuide=new JLabel("*비밀번호 수정시에는 비밀번호만 입력해주세요");
 		lblPassGuide.setForeground(Color.RED);
+		lblChar=new JLabel(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/MyInfoFrm.png"));
 		
 		
 		JLabel jl1=new JLabel("-");
@@ -107,8 +111,10 @@ public class MyInfoFrm extends JPanel{
 		lblEmail.setBounds(130,350,80,15);
 		jtfEmail.setBounds(250,345, 140, 25);
 		
-		btnModify.setBounds(340, 460, 90, 30);
-		btnDropOut.setBounds(540, 460, 100, 30);
+		lblChar.setBounds(650, 250, 250, 300);
+		
+		btnModify.setBounds(320, 460, 100, 30);
+		btnDropOut.setBounds(520, 460, 100, 30);
 		MyInfoEvt mife=new MyInfoEvt(this);
 		btnModify.addActionListener(mife);
 		btnDropOut.addActionListener(mife);
@@ -125,6 +131,8 @@ public class MyInfoFrm extends JPanel{
 		add(lblEmail);
 		add(lblPhone);
 		add(lblMileage);
+		add(lblChar);
+		
 		
 		add(jtfId);
 		add(jtfPass);
@@ -146,6 +154,8 @@ public class MyInfoFrm extends JPanel{
 		
 		add(jl1);
 		add(jl2);
+		
+		setBackground(Color.WHITE);
 		
 		setBounds(100, 100, 750, 550);
 		//setResizable(false);

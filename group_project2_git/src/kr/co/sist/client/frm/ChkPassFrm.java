@@ -1,5 +1,8 @@
 package kr.co.sist.client.frm;
 
+import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -8,6 +11,7 @@ import javax.swing.JPasswordField;
 
 import kr.co.sist.client.controller.ChkPassEvt;
 
+@SuppressWarnings("serial")
 public class ChkPassFrm extends JDialog {
 	private JLabel lblPass;
 	private JPasswordField jpwPass;
@@ -22,7 +26,8 @@ public class ChkPassFrm extends JDialog {
 		lblPass = new JLabel("비밀번호");
 		jpwPass = new JPasswordField();
 		jpwPass.setEchoChar('*');
-		btnOk = new JButton("확인");
+		String path = System.getProperty("user.dir");
+		btnOk = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/ChkPassFrm-확인.png"));
 		
 		setLayout(null);
 		
@@ -38,6 +43,8 @@ public class ChkPassFrm extends JDialog {
 		add(lblPass);
 		add(jpwPass);
 		add(btnOk);
+		
+		this.getContentPane().setBackground(Color.WHITE);
 		
 		setBounds(100, 100, 270, 170);
 		//setResizable(false);

@@ -40,8 +40,6 @@ public class FindPassFrmEvt implements ActionListener {
 		}
 	}// FindPassFrmEvt
 
-
-
 	private void chkEmpty() {// 빈 곳이 있는지 확인할 메서드
 
 		String passId = fpf.getJtfId().getText().trim();
@@ -86,8 +84,7 @@ public class FindPassFrmEvt implements ActionListener {
 		String passBirth = fpf.getJtBirth().getText();
 		String passHint = (String) fpf.getJcbPassHint().getSelectedItem();
 		String passAns = fpf.getJtfPassAns().getText().trim();
-		
-	
+
 		// 비밀번호 질문내용을 인덱스로 바꾸기
 		List<String> listQu = c_dao.passHint();
 		int tempInt = 0;
@@ -138,7 +135,6 @@ public class FindPassFrmEvt implements ActionListener {
 			try {
 				findPass();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

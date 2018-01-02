@@ -1,6 +1,9 @@
 package kr.co.sist.client.frm;
 
+import java.awt.Color;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -10,6 +13,7 @@ import javax.swing.JTextField;
 
 import kr.co.sist.client.controller.FindIDFrmEvt;
 
+@SuppressWarnings("serial")
 public class FindIDFrm extends JDialog{
 	
 	private LoginFrm lf;
@@ -34,7 +38,8 @@ public class FindIDFrm extends JDialog{
 		dcbPhone = new DefaultComboBoxModel<>(new String[] { "010", "011", "016", "017" });
 		jcbPhoneF.setModel(dcbPhone);
 
-		btnFindId = new JButton("아이디 찾기");
+		String path = System.getProperty("user.dir");
+		btnFindId = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/아이디찾기.png"));
 		lblName = new JLabel("이름");
 		lblBirth = new JLabel("생년월일");
 		lblPhone = new JLabel("핸드폰");
@@ -59,7 +64,7 @@ public class FindIDFrm extends JDialog{
 		jl2.setBounds(245, 130, 20, 10);
 		jtfPhoneL.setBounds(260, 125, 60, 25);
 
-		btnFindId.setBounds(110, 180, 130, 30);
+		btnFindId.setBounds(110, 180, 120, 30);
 		
 		//이벤트 추가
 		FindIDFrmEvt fife=new FindIDFrmEvt(this);
@@ -79,6 +84,8 @@ public class FindIDFrm extends JDialog{
 		add(lblPhone);
 		add(jl1);
 		add(jl2);
+		
+		this.getContentPane().setBackground(Color.WHITE);
 		
 		setBounds(420, 100, 350, 260);
 		//setResizable(false);
