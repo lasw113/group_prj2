@@ -149,7 +149,8 @@ public class ResMgrView extends JFrame {
 			list_btn.add(btn);
 			line_panel.add(list_btn.get(btn_count));
 			btn_count++;
-		}else {
+			
+		} else {
 			JButton btn = new JButton("있음");
 			btn.setFont(new Font("고딕", Font.BOLD, 10));
 			list_btn.add(btn);
@@ -160,11 +161,21 @@ public class ResMgrView extends JFrame {
 		JLabel gap1 = new JLabel("");
 		line_panel.add(gap1);
 
-		JButton btton = new JButton("입실");
-		btton.setFont(new Font("고딕", Font.BOLD, 10));
-		list_btn.add(btton);
-		line_panel.add(list_btn.get(btn_count));
-		btn_count++;
+		System.out.println(rmvv.getCheckin() + "체크여부 확인 !!!!!!!!!!!  == " + i);
+		if ("y".equals(rmvv.getCheckin())) {
+			JButton btton = new JButton("입실");
+			btton.setBackground(new Color(255, 128, 0));
+			btton.setFont(new Font("고딕", Font.BOLD, 10));
+			list_btn.add(btton);
+			line_panel.add(list_btn.get(btn_count));
+			btn_count++;
+		} else {
+			JButton btton = new JButton("입실");
+			btton.setFont(new Font("고딕", Font.BOLD, 10));
+			list_btn.add(btton);
+			line_panel.add(list_btn.get(btn_count));
+			btn_count++;
+		}
 
 		JButton btton2 = new JButton("퇴실");
 		btton2.setFont(new Font("고딕", Font.BOLD, 10));
@@ -231,7 +242,7 @@ public class ResMgrView extends JFrame {
 		// 크기지정
 		panel.setPreferredSize(new Dimension(950, 50));
 		total_line_panel.setPreferredSize(new Dimension(950, 56 * list.size()));
-		//totalpanel.setPreferredSize(new Dimension(1000, 600));
+		// totalpanel.setPreferredSize(new Dimension(1000, 600));
 
 		// panel을 totalpanel에 넣기
 		for (int i = 0; i < count; i++) {
@@ -338,7 +349,7 @@ public class ResMgrView extends JFrame {
 				// 크기지정
 				panel.setPreferredSize(new Dimension(950, 50));
 				total_line_panel.setPreferredSize(new Dimension(950, 56 * list.size()));
-				//totalpanel.setPreferredSize(new Dimension(1000, 600));
+				// totalpanel.setPreferredSize(new Dimension(1000, 600));
 
 				// 날짜와 갱신버튼 추가
 				pan_date.add(now_date);
@@ -404,10 +415,10 @@ public class ResMgrView extends JFrame {
 	// db에서 데이터 받아오는 method
 	public List<ResMgrVO> resetData() throws SQLException {
 		ResMgrView rmv = new ResMgrView();
-		ManagerDAO m_dao = ManagerDAO.getInstance() ;
+		ManagerDAO r_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 
-		list = m_dao.selectAll();
+		list = r_dao.selectAll();
 		// 갱신하기전 데이터 갯수를 파악하기!
 		return list;
 	}
@@ -545,4 +556,13 @@ public class ResMgrView extends JFrame {
 		this.totalpanel = totalpanel;
 	}
 
+	public ArrayList<JLabel> getList_Jbl() {
+		return list_Jbl;
+	}
+
+	public void setList_Jbl(ArrayList<JLabel> list_Jbl) {
+		this.list_Jbl = list_Jbl;
+	}
+
 }
+

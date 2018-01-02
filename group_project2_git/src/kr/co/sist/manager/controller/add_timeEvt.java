@@ -9,15 +9,15 @@ import java.util.List;
 
 import kr.co.sist.manager.dao.ManagerDAO;
 import kr.co.sist.manager.view.ResMgrView;
-import kr.co.sist.manager.view.add_timeForm;
+import kr.co.sist.manager.view.add_timeView;
 import kr.co.sist.manager.vo.ResMgrVO;
 
 public class add_timeEvt extends WindowAdapter implements ActionListener {
 
-	private add_timeForm at;
+	private add_timeView at;
 	ResMgrView rmv;
 
-	public add_timeEvt(add_timeForm at, ResMgrView rmv) {
+	public add_timeEvt(add_timeView at, ResMgrView rmv) {
 		this.at = at;
 		this.rmv = rmv;
 
@@ -39,32 +39,26 @@ public class add_timeEvt extends WindowAdapter implements ActionListener {
 		// 확인 버튼을 누를때
 		if (e.getSource() == at.getBtn_check()) {
 			ResMgrVO rmvv = null;
-			ManagerDAO m_dao = null;
-			m_dao = ManagerDAO.getInstance();
+			ManagerDAO r_dao = ManagerDAO.getInstance();
 			List<ResMgrVO> list;
-			
+
 			int index = at.getIndex();
 			try {
-				list = m_dao.selectAll();
-				//System.out.println("------------------" + rmv.getList_tf());
+				list = r_dao.selectAll();
+				// System.out.println("------------------" + rmv.getList_tf());
 				// 변경 가능한 시간인지 확인하고, 변경 가능한 시간이라면 업데이트를 수행하고,
 				// 부모창에 있는 시간을 변경
 
-				//퇴실 시간을 바꾼다.
-				if (at.getCombo().getSelectedIndex() == 0) {
-					at.dispose();
-				} else {
-					int count = (index * 5) + 4;
-					list = m_dao.selectAll();
-					rmvv = list.get(index);
-					String chage_outTime = (Integer.parseInt(list.get(index).getOut_time()) + at.getCombo().getSelectedIndex()) + "";
-					System.out.println(chage_outTime);
-					rmv.getList_tf().get(count).setText("         " + chage_outTime  + "시");
-					System.out.println(rmvv.getRes_id());
-					m_dao.plus_time(at.getCombo().getSelectedIndex(), rmvv.getRes_id());
-				}//end else
-				// int cnt = list.size();
-				// 현재창을 닫는다.
+				int count = (index * 6) + 5;
+				list = r_dao.selectAll();
+				rmvv = list.get(index);
+				String chage_outTime = (Integer.parseInt(list.get(index).getOut_time())
+						+ at.getCombo().getSelectedIndex() + 1) + "";
+				System.out.println(chage_outTime);
+				rmv.getList_tf().get(count).setText(chage_outTime + "시");
+				System.out.println(rmvv.getRes_id());
+				r_dao.plus_time(at.getCombo().getSelectedIndex() + 1, rmvv.getRes_id());
+
 				at.dispose();
 
 				// rmv.ResMgrView(cnt, list);

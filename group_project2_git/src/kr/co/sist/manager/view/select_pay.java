@@ -20,8 +20,11 @@ public class select_pay extends JFrame {
 
 	private int number;
 
-	public void select_pay(int cnt) {
+	private int btn_number;
+
+	public void select_pay(int cnt, int btn_cnt) {
 		number = cnt;
+		btn_number = btn_cnt;
 		System.out.println("¹Ş¾Æ¿Â index " + number);
 		JPanel total_panel = new JPanel();
 		JPanel panel = new JPanel();
@@ -103,6 +106,14 @@ public class select_pay extends JFrame {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+
+	public int getBtn_number() {
+		return btn_number;
+	}
+
+	public void setBtn_number(int btn_number) {
+		this.btn_number = btn_number;
 	}
 
 }// select_pay

@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -14,7 +15,7 @@ import kr.co.sist.manager.controller.add_timeEvt;
 import kr.co.sist.manager.dao.ManagerDAO;
 import kr.co.sist.manager.vo.ResMgrVO;
 
-public class add_timeForm extends JFrame {
+public class add_timeView extends JFrame {
 
 	// 확인 취소버튼
 	private JButton btn_check, btn_cancle;
@@ -22,8 +23,9 @@ public class add_timeForm extends JFrame {
 	private int possible_time;
 	private int index;
 	ResMgrView rmv;
-	public add_timeForm(ResMgrView rmv) {
-		this.rmv=rmv;
+
+	public add_timeView(ResMgrView rmv) {
+		this.rmv = rmv;
 	}
 
 	public void frame_disposition(List<ResMgrVO> list, int cnt) {
@@ -53,10 +55,15 @@ public class add_timeForm extends JFrame {
 
 		combo = new JComboBox();
 
-		for (int i = 0; i <= possible_time; i++) {
-			combo.addItem(i);
+		if (possible_time == 0) {
+			JOptionPane.showMessageDialog(null,"시간추가를 할 수가 없습니다.");
+			return;
+		} else {
+			for (int i = 1; i <= possible_time; i++) {
+				combo.addItem(i);
+			}
+			combo.setEditable(false);
 		}
-		combo.setEditable(false);
 
 		btn_check = new JButton("확인");
 		btn_cancle = new JButton("취소");
@@ -94,7 +101,7 @@ public class add_timeForm extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 
-		add_timeEvt ste = new add_timeEvt(this,rmv);
+		add_timeEvt ste = new add_timeEvt(this, rmv);
 		btn_cancle.addActionListener(ste);
 		btn_check.addActionListener(ste);
 		combo.addActionListener(ste);
@@ -105,14 +112,13 @@ public class add_timeForm extends JFrame {
 
 		// list에 저장된 DB정보 가져오기!
 		ResMgrVO rmvv = null;
-		ManagerDAO m_dao = null;
-		m_dao = ManagerDAO.getInstance();
+		ManagerDAO r_dao= ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 		index = i / 5;
 		System.out.println("해당되는 index : " + index);
 		// System.out.println(index);
 		try {
-			list = m_dao.selectAll();
+			list = r_dao.selectAll();
 			if (index == 0) {
 				rmvv = list.get(0);
 				frame_disposition(list, 0);

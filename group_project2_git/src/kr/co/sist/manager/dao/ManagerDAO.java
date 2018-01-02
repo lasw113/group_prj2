@@ -108,251 +108,242 @@ public class ManagerDAO {
 
 	///////////////////// 김진석/////////////////////////////
 	// 데이터베이스에서 원하는 정보정보 가져오기
-	public List<ResMgrVO> selectAll() throws SQLException {
-		List<ResMgrVO> list = new ArrayList<ResMgrVO>();
+		public List<ResMgrVO> selectAll() throws SQLException {
+			List<ResMgrVO> list = new ArrayList<ResMgrVO>();
 
-		Connection con = null;
-		Statement stmt = null;
-		ResultSet rs = null;
+			Connection con = null;
+			Statement stmt = null;
+			ResultSet rs = null;
 
-		try {
-			// 1. 드라이버 로딩
-			// 2. Connection 얻기
-			con = getConn();
-			// 3. 쿼리문 생성객체 얻기
-			stmt = con.createStatement();
-			// 4. 쿼리문 수행후 결과 얻기
-			String selectQuery = "select  rr.pay_opt, ri.room_id, rr.p_cnt, resin.res_name, rr.in_time, rr.out_time, resin.request, rr.res_id from room_info ri, room_res rr, res_info resin where  (ri.room_id = rr.room_id) and (rr.RES_ID = resin.RES_ID) and ((checkin='y') or (rr.checkin is null)) and (rr.res_date=to_char(  sysdate, 'yyyy-mm-dd')) order by res_id";
-			rs = stmt.executeQuery(selectQuery);
+			try {
+				// 1. 드라이버 로딩
+				// 2. Connection 얻기
+				con = getConn();
+				// 3. 쿼리문 생성객체 얻기
+				stmt = con.createStatement();
+				// 4. 쿼리문 수행후 결과 얻기
+				String selectQuery = "select  ri.room_id, rr.p_cnt, resin.res_name, rr.in_time, rr.out_time, resin.request, rr.res_id, rr.checkin, rr.id, resin.use_mile from room_info ri, room_res rr, res_info resin where  (ri.room_id = rr.room_id) and (rr.RES_ID = resin.RES_ID) and ((checkin='y') or (rr.checkin is null)) and (rr.res_date=to_char(  sysdate, 'yyyy-mm-dd')) order by res_id";
 
-			ResMgrVO rmvv = null;
-			// String room_id, String res_num, String res_name, String in_time, String
-			// out_time,String request, int p_cnt
-			while (rs.next()) {
-				rmvv = new ResMgrVO(rs.getString("room_id"), rs.getInt("p_cnt"), rs.getString("res_name"),
-						rs.getString("in_time"), rs.getString("out_time"), rs.getString("request"),
-						rs.getString("res_id"));
-				list.add(rmvv);
-			} // end while
-		} finally {
-			// 5. 연결 끊기
-			if (rs != null) {
-				rs.close();
-			} // end if
-			if (stmt != null) {
-				stmt.close();
-			} // end if
-			if (con != null) {
-				con.close();
-			} // end if
+				rs = stmt.executeQuery(selectQuery);
 
-		} // end try
+				ResMgrVO rmvv = null;
+				// String room_id, String res_num, String res_name, String in_time, String
+				// out_time,String request, int p_cnt
+				while (rs.next()) {
+					rmvv = new ResMgrVO(rs.getString("room_id"), rs.getInt("p_cnt"), rs.getString("res_name"),
+							rs.getString("in_time"), rs.getString("out_time"), rs.getString("request"),
+							rs.getString("res_id"), rs.getString("checkin"), rs.getString("id"), rs.getShort("use_mile"));
+					list.add(rmvv);
+				} // end while
+			} finally {
+				// 5. 연결 끊기
+				if (rs != null) {
+					rs.close();
+				} // end if
+				if (stmt != null) {
+					stmt.close();
+				} // end if
+				if (con != null) {
+					con.close();
+				} // end if
+			} // end try
+			return list;
+		}
 
-		return list;
-	}
+		// 카드, momey 업데이터
+		public String opt_pay(String how_pay, String res_ids) throws SQLException {
+			Connection con = null;
+			Statement stmt = null;
 
-	// 카드, momey 업데이터
-	public String opt_pay(String how_pay, String res_ids) throws SQLException {
-		Connection con = null;
-		Statement stmt = null;
+			String msg = how_pay + " 변경되었습니다.";
+			try {
+				con = getConn();
+				stmt = con.createStatement();
+				StringBuilder updateQuery = new StringBuilder();
+				System.out.println(res_ids);
 
-		String msg = how_pay + " 변경되었습니다.";
-		try {
-			con = getConn();
-			stmt = con.createStatement();
-			StringBuilder updateQuery = new StringBuilder();
+				// res_ids = res_ids.substring(0, 7);
+				// update room_res set pay_opt = '현금' where res_id ='Res_047';
+
+				updateQuery.append("update room_res set pay_opt = '").append(how_pay).append("'").append(" where res_id ='")
+						.append(res_ids).append("'");
+				System.out.println(updateQuery);
+
+				stmt.executeUpdate(updateQuery.toString());
+			} finally {
+				// 5. 연결 끊기
+				if (stmt != null) {
+					stmt.close();
+				} // end if
+
+				if (con != null) {
+					con.close();
+				} // end if
+			} // end finally
+
+			return msg;
+		}
+
+		// 룸에 들어온 것을 체크
+		public void in_Rooming(String res_ids) throws SQLException {
+			Connection con = null;
+			Statement stmt = null;
+
+			String msg = "'y'로 처리";
+			System.out.println(msg);
+			try {
+				// res_ids = res_ids.substring(0, 7);
+				con = getConn();
+				stmt = con.createStatement();
+				StringBuilder updateQuery = new StringBuilder();
+				System.out.println(res_ids + " 예약번호를 가진 사용자의 입실여부를 y로 바꾸기");
+
+				updateQuery.append("update room_res set checkin='y' ").append(" where res_id ='").append(res_ids)
+						.append("'");
+				System.out.println(updateQuery);
+				stmt.executeUpdate(updateQuery.toString());
+
+			} finally {
+				// 5. 연결 끊기
+				if (stmt != null) {
+					stmt.close();
+				} // end if
+
+				if (con != null) {
+					con.close();
+				} // end if
+			} // end finally
+		}
+
+		// 룸에 없다는 것을 체크
+		public void out_Rooming(String res_ids) throws SQLException {
+			Connection con = null;
+			Statement stmt = null;
+
+			String msg = "'n'로 처리";
+			System.out.println(msg);
+			try {
+				// res_ids = res_ids.substring(0, 7);
+				con = getConn();
+				stmt = con.createStatement();
+				StringBuilder updateQuery = new StringBuilder();
+				System.out.println(res_ids + " 예약번호를 가진 사용자의 입실여부를 y로 바꾸기");
+
+				updateQuery.append("update room_res set checkin='n' ").append(" where res_id ='").append(res_ids)
+						.append("'");
+				System.out.println(updateQuery);
+				stmt.executeUpdate(updateQuery.toString());
+
+			} finally {
+				// 5. 연결 끊기
+				if (stmt != null) {
+					stmt.close();
+				} // end if
+
+				if (con != null) {
+					con.close();
+				} // end if
+			} // end finally
+		}
+
+		// 시간을 추가하는 쿼리
+		public void plus_time(int plus_time, String res_ids) throws SQLException {
+			Connection con = null;
+			Statement stmt = null;
+
+			System.out.println("추가할시간 : " + plus_time + " / 예약아이디 : " + res_ids);
+
+			try {
+				con = getConn();
+				stmt = con.createStatement();
+				StringBuilder updateQuery = new StringBuilder();
+				System.out.println(res_ids);
+
+				// res_ids = res_ids.substring(0, 9);
+				// update room_res set pay_opt = '현금' where res_id ='Res_047';
+
+				updateQuery.append("update room_res set out_time = to_number(out_time,99)+").append(plus_time)
+						.append(" where res_id ='").append(res_ids).append("'");
+				System.out.println(updateQuery);
+
+				stmt.executeUpdate(updateQuery.toString());
+
+			} finally {
+				// 5. 연결 끊기
+				if (stmt != null) {
+					stmt.close();
+				} // end if
+
+				if (con != null) {
+					con.close();
+				} // end if
+			} // end finally
+		}
+
+		// 예약취소하는 쿼리
+		public void delete_res(String res_ids) throws SQLException {
+			Connection con = null;
+			Statement stmt = null;
 			System.out.println(res_ids);
+			try {
+				con = getConn();
+				stmt = con.createStatement();
+				StringBuilder deleteQuery = new StringBuilder();
 
-			// res_ids = res_ids.substring(0, 7);
-			// update room_res set pay_opt = '현금' where res_id ='Res_047';
+				deleteQuery.append("delete from res_info where res_id='").append(res_ids).append("'");
+				stmt.executeUpdate(deleteQuery.toString());
+				System.out.println("res_info 데이터지우기");
+				System.out.println(deleteQuery);
 
-			updateQuery.append("update room_res set pay_opt = '").append(how_pay).append("'").append(" where res_id ='")
-					.append(res_ids).append("'");
-			System.out.println(updateQuery);
+				deleteQuery = new StringBuilder("");
+				System.out.println("============================");
+				deleteQuery.append("delete from room_res where res_id='").append(res_ids).append("'");
+				stmt.executeUpdate(deleteQuery.toString());
+				System.out.println("res_info 데이터지우기");
+				System.out.println(deleteQuery);
 
-			stmt.executeUpdate(updateQuery.toString());
-		} finally {
-			// 5. 연결 끊기
-			if (stmt != null) {
-				stmt.close();
-			} // end if
+			} finally {
+				// 5. 연결 끊기
+				if (stmt != null) {
+					stmt.close();
+				} // end if
 
-			if (con != null) {
-				con.close();
-			} // end if
-		} // end finally
+				if (con != null) {
+					con.close();
+				} // end if
+			} // end finally
+		}
 
-		return msg;
-	}
+		//마일리지를 사용하는 쿼리문!
+		public void use_mile(String res_id, String id) throws SQLException {
+			Connection con = null;
+			Statement stmt = null;
 
-	// 룸에 들어온 것을 체크
-	public void in_Rooming(String res_ids) throws SQLException {
-		Connection con = null;
-		Statement stmt = null;
+			try {
+				con = getConn();
+				stmt = con.createStatement();
+				StringBuilder updateQuery = new StringBuilder();
 
-		String msg = "'y'로 처리";
-		System.out.println(msg);
-		try {
-			// res_ids = res_ids.substring(0, 7);
-			con = getConn();
-			stmt = con.createStatement();
-			StringBuilder updateQuery = new StringBuilder();
-			System.out.println(res_ids + " 예약번호를 가진 사용자의 입실여부를 y로 바꾸기");
+				// res_ids = res_ids.substring(0, 7);
+				// update room_res set pay_opt = '현금' where res_id ='Res_047';
 
-			updateQuery.append("update room_res set checkin='y' ").append(" where res_id ='").append(res_ids)
-					.append("'");
-			System.out.println(updateQuery);
-			stmt.executeUpdate(updateQuery.toString());
+				updateQuery.append("update member set MILEAGE = MILEAGE + (select use_mile from res_info where res_id='").append(res_id).append("') where id ='").append(id).append("'");
+						
+				
+				System.out.println("마일리지 사용하는 쿼리 - " + updateQuery);
 
-		} finally {
-			// 5. 연결 끊기
-			if (stmt != null) {
-				stmt.close();
-			} // end if
+				stmt.executeUpdate(updateQuery.toString());
+			} finally {
+				// 5. 연결 끊기
+				if (stmt != null) {
+					stmt.close();
+				} // end if
 
-			if (con != null) {
-				con.close();
-			} // end if
-		} // end finally
-	}
-
-	// 룸에 없다는 것을 체크
-	public void out_Rooming(String res_ids) throws SQLException {
-		Connection con = null;
-		Statement stmt = null;
-
-		String msg = "'n'로 처리";
-		System.out.println(msg);
-		try {
-			// res_ids = res_ids.substring(0, 7);
-			con = getConn();
-			stmt = con.createStatement();
-			StringBuilder updateQuery = new StringBuilder();
-			System.out.println(res_ids + " 예약번호를 가진 사용자의 입실여부를 y로 바꾸기");
-
-			updateQuery.append("update room_res set checkin='n' ").append(" where res_id ='").append(res_ids)
-					.append("'");
-			System.out.println(updateQuery);
-			stmt.executeUpdate(updateQuery.toString());
-
-		} finally {
-			// 5. 연결 끊기
-			if (stmt != null) {
-				stmt.close();
-			} // end if
-
-			if (con != null) {
-				con.close();
-			} // end if
-		} // end finally
-	}
-
-	// 시간 퇴실 시간을 업데이트 하는 쿼리
-	public void Update_Outtime(String res_ids) throws SQLException {
-		Connection con = null;
-		Statement stmt = null;
-
-		try {
-			con = getConn();
-			stmt = con.createStatement();
-			StringBuilder updateQuery = new StringBuilder();
-
-			System.out.println(res_ids + "가 퇴실을 한다.");
-
-			updateQuery.append("update   room_res set out_time").append("=to_char(  sysdate, 'HH24') ")
-					.append(" where res_id ='").append(res_ids).append("'");
-			System.out.println(updateQuery);
-
-			stmt.executeUpdate(updateQuery.toString());
-
-		} finally {
-			// 5. 연결 끊기
-			if (stmt != null) {
-				stmt.close();
-			} // end if
-
-			if (con != null) {
-				con.close();
-			} // end if
-		} // end finally
-	}
-
-	// 시간을 추가하는 쿼리
-	public void plus_time(int plus_time, String res_ids) throws SQLException {
-		Connection con = null;
-		Statement stmt = null;
-
-		System.out.println("추가할시간 : " + plus_time + " / 예약아이디 : " + res_ids);
-
-		try {
-			con = getConn();
-			stmt = con.createStatement();
-			StringBuilder updateQuery = new StringBuilder();
-			System.out.println(res_ids);
-
-			// res_ids = res_ids.substring(0, 9);
-			// update room_res set pay_opt = '현금' where res_id ='Res_047';
-
-			updateQuery.append("update room_res set out_time = to_number(out_time,99)+").append(plus_time)
-					.append(" where res_id ='").append(res_ids).append("'");
-			System.out.println(updateQuery);
-
-			stmt.executeUpdate(updateQuery.toString());
-
-		} finally {
-			// 5. 연결 끊기
-			if (stmt != null) {
-				stmt.close();
-			} // end if
-
-			if (con != null) {
-				con.close();
-			} // end if
-		} // end finally
-	}
-
-	// 예약취소하는 쿼리
-	public void delete_res(String res_ids) throws SQLException {
-		Connection con = null;
-		Statement stmt = null;
-		System.out.println(res_ids);
-		try {
-			con = getConn();
-			stmt = con.createStatement();
-			StringBuilder deleteQuery = new StringBuilder();
-
-			deleteQuery.append("delete from res_info where res_id='").append(res_ids).append("'");
-			stmt.executeUpdate(deleteQuery.toString());
-			System.out.println("res_info 데이터지우기");
-			System.out.println(deleteQuery);
-
-			deleteQuery = new StringBuilder("");
-			System.out.println("============================");
-			deleteQuery.append("delete from room_res where res_id='").append(res_ids).append("'");
-			stmt.executeUpdate(deleteQuery.toString());
-			System.out.println("res_info 데이터지우기");
-			System.out.println(deleteQuery);
-
-		} finally {
-			// 5. 연결 끊기
-			if (stmt != null) {
-				stmt.close();
-			} // end if
-
-			if (con != null) {
-				con.close();
-			} // end if
-		} // end finally
-
-	}
-
-	public List<ResMgrVO> getList() {
-		return list;
-	}
-
-	public void setList(List<ResMgrVO> list) {
-		this.list = list;
-	}
+				if (con != null) {
+					con.close();
+				} // end if
+			} // end finally
+		}//end use_mile
 	/////////// 김진석/////////////////////////
 
 	////////// 함민이//////////////////////////

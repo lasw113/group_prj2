@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import kr.co.sist.manager.dao.ManagerDAO;
+import kr.co.sist.manager.view.ResMgrView;
 import kr.co.sist.manager.view.select_pay;
 import kr.co.sist.manager.vo.ResMgrVO;
 
@@ -23,13 +24,19 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 
 	private int select_otp = 0;
 
+	private ResMgrView rmv;
+
 	public select_payEvt(select_pay sp) {
 		this.sp = sp;
 	}
 
+	public select_payEvt(ResMgrView rmv) {
+		this.rmv = rmv;
+	}
+
 	// 카드, 현금 결제하는 method
 	public void update_otp(int select) {
-		m_dao= ManagerDAO.getInstance();
+		m_dao = ManagerDAO.getInstance();
 
 		int cnt = sp.getNumber();
 
@@ -58,32 +65,28 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 		} // end catch
 	}// end update
 
-	
-	//입실여부를 결정하는 method
+	// 입실여부를 결정하는 method
 	public void checkin(int select) {
-		m_dao.getInstance();
+		m_dao = ManagerDAO.getInstance();
 
 		int cnt = sp.getNumber();
 
 		String opt = "";
 
+		// end else
 
 		ResMgrVO rmvv = null;
 		List<ResMgrVO> list;
 		// System.out.println("인덱스 테스트" + cnt);
 
 		try {
-			//System.out.println(opt);
+			// System.out.println(opt);
 			list = m_dao.selectAll();
 			rmvv = list.get(cnt);
 			System.out.println(rmvv.getRes_id());
-			
-			//방이 입실을 y로 바꾸는 쿼리
+
+			// 방이 입실을 y로 바꾸는 쿼리
 			m_dao.in_Rooming(rmvv.getRes_id());
-			
-			//입실 시간을 처리하는 method
-			//db.Update_Outtime(rmvv.getRes_id());
-			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -112,11 +115,11 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 			if (select_otp == 0) {
 				JOptionPane.showMessageDialog(null, "결제방식을 선택해주세요");
 			} else {
-				System.out.println( "메소드를 부를때 들어가는 값"  + select_otp);
-				//카드, 
+				System.out.println("메소드를 부를때 들어가는 값" + select_otp);
+				// 카드,
 				update_otp(select_otp);
 				checkin(select_otp);
-				//여기서 입실시간은 checkin 메소드안에서 처리한다.			
+				// 여기서 입실시간은 checkin 메소드안에서 처리한다.
 				sp.dispose();
 			} // end if
 
