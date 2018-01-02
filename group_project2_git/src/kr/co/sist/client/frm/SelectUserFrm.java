@@ -9,6 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 import kr.co.sist.client.controller.SelectUserFrmEvt;
 import kr.co.sist.client.vo.SelectRoomResVO;
@@ -67,6 +68,7 @@ public class SelectUserFrm extends JDialog {
 		jtfPrice = new JTextField();
 
 		jtaReq = new JTextArea();
+		jtaReq.setBorder(new TitledBorder(""));
 
 		jtfPrice.setEditable(false);
 
