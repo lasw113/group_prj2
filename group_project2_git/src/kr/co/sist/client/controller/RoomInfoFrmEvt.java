@@ -37,7 +37,7 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		Calendar ca = Calendar.getInstance();
 		year = ca.get(Calendar.YEAR);
 		y_month = ca.get(Calendar.MONTH) + 1;
-		day = ca.get(Calendar.DAY_OF_MONTH) - 1;
+		day = ca.get(Calendar.DAY_OF_MONTH);
 		rif.getDcmbMonth().addElement(String.valueOf(y_month));
 		setDay(year, y_month);
 		if ((y_month + 1) == 13) {
@@ -47,7 +47,7 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 			rif.getDcmbMonth().addElement(String.valueOf(y_month + 1));
 		}
 		rif.getJcbMonth().setSelectedIndex((0));
-		rif.getJcbDay().setSelectedIndex(day);
+		rif.getJcbDay().setSelectedIndex(0);
 	}// RoomInfoFrmEvt
 
 	public String setRoomInfo(String room_id) {// 방 정보를 보여주는 method
@@ -111,13 +111,19 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 	private void setDay(int year, int month) {// 월별 일 설정 메소드
 		Calendar ca = Calendar.getInstance();
 		int lastDay = 0;
-
 		ca.set(year, month - 1, 1);
 		lastDay = ca.getActualMaximum(Calendar.DATE);
 		rif.getDcmbDay().removeAllElements();
-		for (int i = 1; i <= lastDay; i++) {
-			rif.getDcmbDay().addElement(i + "");
-		} // end for
+		System.out.println(month+" / "+y_month+" / "+day);
+		if (month == y_month) {
+			for (int i = day; i <= lastDay; i++) {
+				rif.getDcmbDay().addElement(i + "");
+			} // end for
+		} else {
+			for (int i = 1; i <= lastDay; i++) {
+				rif.getDcmbDay().addElement(i + "");
+			} // end for
+		}
 	}// setDay
 
 	private void setResChk(String room_id, int year) {// 예약된 방
@@ -254,14 +260,16 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		if (rif.getJcbMonth() == ae.getSource()) {
 
 			if (rif.getJcbMonth().getSelectedIndex() != -1) {
+				System.out.println("타지?");
 				int month = Integer.parseInt((String) rif.getJcbMonth().getSelectedItem());
 				Calendar ca = Calendar.getInstance();
 				year = ca.get(Calendar.YEAR);
+				System.out.println(year + " / " + month);
 				setDay(year, month);
 				if ((y_month) == 13) {
 					if (rif.getJcbMonth().getSelectedItem().equals("1")) {
-						setDay(year + 1, 1);
 						year += 1;
+						setDay(year, 1);
 					} // end if
 
 				} // end if
@@ -270,13 +278,14 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		} // end if
 
 		if (rif.getJcbDay() == ae.getSource()) {
-			if (rif.getJcbMonth().getSelectedIndex() == 0) {
-				if (Integer.parseInt((String) rif.getJcbDay().getSelectedItem()) < day) {
-					JOptionPane.showMessageDialog(rif, "당일 이전은 예약 할 수 없습니다.");
-					rif.getJcbDay().setSelectedIndex(day);
-					return;
-				} // end if
-			}
+//			if (rif.getJcbMonth().getSelectedIndex() == 0) {
+//				if (rif.getJcbDay().getSelectedItem() != null) {
+//					if (Integer.parseInt((String) rif.getJcbDay().getSelectedItem()) < day) {
+//						JOptionPane.showMessageDialog(rif, "당일 이전은 예약 할 수 없습니다.");
+//						rif.getJcbDay().setSelectedIndex(day - 1);
+//					} // end if
+//				}
+//			}
 			setResChk(room_num, year);
 		} // end if
 
