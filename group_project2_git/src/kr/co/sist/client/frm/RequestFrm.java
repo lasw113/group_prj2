@@ -29,13 +29,13 @@ public class RequestFrm extends JPanel {
 		this.cmve = cmve;
 		id = cmve.getId();
 		room_id = cmve.getRoom_id();
-
 		jtfMessage = new JTextField();
-		btnSent = new JButton(new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/send.png"));
+		String path = System.getProperty("user.dir");	
+		btnSent = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/send.png"));
 		jtaChat = new JTextArea("<<관리자에게 전달할 말을 적어주세요>>\n");
 		JScrollPane jspChat = new JScrollPane(jtaChat);
 		lblRoom_id = new JLabel(room_id);
-		lblImage= new JLabel(new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/both1.png"));
+		lblImage= new JLabel(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/both1.png"));
 
 		setLayout(null);
 		

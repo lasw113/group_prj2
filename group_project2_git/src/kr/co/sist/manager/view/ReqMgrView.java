@@ -35,20 +35,23 @@ public class ReqMgrView extends JPanel implements Runnable,ActionListener{
 		btnImageBefore = new ImageIcon[9];
 		btnImageAfter = new ImageIcon[9];
 		isInLabel = new JLabel[9];
-		inImg1 = new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/HalfMike.png");
-		inImg2 = new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/HalfSully.png");
-		whiteImg = new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/white_lblIn.png");
+		
+		String path = System.getProperty("user.dir");		
+				
+		inImg1 = new ImageIcon(path+"/src/kr/co/sist/studyroom/img/HalfMike.png");
+		inImg2 = new ImageIcon(path+"/src/kr/co/sist/studyroom/img/HalfSully.png");
+		whiteImg = new ImageIcon(path+"/src/kr/co/sist/studyroom/img/white_lblIn.png");
 		btnRoom=new JButton[9];
 		cmv= new ChatMgrView[9];
 		listServer = new ArrayList<ServerHelper>();		
 		room_num = new String[] {"S_01","S_02","S_03","S_04","M_05","M_06","M_07","L_08","X_09"};
 		pNum = new int[] {65000,64900,64800,64700,64600,64500,64400,64300,64200,64100};
-		lblImg = new JLabel(new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/mike2.png"));
+		lblImg = new JLabel(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/mike2.png"));
 
 		for(int i=0 ; i < serverport.length ; i++  ) {
 			serverport[i]=pNum[i];
-			btnImageBefore[i] = new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/btn_d_"+room_num[i]+".png"); 
-			btnImageAfter[i] = new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/btn_"+room_num[i]+".png");
+			btnImageBefore[i] = new ImageIcon(path+"/src/kr/co/sist/studyroom/img/btn_d_"+room_num[i]+".png"); 
+			btnImageAfter[i] = new ImageIcon(path+"/src/kr/co/sist/studyroom/img/btn_"+room_num[i]+".png");
 			btnRoom[i]=new JButton(btnImageBefore[i]);
 			isInLabel[i]= new JLabel();
 

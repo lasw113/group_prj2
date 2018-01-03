@@ -29,13 +29,13 @@ public class ChatMgrView extends JDialog {
 		this.room_id = room_id;
 		this.rmv = rmv;
 		p_num = ss;
-		System.out.println(room_id);
+		String path = System.getProperty("user.dir");		
 
 		jtfMessage = new JTextField();
 		lblRoom_id = new JLabel("πÊ¿Ã∏ß");
 		
-		lblImage = new JLabel(new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/mike1.png"));
-		btnSent = new JButton(new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/send.png"));
+		lblImage = new JLabel(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/mike1.png"));
+		btnSent = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/send.png"));
 		jtaChat = new JTextArea();
 		JScrollPane jspChat = new JScrollPane(jtaChat);
 
@@ -71,6 +71,7 @@ public class ChatMgrView extends JDialog {
 		btnSent.addActionListener(cmve);
 		jtfMessage.addActionListener(cmve);
 		setBounds(100, 100, 1000, 650);
+		setResizable(false);
 		
 		// setVisible(true);
 	}// ChatMgrView

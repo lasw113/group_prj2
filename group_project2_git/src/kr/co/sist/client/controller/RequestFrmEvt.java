@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
@@ -58,7 +60,12 @@ public class RequestFrmEvt implements Runnable, ActionListener {
 		// 211.63.89.xx :ipV4(A class
 		// String ip = JOptionPane.showInputDialog(" 서버 주소 입력 마지막 구간 입력");
 		// client = new Socket("211.63.89."+ip,65000);
-		client = new Socket("211.63.89.139", portNum);
+		Properties prop = new Properties();
+		String path = System.getProperty("user.dir");
+		prop.load(new FileReader(
+				path+"/src/kr/co/sist/client/dao/database.properties"));
+		String ip = prop.getProperty("ip");
+		client = new Socket(ip, portNum);
 		System.out.println(portNum);
 		System.out.println(client.getLocalPort());
 

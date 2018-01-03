@@ -19,7 +19,6 @@ public class ManagerView extends JFrame {
 		add("Center", tpTab);
 		
 		ManagerViewEvt mve = new ManagerViewEvt(this);
-		tpTab.addMouseListener(mve);// JTab ¿Ã∫•∆Æ
 		
 		setBounds(100, 100, 1000, 650);
 		setVisible(true);

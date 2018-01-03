@@ -26,13 +26,14 @@ public class SalesView extends JPanel {
 	
 	public SalesView() {
 		setLayout(null);
-		backgroundImg= new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/backGroundSV.png");
+		String path = System.getProperty("user.dir");	
+		backgroundImg= new ImageIcon(path+"/src/kr/co/sist/studyroom/img/backGroundSV.png");
 		Date date= new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String today = sdf.format(date);
 		System.out.println(today);
 		lblDate= new JLabel(today);
-		btnRe = new JButton(new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/renew.png"));
+		btnRe = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/renew.png"));
 		lblSalesName = new JLabel[5];
 		lblSalesValue = new JLabel[5];
 		
