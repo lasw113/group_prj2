@@ -28,7 +28,6 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 	private RoomInfoFrm rif;
 	private ClientMainFrm cmf;
 	private ResChkFrm rcf;
-	private RequestFrm rf; 
 	private String id, pass;
 	private String room_id;
 	private boolean isIn = false;
@@ -69,6 +68,9 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 
 		case REQUEST_TAB:
 			// 주문탭이 클릭되면 로그인 여부를 판별하여
+			if(isIn) {
+				break;
+			}
 			if (isRight()) {
 				JOptionPane.showMessageDialog(cmf, "환영합니다.잠시만 기다려주세요");
 				RequestFrm rf = new RequestFrm(this);
