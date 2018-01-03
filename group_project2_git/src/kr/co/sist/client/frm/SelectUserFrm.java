@@ -3,6 +3,7 @@ package kr.co.sist.client.frm;
 import java.awt.Color;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -48,10 +49,11 @@ public class SelectUserFrm extends JDialog {
 		lblMillege = new JLabel("마일리지");
 		lblCanUse = new JLabel("사용가능마일리지");
 		lblPrice = new JLabel("방금액");
-
-		btnClose = new JButton("닫기");
-		btnRes = new JButton("예약");
-		btnUseM = new JButton("사용");
+		
+		String path = System.getProperty("user.dir");
+		btnClose = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "close.png"));
+		btnRes = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "reservation.png"));
+		btnUseM = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "use.png"));
 
 		dcbmPhoneF = new DefaultComboBoxModel<String>();
 		dcbmPhoneF.addElement("010");

@@ -62,10 +62,13 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 			List<String> Equip = r_dao.selectEquip(room_id);
 
 			for (int i = 0; i < rif.getLblEquipment().length; i++) {// 비품 초기화
-				rif.getLblEquipment()[i].setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "white.png"));
+				rif.getLblEquipment()[i].setText("");
+				rif.getLblEquipment()[i].setIcon(null);
+				rif.getLblEquipment()[i].setToolTipText(null);
 			} // end for
 			for (int i = 0; i < Equip.size(); i++) {// 비품 채우기
 				rif.getLblEquipment()[i].setText(Equip.get(i));
+				rif.getLblEquipment()[i].setToolTipText(Equip.get(i));
 				if (rif.getLblEquipment()[i].getText().equals("컴퓨터")) {
 					rif.getLblEquipment()[i]
 							.setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "computer.png"));

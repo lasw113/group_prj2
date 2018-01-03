@@ -69,7 +69,7 @@ public class RoomInfoFrm extends JPanel {
 		String path = System.getProperty("user.dir");
 		logo = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "siststudyroom.png"));
 		logo2 = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "siststudyroom2.png"));
-		btnNext = new JButton("¥Ÿ¿Ω");
+		btnNext = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "next.png"));
 
 		jtaInfo = new JTextArea();
 		jtaInfo.setEditable(false);
@@ -172,6 +172,7 @@ public class RoomInfoFrm extends JPanel {
 
 		equip = new JPanel();
 		equip.setLayout(new GridLayout(2, 3));
+		equip.setBackground(Color.WHITE);
 		equip.setBounds(430, 210, 501, 180);
 		for (int i = 0; i < lblEquipment.length; i++) {
 			equip.add(lblEquipment[i]);

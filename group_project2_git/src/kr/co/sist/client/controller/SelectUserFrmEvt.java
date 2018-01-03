@@ -44,6 +44,7 @@ public class SelectUserFrmEvt implements ActionListener {
 			suf.getJtfPhoneL().setText(phoneL);
 			suf.getJtfEmail().setText(su_vo.getEmail());
 			suf.getLblCanUse().setText("사용가능마일리지 : " + su_vo.getMillege());
+			suf.getJtfMillege().setText("0");
 			suf.getJtfPrice().setText(String.valueOf(price));
 		} catch (SQLException e) {
 			e.printStackTrace();
