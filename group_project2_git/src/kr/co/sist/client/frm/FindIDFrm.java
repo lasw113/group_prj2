@@ -39,7 +39,7 @@ public class FindIDFrm extends JDialog{
 		jcbPhoneF.setModel(dcbPhone);
 
 		String path = System.getProperty("user.dir");
-		btnFindId = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/아이디찾기.png"));
+		btnFindId = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/아이디 찾기.png"));
 		lblName = new JLabel("이름");
 		lblBirth = new JLabel("생년월일");
 		lblPhone = new JLabel("핸드폰");

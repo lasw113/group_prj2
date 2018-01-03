@@ -19,7 +19,7 @@ public class JoinFrm extends JDialog {
 
 	private LoginFrm lf;
 	private JLabel lblId, lblPass, lblChkPass, lblHintPass, lblHintPassAns, lblName, lblBirth, lblEmail, lblPhone,
-			lblIdGuide;
+			lblIdGuide,lblBirthGuide;
 	private JTextField jtfId, jtfHintAns, jtfName, jtfBirth, jtfEmail, jtfPhoneM, jtfPhoneL;
 	private JPasswordField jtfPass, jtfChkPass;
 	private JComboBox<String> jcbPhoneF, jcbPassHint;
@@ -51,7 +51,7 @@ public class JoinFrm extends JDialog {
 		jcbPassHint.setModel(dcbPassHint);
 
 		String path = System.getProperty("user.dir");
-		btnDuplicate = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/JoinFrm-중복체크.png"));
+		btnDuplicate = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/중복체크.png"));
 		btnJoin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/JoinFrm-가입.png"));
 		btnCancel = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/JoinFrm-취소.png"));
 
@@ -66,6 +66,8 @@ public class JoinFrm extends JDialog {
 		lblPhone = new JLabel("핸드폰");
 		lblIdGuide = new JLabel("*아이디는 4자 이상의 영문자,숫자만 사용 가능합니다.");
 		lblIdGuide.setForeground(Color.RED);
+		lblBirthGuide = new JLabel("*생년월일은 주민번호 앞자리를 입력해주세요");
+		lblBirthGuide.setForeground(Color.RED);
 		
 		JLabel jl1 = new JLabel("-");
 		JLabel jl2 = new JLabel("-");
@@ -96,6 +98,7 @@ public class JoinFrm extends JDialog {
 
 		lblEmail.setBounds(30, 380, 80, 15);
 		jtfEmail.setBounds(150, 375, 140, 25);
+		lblBirthGuide.setBounds(30, 405, 280, 15);
 
 		lblPhone.setBounds(30, 430, 50, 15);
 		jcbPhoneF.setBounds(110, 425, 60, 25);
@@ -124,6 +127,7 @@ public class JoinFrm extends JDialog {
 		add(lblEmail);
 		add(lblPhone);
 		add(lblIdGuide);
+		add(lblBirthGuide);
 
 		add(jtfId);
 		add(jtfPass);

@@ -200,10 +200,12 @@ public class JoinFrmEvt implements ActionListener {
 			} catch (SQLException se) {
 				if (se.getErrorCode() == 1) {
 					JOptionPane.showMessageDialog(jf, "아이디가 중복되었습니다.");
+					return;
 				}
 
 				if (se.getErrorCode() == 12899) {
 					JOptionPane.showMessageDialog(jf, "문자열이 너무 큽니다.");
+					return;
 				}
 				JOptionPane.showMessageDialog(jf, "시스템오류 발생 ");
 				se.printStackTrace();

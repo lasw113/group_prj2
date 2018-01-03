@@ -18,7 +18,7 @@ public class LoginFrm extends JFrame {
 	private JTextField jtfId;
 	private JPasswordField jtfPass;
 	private JButton btnLogin,btnJoin,btnFindId,btnFindPass;
-	private JLabel lblId,lblPass;
+	private JLabel lblId,lblPass,lblLogo;
 
 	public LoginFrm() {
 		
@@ -30,11 +30,12 @@ public class LoginFrm extends JFrame {
 		//btnLogin = new JButton("로그인");
 		String path = System.getProperty("user.dir");
 		btnLogin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/로그인 그라데이션.png"));
-		btnJoin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/LoginFrm-회원가입.png"));
-		btnFindId=new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/아이디찾기.png"));
+		btnJoin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/회원가입.png"));
+		btnFindId=new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/아이디 찾기.png"));
 		btnFindPass=new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/비밀번호 찾기.png"));
 		lblId = new JLabel("아이디", JLabel.CENTER);
 		lblPass = new JLabel("비밀번호", JLabel.CENTER);
+		lblLogo= new JLabel(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/그림4.png"));
 		
 		//btnLogin.setBorderPainted(false);
 		btnLogin.setContentAreaFilled(false);
@@ -45,14 +46,16 @@ public class LoginFrm extends JFrame {
 		
 		setLayout(null);
 		
-		btnLogin.setBounds(85, 120, 120, 30);
-		btnJoin.setBounds(85, 180, 120, 30);
-		btnFindId.setBounds(85, 240, 120, 30);
-		btnFindPass.setBounds(85, 300, 120, 30);
-		lblId.setBounds(40, 35, 80, 15);
-		jtfId.setBounds(130, 30, 100, 25);
-		lblPass.setBounds(35, 75, 80, 15);
-		jtfPass.setBounds(130, 70, 100, 25);
+		lblLogo.setBounds(50, 10, 210, 110);
+		btnLogin.setBounds(85, 230, 120, 30);
+		btnJoin.setBounds(85, 290, 120, 30);
+		btnFindId.setBounds(85, 350, 120, 30);
+		btnFindPass.setBounds(85, 410, 120, 30);
+		lblId.setBounds(40, 145, 80, 15);
+		jtfId.setBounds(130, 140, 100, 25);
+		lblPass.setBounds(35, 185, 80, 15);
+		jtfPass.setBounds(130, 180, 100, 25);
+		
 		
 		//이벤트 추가
 		LoginFrmEvt lfe=new LoginFrmEvt(this);
@@ -64,6 +67,7 @@ public class LoginFrm extends JFrame {
 		jtfId.addActionListener(lfe);
 		jtfPass.addActionListener(lfe);
 		
+		add(lblLogo);
 		add(btnLogin);
 		add(btnJoin);
 		add(btnFindId);
@@ -75,7 +79,7 @@ public class LoginFrm extends JFrame {
 		
 		this.getContentPane().setBackground(Color.WHITE);
 		
-		setBounds(100, 100, 310, 400);
+		setBounds(100, 100, 310, 500);
 		setResizable(false);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
