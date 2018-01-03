@@ -117,7 +117,7 @@ public class SelectUserFrm extends JDialog {
 		btnRes.addActionListener(sufe);
 		btnClose.addActionListener(sufe);
 
-		setBounds(0, 0, 365, 520);
+		setBounds(400,170, 365, 520);
 		setVisible(true);
 	}// SelectUserFrm
 
