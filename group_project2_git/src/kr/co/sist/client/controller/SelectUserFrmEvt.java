@@ -18,12 +18,13 @@ public class SelectUserFrmEvt implements ActionListener {
 	private SelectUserFrm suf;
 	private int mille, updateMile;
 
+	private SelectUserVO su_vo;
+	
 	public SelectUserFrmEvt(SelectUserFrm suf) {
 		this.suf = suf;
 		setIdInfo(suf.getId(), suf.getRoom_id());
 	}
 
-	SelectUserVO su_vo = null;
 
 	private void setIdInfo(String id, String room_id) {// 예약자 기본정보 세팅
 		RoomCDAO r_dao = RoomCDAO.getInstance();

@@ -34,20 +34,7 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 
 	public RoomInfoFrmEvt(RoomInfoFrm rif) {
 		this.rif = rif;
-		Calendar ca = Calendar.getInstance();
-		year = ca.get(Calendar.YEAR);
-		y_month = ca.get(Calendar.MONTH) + 1;
-		day = ca.get(Calendar.DAY_OF_MONTH);
-		rif.getDcmbMonth().addElement(String.valueOf(y_month));
-		setDay(year, y_month);
-		if ((y_month + 1) == 13) {
-			y_month = 13;
-			rif.getDcmbMonth().addElement("1");
-		} else {
-			rif.getDcmbMonth().addElement(String.valueOf(y_month + 1));
-		}
-		rif.getJcbMonth().setSelectedIndex((0));
-		rif.getJcbDay().setSelectedIndex(0);
+		setMonth();
 	}// RoomInfoFrmEvt
 
 	public String setRoomInfo(String room_id) {// 방 정보를 보여주는 method
@@ -111,13 +98,30 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		return ri_vo.getP_min();
 	}// setRoomInfo
 
+	private void setMonth() {
+		Calendar ca = Calendar.getInstance();
+		year = ca.get(Calendar.YEAR);
+		y_month = ca.get(Calendar.MONTH) + 1;
+		day = ca.get(Calendar.DAY_OF_MONTH);
+		rif.getDcmbMonth().addElement(String.valueOf(y_month));
+		setDay(year, y_month);
+		if ((y_month + 1) == 13) {
+			y_month = 13;
+			rif.getDcmbMonth().addElement("1");
+		} else {
+			rif.getDcmbMonth().addElement(String.valueOf(y_month + 1));
+		}
+		rif.getJcbMonth().setSelectedIndex((0));
+		rif.getJcbDay().setSelectedIndex(0);
+	}// setMonth
+
 	private void setDay(int year, int month) {// 월별 일 설정 메소드
 		Calendar ca = Calendar.getInstance();
 		int lastDay = 0;
 		ca.set(year, month - 1, 1);
 		lastDay = ca.getActualMaximum(Calendar.DATE);
 		rif.getDcmbDay().removeAllElements();
-		System.out.println(month+" / "+y_month+" / "+day);
+		System.out.println(month + " / " + y_month + " / " + day);
 		if (month == y_month) {
 			for (int i = day; i <= lastDay; i++) {
 				rif.getDcmbDay().addElement(i + "");
@@ -281,14 +285,6 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		} // end if
 
 		if (rif.getJcbDay() == ae.getSource()) {
-//			if (rif.getJcbMonth().getSelectedIndex() == 0) {
-//				if (rif.getJcbDay().getSelectedItem() != null) {
-//					if (Integer.parseInt((String) rif.getJcbDay().getSelectedItem()) < day) {
-//						JOptionPane.showMessageDialog(rif, "당일 이전은 예약 할 수 없습니다.");
-//						rif.getJcbDay().setSelectedIndex(day - 1);
-//					} // end if
-//				}
-//			}
 			setResChk(room_num, year);
 		} // end if
 
