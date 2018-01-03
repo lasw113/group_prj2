@@ -73,7 +73,8 @@ public class SelectUserFrmEvt implements ActionListener {
 		} // end if
 	}// isNotEmpty
 
-	private void reservation() {// 예약 정보를 DB에 insert
+	private boolean reservation() {// 예약 정보를 DB에 insert
+		boolean flag = false;
 		String phone = suf.getJcbPhoneF().getSelectedItem() + "-" + suf.getJtfPhoneM().getText() + "-"
 				+ suf.getJtfPhoneL().getText();
 		SelectRoomResVO srr_vo = suf.getSrr_vo();
@@ -86,11 +87,17 @@ public class SelectUserFrmEvt implements ActionListener {
 		RoomCDAO r_dao = RoomCDAO.getInstance();
 
 		try {
-			r_dao.insertRes(mu_vo);
-			r_dao.updateMile(um_vo);
+			switch (JOptionPane.showConfirmDialog(suf, "예약하시겠습니까?")) {
+			case JOptionPane.OK_OPTION:
+				r_dao.insertRes(mu_vo);
+				r_dao.updateMile(um_vo);
+				flag = true;
+				break;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return flag;
 	}// reservation
 
 	@Override
@@ -105,10 +112,11 @@ public class SelectUserFrmEvt implements ActionListener {
 
 		if (suf.getBtnRes() == ae.getSource()) {// 예약 하기 버튼
 			isNotEmpty();
-			reservation();
-			JOptionPane.showMessageDialog(suf, "예약 완료되었습니다.");
+			if (reservation()) {
+				JOptionPane.showMessageDialog(suf, "예약 완료되었습니다.");
+				suf.dispose();
+			}//end if
 
-			suf.dispose();
 		} // end if
 
 		if (suf.getBtnClose() == ae.getSource()) {// 닫기 버튼
