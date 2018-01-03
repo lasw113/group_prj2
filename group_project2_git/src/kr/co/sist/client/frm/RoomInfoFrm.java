@@ -243,16 +243,17 @@ public class RoomInfoFrm extends JPanel {
 		date.setBackground(Color.white);
 		p_cnt.setBackground(Color.white);
 		Time.setBackground(Color.white);
-		rb1.setBackground(Color.white);
-		rb2.setBackground(Color.white);
-		rb3.setBackground(Color.white);
-		rb4.setBackground(Color.white);
 		roomInfo.setBackground(Color.white);
-		room1.setBackground(Color.white);
-		room2.setBackground(Color.white);
-		room3.setBackground(Color.white);
-		room4.setBackground(Color.white);
 		selectRoom.setBackground(Color.white);
+	
+		rb1.setOpaque(false);
+		rb2.setOpaque(false);
+		rb3.setOpaque(false);
+		rb4.setOpaque(false);
+		room1.setOpaque(false);
+		room2.setOpaque(false);
+		room3.setOpaque(false);
+		room4.setOpaque(false);
 
 		setPreferredSize(new Dimension(0, 900));
 

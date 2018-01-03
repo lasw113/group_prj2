@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
@@ -26,6 +25,7 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 	public static final int CHECK_TAB = 1;
 	public static final int REQUEST_TAB = 2;
 	public static final int INFO_TAB = 3;
+	private RoomInfoFrm rif;
 	private ClientMainFrm cmf;
 	private ResChkFrm rcf;
 	private RequestFrm rf; 
@@ -39,10 +39,10 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 		id = cmf.getId();
 		pass = cmf.getPass();
 
-		JPanel roomInfo = new RoomInfoFrm(id);
-		roomInfo.setBackground(Color.white);
+		rif = new RoomInfoFrm(id);
+		rif.setBackground(Color.white);
 		
-		JScrollPane jspRoomInfo = new JScrollPane(roomInfo);
+		JScrollPane jspRoomInfo = new JScrollPane(rif);
 		cmf.getJtpClient().addTab("  ∑Î ¡§∫∏ (øπæ‡)  ", jspRoomInfo);
 
 		rcf = new ResChkFrm(id, pass);
@@ -58,6 +58,9 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 		// ≈«º±≈√ ∆«∫∞
 		JTabbedPane tempTab = cmf.getJtpClient();
 		switch (tempTab.getSelectedIndex()) {
+		case RESERVATION_TAB:
+			new RoomInfoFrmEvt(rif); 
+			break;
 
 		case CHECK_TAB:
 			ResChkFrmEvt rcfe = new ResChkFrmEvt(rcf);

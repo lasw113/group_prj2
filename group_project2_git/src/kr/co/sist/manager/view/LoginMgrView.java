@@ -47,6 +47,11 @@ public class LoginMgrView extends JFrame {
 		jtfId.setBounds(130, 30, 100, 25);
 		lblPass.setBounds(35, 75, 80, 15);
 		jtfPass.setBounds(130, 70, 100, 25);
+		
+		btnLogin.setBorderPainted(false);
+		btnLogin.setContentAreaFilled(false);
+		btnLogin.setFocusPainted(false);
+		btnLogin.setOpaque(false);
 
 		// 이벤트 추가
 		LoginMgrViewEvt lmve = new LoginMgrViewEvt(this);
