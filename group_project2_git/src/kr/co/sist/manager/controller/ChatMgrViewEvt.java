@@ -17,7 +17,7 @@ public class ChatMgrViewEvt implements ActionListener  {
 	@SuppressWarnings("static-access")
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource()==cmv.getBtnSent()) {
+		if(ae.getSource()==cmv.getJtfMessage()||ae.getSource()==cmv.getBtnSent()) {
 			String manager="°ü¸®ÀÚ : "+cmv.getJtfMessage().getText()+"\n";
 			//cmv.getJtaChat().append(manager);
 			for(int j=0;j<rmv.listServer.size();j++) {
@@ -25,16 +25,13 @@ public class ChatMgrViewEvt implements ActionListener  {
 				if(cmv.getP_num()==rmv.listServer.get(j).getPort()) {
 					System.out.println(rmv.listServer.get(j).getPort());
 					System.out.println(cmv.getP_num());
+					rmv.listServer.get(j).sendMsg(manager);
+					if(rmv.listServer.get(j).isChkClientIn()==true) {
 					cmv.getJtaChat().append(manager);
-					try {
-						rmv.listServer.get(j).sendMsg(manager);
-						System.out.println(manager);
-						cmv.getJtfMessage().setText("");
-						cmv.getJtfMessage().requestFocus();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					System.out.println(manager);
 					}
+					cmv.getJtfMessage().setText("");
+					cmv.getJtfMessage().requestFocus();
 				}
 			}
 

@@ -2,6 +2,7 @@ package kr.co.sist.manager.controller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
@@ -35,7 +36,20 @@ public class ManagerViewEvt extends MouseAdapter {
 		rmv = new ReqMgrView();
 		mv.getTpTab().addTab(" 건의사항 ", rmv);
 	}// ManagerViewEvt
-
+	
+	@SuppressWarnings("static-access")
+	public void close() {
+		try {
+			for(int i=0;i<rmv.listServer.size();i++) {
+				rmv.getListServer().get(i).closeServer();
+				System.out.println("서버껐다.");
+			}//end for
+			System.exit(0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
+	}//close
 	@Override
 	public void mouseClicked(MouseEvent me) {
 		// 탭선택 판별

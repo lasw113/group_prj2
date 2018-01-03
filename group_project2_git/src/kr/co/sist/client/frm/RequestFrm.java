@@ -3,6 +3,7 @@ package kr.co.sist.client.frm;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,13 +16,13 @@ import kr.co.sist.client.controller.RequestFrmEvt;
 
 @SuppressWarnings("serial")
 public class RequestFrm extends JPanel {
-	private JPanel jpbottom;
 	private JTextArea jtaChat;
 	private JButton btnSent;
 	private JTextField jtfMessage;
 	private String id, room_id;
 	private ClientMainFrmEvt cmve;
 	private JLabel lblRoom_id;
+	private JLabel lblImage;
 	private boolean flagMgrIn;
 
 	public RequestFrm(ClientMainFrmEvt cmve) {
@@ -29,48 +30,42 @@ public class RequestFrm extends JPanel {
 		id = cmve.getId();
 		room_id = cmve.getRoom_id();
 
-		jpbottom = new JPanel();
 		jtfMessage = new JTextField();
-		btnSent = new JButton(" 전송 ");
-		jtaChat = new JTextArea();
+		btnSent = new JButton(new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/send.png"));
+		jtaChat = new JTextArea("<<관리자에게 전달할 말을 적어주세요>>\n");
 		JScrollPane jspChat = new JScrollPane(jtaChat);
 		lblRoom_id = new JLabel(room_id);
+		lblImage= new JLabel(new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/both1.png"));
 
 		setLayout(null);
-
-		jpbottom.setBackground(Color.white);
-		jpbottom.setLayout(null);
-
-		jspChat.setBounds(70, 50, 830, 410);
-
-		lblRoom_id.setBounds(10, 30, 100, 30);
-		jtfMessage.setBounds(70, 30, 600, 40);
-		btnSent.setBounds(680, 30, 115, 40);
-		jpbottom.setBounds(70, 470, 830, 100);
-
-		jpbottom.add(lblRoom_id);
-		jpbottom.add(jtfMessage);
-		jpbottom.add(btnSent);
 		
+		btnSent.setBorderPainted(false);// 외곽선 제거
+		btnSent.setContentAreaFilled(false); // 내용영역 채우기 x
+		jtaChat.setEditable(false);
+
+		jspChat.setBounds(240, 50, 690, 400);
+
+		lblImage.setBounds(0, 130, 250, 330);
+		lblRoom_id.setBounds(200, 500, 100, 40);
+		jtfMessage.setBounds(320, 500, 470, 40);
+		btnSent.setBounds(820, 500, 120, 40);
+
+		add(lblRoom_id);
+		add(lblImage);
+		add(jtfMessage);
+		add(btnSent);
 		add(jspChat);
-		add(jpbottom);
 
 		setBackground(Color.white);
-		lblRoom_id.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblRoom_id.setFont(new Font("Dialog", Font.BOLD, 20));
 		jtaChat.setFont(new Font("Dialog", Font.BOLD, 15));
+		jtfMessage.setFont(new Font("Dialog", Font.BOLD, 15));
 		btnSent.setFont(new Font("Dialog", Font.BOLD, 20));
 
 		RequestFrmEvt rfe = new RequestFrmEvt(this);
 		btnSent.addActionListener(rfe);
+		jtfMessage.addActionListener(rfe);
 	}// RequestFrm
-
-	public JPanel getJpbottom() {
-		return jpbottom;
-	}
-
-	public void setJpbottom(JPanel jpbottom) {
-		this.jpbottom = jpbottom;
-	}
 
 	public JTextArea getJtaChat() {
 		return jtaChat;

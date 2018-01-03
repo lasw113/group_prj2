@@ -19,9 +19,8 @@ public class ReqMgrViewEvt implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		JButton button = (JButton)ae.getSource();
-		String command = button.getActionCommand();
-		System.out.println(command);
-		setChat(command);
+		String temp=button.getName();
+		setChat(temp);
 	}//actionPerformed
 	
 	private void setChat(String room_num) {//선택된 방의 채팅으로 넘어가는 메소드
@@ -29,6 +28,7 @@ public class ReqMgrViewEvt implements ActionListener {
 		for(int i=0;i<9;i++) {
 			if(cmv[i].getRoom_id()==room_num) {
 				cmv[i].setVisible(true);
+				cmv[i].getJtfMessage().requestFocus();
 			}
 		}
 	}

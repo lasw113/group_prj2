@@ -3,10 +3,10 @@ package kr.co.sist.manager.view;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -18,8 +18,7 @@ public class ChatMgrView extends JDialog {
 	private JTextArea jtaChat;
 	private JButton btnSent;
 	private JTextField jtfMessage;
-	private JLabel lblRoom_id;
-	private JPanel jpbottom;
+	private JLabel lblRoom_id,lblImage;
 	private static ManagerView mv;
 	private ReqMgrView rmv;
 	private String room_id;
@@ -32,42 +31,47 @@ public class ChatMgrView extends JDialog {
 		p_num = ss;
 		System.out.println(room_id);
 
-		jpbottom = new JPanel();
 		jtfMessage = new JTextField();
 		lblRoom_id = new JLabel("방이름");
-		btnSent = new JButton(" 전송 ");
+		
+		lblImage = new JLabel(new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/mike1.png"));
+		btnSent = new JButton(new ImageIcon("C:/dev/git/group_prj2/group_project2_git/src/kr/co/sist/studyroom/img/send.png"));
 		jtaChat = new JTextArea();
 		JScrollPane jspChat = new JScrollPane(jtaChat);
 
 		setLayout(null);
 
+		btnSent.setBorderPainted(false);// 외곽선 제거
+		btnSent.setContentAreaFilled(false); // 내용영역 채우기 x
 		lblRoom_id.setText(room_id);
-		jpbottom.setBackground(Color.white);
-		jpbottom.setLayout(null);
 
-		jspChat.setBounds(70, 50, 830, 410);
+		jspChat.setBounds(250, 65, 650, 450);
 		jtaChat.setEditable(false);
 
-		lblRoom_id.setBounds(10, 30, 100, 30);
-		jtfMessage.setBounds(140, 30, 500, 40);
-		btnSent.setBounds(680, 30, 115, 40);
-		jpbottom.setBounds(70, 470, 830, 100);
-
-		jpbottom.add(lblRoom_id);
-		jpbottom.add(jtfMessage);
-		jpbottom.add(btnSent);
+		lblImage.setBounds(22, 166, 238, 342);
+		lblRoom_id.setBounds(205, 550, 100, 40);
+		jtfMessage.setBounds(320, 550, 470, 40);
+		btnSent.setBounds(810, 550, 120, 40);
 
 		add(jspChat);
-		add(jpbottom);
+		add(lblImage);
+		add(lblRoom_id);
+		add(jtfMessage);
+		add(btnSent);
+
+		jtfMessage.requestFocus();
 		this.getContentPane().setBackground( Color.white );
 
 		jtaChat.setFont(new Font("Dialog", Font.BOLD, 15));
-		btnSent.setFont(new Font("Dialog", Font.BOLD, 25));
+		jtfMessage.setFont(new Font("Dialog", Font.BOLD, 15));
+		btnSent.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblRoom_id.setFont(new Font("Dialog", Font.BOLD, 20));
 		jtaChat.setText(room_id + " 에서 보내온 메세지입니다. \n");
 		ChatMgrViewEvt cmve = new ChatMgrViewEvt(this, rmv);
 		btnSent.addActionListener(cmve);
+		jtfMessage.addActionListener(cmve);
 		setBounds(100, 100, 1000, 650);
+		
 		// setVisible(true);
 	}// ChatMgrView
 
@@ -101,14 +105,6 @@ public class ChatMgrView extends JDialog {
 
 	public void setLblRoom_id(JLabel lblRoom_id) {
 		this.lblRoom_id = lblRoom_id;
-	}
-
-	public JPanel getJpbottom() {
-		return jpbottom;
-	}
-
-	public void setJpbottom(JPanel jpbottom) {
-		this.jpbottom = jpbottom;
 	}
 
 	public String getRoom_id() {

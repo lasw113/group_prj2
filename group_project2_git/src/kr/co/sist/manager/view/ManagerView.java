@@ -1,4 +1,7 @@
 package kr.co.sist.manager.view;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
@@ -9,8 +12,6 @@ public class ManagerView extends JFrame {
 
 	private JTabbedPane tpTab;
 	private String id;
-
-	//private Server ser;
 	
 	public ManagerView() {
 		super("주) 스터디 룸 관리 - 관리자");
@@ -23,7 +24,17 @@ public class ManagerView extends JFrame {
 		setBounds(100, 100, 1000, 650);
 		setVisible(true);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		addWindowListener( new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent we) {
+				dispose(); //windowClosed호출
+			}//windowClosing
+			@Override
+			public void windowClosed(WindowEvent we) {
+				//mve.close();
+			}//windowClosed
+		});
 		
 	}//ClientMainFrm
 	

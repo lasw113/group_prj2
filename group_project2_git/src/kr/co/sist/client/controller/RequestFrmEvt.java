@@ -40,14 +40,9 @@ public class RequestFrmEvt implements Runnable, ActionListener {
 			e.printStackTrace();
 		}
 	}// RequestFrmEvt
-
-	public void admission(String id) {
-
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource() == rf.getBtnSent()) {
+		if (ae.getSource() == rf.getBtnSent()||ae.getSource()==rf.getJtfMessage()) {
 			try {
 				sendMsg();
 			} catch (IOException e) {
@@ -55,6 +50,7 @@ public class RequestFrmEvt implements Runnable, ActionListener {
 				e.printStackTrace();
 			}
 		} // end if
+		
 	}// actionPerformed
 
 	private void connectToServer(int portNum) throws UnknownHostException, IOException {
@@ -82,16 +78,16 @@ public class RequestFrmEvt implements Runnable, ActionListener {
 	 */
 	@Override
 	public void run() {
+		while (true) {
 		try {
 			String msg = "";
-			while (true) {
-				msg = readStream.readUTF();
-				// 대화창에 설정
-				rf.getJtaChat().append(msg);
-			} // end while
+			msg = readStream.readUTF();
+			// 대화창에 설정
+			rf.getJtaChat().append(msg);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} // end catch
+		} // end while
 	}// run
 
 	private void sendMsg() throws IOException {
