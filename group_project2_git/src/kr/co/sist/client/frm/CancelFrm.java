@@ -10,6 +10,7 @@ import javax.swing.JPasswordField;
 import kr.co.sist.client.controller.CancelEvt;
 import kr.co.sist.client.controller.ResChkFrmEvt;
 
+@SuppressWarnings("serial")
 public class CancelFrm extends JFrame {
 
 	private ResChkFrm rcf;

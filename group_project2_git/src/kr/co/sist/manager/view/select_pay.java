@@ -12,6 +12,7 @@ import javax.swing.JRadioButton;
 
 import kr.co.sist.manager.controller.select_payEvt;
 
+@SuppressWarnings("serial")
 public class select_pay extends JFrame {
 	private JButton btn;
 

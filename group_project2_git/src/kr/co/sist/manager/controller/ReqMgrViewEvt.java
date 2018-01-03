@@ -9,11 +9,9 @@ import kr.co.sist.manager.view.ChatMgrView;
 import kr.co.sist.manager.view.ReqMgrView;
 
 public class ReqMgrViewEvt implements ActionListener {
-	private ReqMgrView rmv;
 	private ChatMgrView[] cmv;
 
 	public ReqMgrViewEvt(ReqMgrView rmv) {
-		this.rmv = rmv;
 	}//ReqMgrViewEvt
 	
 	@Override

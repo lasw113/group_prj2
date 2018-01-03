@@ -19,13 +19,11 @@ public class RequestFrmEvt implements Runnable, ActionListener {
 	private DataInputStream readStream;
 	private DataOutputStream writeStream;
 	private RequestFrm rf;
-	private String id;
 	private String room_id;
 	private int portNum;
 
 	public RequestFrmEvt(RequestFrm rf) {
 		this.rf = rf;
-		id = rf.getId();
 		room_id = rf.getRoom_id();
 
 		portNum = pNum(room_id);

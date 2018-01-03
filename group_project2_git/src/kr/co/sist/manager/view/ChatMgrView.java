@@ -20,14 +20,12 @@ public class ChatMgrView extends JDialog {
 	private JTextField jtfMessage;
 	private JLabel lblRoom_id,lblImage;
 	private static ManagerView mv;
-	private ReqMgrView rmv;
 	private String room_id;
 	private int p_num;
 
 	public ChatMgrView(String room_id, int ss, ReqMgrView rmv) {
 		super(mv, "건의사항 - 관리자");
 		this.room_id = room_id;
-		this.rmv = rmv;
 		p_num = ss;
 		String path = System.getProperty("user.dir");		
 

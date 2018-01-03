@@ -133,7 +133,6 @@ public class ClientDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		LoginVO lv=new LoginVO();
 		try {
 			// 1.
 			// 2.

@@ -10,8 +10,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import kr.co.sist.client.dao.RoomCDAO;
-import kr.co.sist.client.vo.HistoryVO;
 import kr.co.sist.manager.dao.ManagerDAO;
 import kr.co.sist.manager.view.MgrHistoryView;
 import kr.co.sist.manager.view.UserMgrView;
@@ -21,7 +19,6 @@ public class UserMgrViewEvt extends MouseAdapter implements ActionListener {
 
 	private UserMgrView mgv;
 
-	private String history;//////////////
 	private String id;
 
 	public static final int DOUBLE_CLICK = 2;

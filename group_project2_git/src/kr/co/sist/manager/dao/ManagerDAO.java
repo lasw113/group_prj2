@@ -23,7 +23,6 @@ public class ManagerDAO {
 
 	private static ManagerDAO m_dao;
 
-	private List<ResMgrVO> list;
 
 	private ManagerDAO() {
 

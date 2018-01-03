@@ -12,13 +12,9 @@ import kr.co.sist.manager.view.MgrHistoryView;
 
 public class MgrHistoryViewEvt {
 	private MgrHistoryView mhv;
-	private UserMgrViewEvt umve;
-	private String id;
 	
 	public MgrHistoryViewEvt(MgrHistoryView mhv, UserMgrViewEvt umve, String id) {
 		this.mhv=mhv;
-		this.umve=umve;
-		this.id=id;
 		//MgrHistoryView에 이벤트 추가
 		searchHis();
 		

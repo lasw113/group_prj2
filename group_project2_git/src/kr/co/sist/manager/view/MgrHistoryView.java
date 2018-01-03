@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import kr.co.sist.manager.controller.MgrHistoryViewEvt;
 import kr.co.sist.manager.controller.UserMgrViewEvt;
 
+@SuppressWarnings("serial")
 public class MgrHistoryView extends JDialog{
 
 	private UserMgrView umv;

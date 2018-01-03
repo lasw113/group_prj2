@@ -24,14 +24,12 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 
 	private int select_otp = 0;
 
-	private ResMgrView rmv;
 
 	public select_payEvt(select_pay sp) {
 		this.sp = sp;
 	}
 
 	public select_payEvt(ResMgrView rmv) {
-		this.rmv = rmv;
 	}
 
 	// 카드, 현금 결제하는 method
@@ -71,7 +69,6 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 
 		int cnt = sp.getNumber();
 
-		String opt = "";
 
 		// end else
 

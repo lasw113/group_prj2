@@ -17,11 +17,9 @@ public class ChkPassFrm extends JDialog {
 	private JPasswordField jpwPass;
 	private JButton btnOk;
 	private MyInfoFrm mif;
-	private ClientMainFrm cmf;
 
 	public ChkPassFrm(ClientMainFrm cmf) {
 		super(cmf,"비밀번호 확인",true); //부모창이 cmf이고 자식창이뜨면 부모창이 안뜨게 modal로 설정
-		this.cmf=cmf;
 		
 		lblPass = new JLabel("비밀번호");
 		jpwPass = new JPasswordField();

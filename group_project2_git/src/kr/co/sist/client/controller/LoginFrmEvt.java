@@ -48,7 +48,6 @@ public class LoginFrmEvt implements ActionListener {
 			return;
 		}
 
-		boolean flag = false;
 		lv = new LoginVO();
 		c_dao = ClientDAO.getInstance();
 
@@ -58,7 +57,6 @@ public class LoginFrmEvt implements ActionListener {
 		try {
 			boolean logChk = c_dao.selectLogin(lv);
 			if (logChk) {
-				flag = true;
 				// 메인창 띄우고 로그인 창 끄기
 				new ClientMainFrm(id, pass);
 				lf.dispose();

@@ -15,11 +15,12 @@ import kr.co.sist.manager.controller.add_timeEvt;
 import kr.co.sist.manager.dao.ManagerDAO;
 import kr.co.sist.manager.vo.ResMgrVO;
 
+@SuppressWarnings("serial")
 public class add_timeView extends JFrame {
 
 	// 확인 취소버튼
 	private JButton btn_check, btn_cancle;
-	private JComboBox combo;
+	private JComboBox<Integer> combo;
 	private int possible_time;
 	private int index;
 	ResMgrView rmv;
@@ -53,7 +54,7 @@ public class add_timeView extends JFrame {
 		jtp_cnt.setEditable(false);
 		jtroom_id.setEditable(false);
 
-		combo = new JComboBox();
+		combo = new JComboBox<Integer>();
 
 		if (possible_time == 0) {
 			JOptionPane.showMessageDialog(null,"시간추가를 할 수가 없습니다.");
@@ -111,7 +112,7 @@ public class add_timeView extends JFrame {
 	public void add_timeForm(int i) {
 
 		// list에 저장된 DB정보 가져오기!
-		ResMgrVO rmvv = null;
+//		ResMgrVO rmvv = null;
 		ManagerDAO r_dao= ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 		index = i / 5;
@@ -120,10 +121,10 @@ public class add_timeView extends JFrame {
 		try {
 			list = r_dao.selectAll();
 			if (index == 0) {
-				rmvv = list.get(0);
+//				rmvv = list.get(0);
 				frame_disposition(list, 0);
 			} else if (index != 0) {
-				rmvv = list.get(index);
+//				rmvv = list.get(index);
 				frame_disposition(list, index);
 			} // end if
 		} catch (SQLException e) {
@@ -149,11 +150,11 @@ public class add_timeView extends JFrame {
 		this.btn_cancle = btn_cancle;
 	}
 
-	public JComboBox getCombo() {
+	public JComboBox<Integer> getCombo() {
 		return combo;
 	}
 
-	public void setCombo(JComboBox combo) {
+	public void setCombo(JComboBox<Integer> combo) {
 		this.combo = combo;
 	}
 

@@ -11,13 +11,13 @@ import kr.co.sist.manager.controller.ManagerViewEvt;
 public class ManagerView extends JFrame {
 
 	private JTabbedPane tpTab;
-	private String id;
 	
 	public ManagerView() {
 		super("林) 胶磐叼 冯 包府 - 包府磊");
 		tpTab= new JTabbedPane();
 		add("Center", tpTab);
 		
+		@SuppressWarnings("unused")
 		ManagerViewEvt mve = new ManagerViewEvt(this);
 		
 		setBounds(100, 100, 1000, 650);

@@ -26,6 +26,7 @@ import kr.co.sist.manager.controller.ResMgrViewEvt;
 import kr.co.sist.manager.dao.ManagerDAO;
 import kr.co.sist.manager.vo.ResMgrVO;
 
+@SuppressWarnings("serial")
 public class ResMgrView extends JFrame {
 
 	private JButton btnrenew; // 갱신 버튼
@@ -42,7 +43,7 @@ public class ResMgrView extends JFrame {
 
 	private JPanel total_line_panel;
 	private JPanel totalpanel;
-	private List<ResMgrVO> list_count;
+//	private List<ResMgrVO> list_count;
 
 	public void admin_line_name(int i, JPanel line_panel, List<ResMgrVO> list) {
 		JLabel jbres_num, jbRoom, jbCnt, jbName, jbIn, jbOut, jbnote;// 룸, 인원수, 입실/퇴실 시간, 비고 보여주는 textFiled
@@ -62,13 +63,13 @@ public class ResMgrView extends JFrame {
 		jbOut = new JLabel("퇴실");
 		jbnote = new JLabel("비고");
 
-		jbres_num.setHorizontalAlignment(jbres_num.CENTER);
-		jbRoom.setHorizontalAlignment(jbRoom.CENTER);
-		jbCnt.setHorizontalAlignment(jbCnt.CENTER);
-		jbName.setHorizontalAlignment(jbName.CENTER);
-		jbIn.setHorizontalAlignment(jbIn.CENTER);
-		jbOut.setHorizontalAlignment(jbOut.CENTER);
-		jbnote.setHorizontalAlignment(jbnote.CENTER);
+//		jbres_num.setHorizontalAlignment(jbres_num.CENTER);
+//		jbRoom.setHorizontalAlignment(jbRoom.CENTER);
+//		jbCnt.setHorizontalAlignment(jbCnt.CENTER);
+//		jbName.setHorizontalAlignment(jbName.CENTER);
+//		jbIn.setHorizontalAlignment(jbIn.CENTER);
+//		jbOut.setHorizontalAlignment(jbOut.CENTER);
+//		jbnote.setHorizontalAlignment(jbnote.CENTER);
 
 		gap1 = new JLabel("");
 		gap2 = new JLabel("");
@@ -104,32 +105,32 @@ public class ResMgrView extends JFrame {
 
 		// TextField 추가
 		list_Jbl.add(new JLabel(rmvv.getRes_id()));
-		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+//		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
 		list_Jbl.add(new JLabel(rmvv.getRoom_id()));
-		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+//		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
 		list_Jbl.add(new JLabel(String.valueOf(rmvv.getP_cnt()) + "명"));
-		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+//		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
 		list_Jbl.add(new JLabel(rmvv.getRes_name()));
-		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+//		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
 		list_Jbl.add(new JLabel(rmvv.getIn_time() + "시"));
-		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+//		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
 		list_Jbl.add(new JLabel(rmvv.getOut_time() + "시"));
-		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+//		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
