@@ -15,6 +15,7 @@ import javax.swing.JTabbedPane;
 import kr.co.sist.client.dao.ClientDAO;
 import kr.co.sist.client.frm.ChkPassFrm;
 import kr.co.sist.client.frm.ClientMainFrm;
+import kr.co.sist.client.frm.LoginFrm;
 import kr.co.sist.client.frm.MyInfoFrm;
 import kr.co.sist.client.frm.RequestFrm;
 import kr.co.sist.client.frm.ResChkFrm;
@@ -25,6 +26,7 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 	public static final int CHECK_TAB = 1;
 	public static final int REQUEST_TAB = 2;
 	public static final int INFO_TAB = 3;
+	public static final int LOGOUT_TAB = 4;
 	private RoomInfoFrm rif;
 	private ClientMainFrm cmf;
 	private ResChkFrm rcf;
@@ -40,15 +42,17 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 
 		rif = new RoomInfoFrm(id);
 		rif.setBackground(Color.white);
-		
+
 		JScrollPane jspRoomInfo = new JScrollPane(rif);
 		cmf.getJtpClient().addTab("  룸 정보 (예약)  ", jspRoomInfo);
 
 		rcf = new ResChkFrm(id, pass);
 		cmf.getJtpClient().addTab("  예 약 확 인  ", rcf);
-		
+
 		cmf.getJtpClient().addTab("  건 의 사 항  ", new JLabel("입실한 사용자 대상으로 사용하는 탭입니다."));
 		cmf.getJtpClient().addTab("  내 정보 확인  ", new JLabel());
+
+		cmf.getJtpClient().addTab("  로그아웃  ", new JLabel());
 
 	}// ClientMainViewEvt
 
@@ -58,7 +62,7 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 		JTabbedPane tempTab = cmf.getJtpClient();
 		switch (tempTab.getSelectedIndex()) {
 		case RESERVATION_TAB:
-			new RoomInfoFrmEvt(rif); 
+			new RoomInfoFrmEvt(rif);
 			break;
 
 		case CHECK_TAB:
@@ -68,17 +72,17 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 
 		case REQUEST_TAB:
 			// 주문탭이 클릭되면 로그인 여부를 판별하여
-			if(isIn) {
+			if (isIn) {
 				break;
 			}
 			if (isRight()) {
 				JOptionPane.showMessageDialog(cmf, "환영합니다.잠시만 기다려주세요");
 				RequestFrm rf = new RequestFrm(this);
-				if(rf.isFlagMgrIn()) {
-				tempTab.remove(2);// 탭을 삭제 후
-				tempTab.insertTab("  건 의 사 항  ",null, rf,null, 2);// 디자인을 가진 컴포넌트 배치
-				// 탭이 메뉴로 넘어가는 걸 막는다.
-				tempTab.setSelectedIndex(2);
+				if (rf.isFlagMgrIn()) {
+					tempTab.remove(2);// 탭을 삭제 후
+					tempTab.insertTab("  건 의 사 항  ", null, rf, null, 2);// 디자인을 가진 컴포넌트 배치
+					// 탭이 메뉴로 넘어가는 걸 막는다.
+					tempTab.setSelectedIndex(2);
 				}
 				break;
 			}
@@ -103,6 +107,14 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 				}
 				break;
 			} // end if
+		case LOGOUT_TAB:
+			switch (JOptionPane.showConfirmDialog(cmf, "로그아웃하시겠습니까?")) {
+			case JOptionPane.OK_OPTION:
+				new LoginFrm();
+				cmf.dispose();
+				break;
+			}// end if
+			break;
 
 		}
 	}

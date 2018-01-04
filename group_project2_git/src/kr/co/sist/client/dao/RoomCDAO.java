@@ -295,7 +295,7 @@ public class RoomCDAO {
 			con = getConn();
 			StringBuilder selectRes = new StringBuilder();
 			selectRes.append(
-					"select to_char(rr.res_date,'yyyy-mm-dd')res_date,res_i.res_name,ri.room_id,(ri.price*rr.p_cnt*(rr.out_time-rr.in_time))-nvl(res_i.use_mile,0) price,rr.in_time,rr.out_time ")
+					"select to_char(rr.res_date,'yyyy-mm-dd')res_date,res_i.res_name,ri.room_id,rr.p_cnt,(ri.price*rr.p_cnt*(rr.out_time-rr.in_time))-nvl(res_i.use_mile,0) price,rr.in_time,rr.out_time ")
 					.append("from room_info ri, room_res rr, member mem , res_info res_i ")
 					.append("where rr.res_id=res_i.res_id and ri.room_id=rr.room_id and mem.id= rr.id and mem.id=? and to_char(sysdate,'yyyymmdd')>to_char(res_date,'yyyymmdd') and rr.checkin='n'");
 			pstmt = con.prepareStatement(selectRes.toString());
