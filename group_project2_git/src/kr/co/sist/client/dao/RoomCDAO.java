@@ -184,33 +184,6 @@ public class RoomCDAO {
 		return listTime;
 	}// selectTimeChk
 
-	public SelectUserVO selectUserInfo(String id, String room_id) throws SQLException {
-		SelectUserVO su_vo = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			con = getConn();
-
-			String selectUser = "select name,phone, email, MILEAGE, r.price from member m, room_info r where (m.id=?)and (r.room_id=?)";
-			pstmt = con.prepareStatement(selectUser);
-			pstmt.setString(1, id);
-			pstmt.setString(2, room_id);
-
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				su_vo = new SelectUserVO(rs.getString("name"), rs.getString("phone"), rs.getString("email"),
-						rs.getString("MILEAGE"), rs.getString("price"));
-			} // end if
-
-		} finally {
-			dbClose(con, pstmt, rs);
-		} // end finally
-		return su_vo;
-	}// selectUserInfo
-
 	public void insertRes(ModiUserVO mu_vo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;

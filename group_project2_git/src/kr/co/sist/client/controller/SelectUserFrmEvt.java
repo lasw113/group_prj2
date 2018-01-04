@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import kr.co.sist.client.dao.ClientDAO;
 import kr.co.sist.client.dao.RoomCDAO;
 import kr.co.sist.client.frm.SelectUserFrm;
 import kr.co.sist.client.vo.ModiUserVO;
@@ -26,10 +27,10 @@ public class SelectUserFrmEvt implements ActionListener {
 	}
 
 	private void setIdInfo(String id, String room_id) {// 예약자 기본정보 세팅
-		RoomCDAO r_dao = RoomCDAO.getInstance();
+		ClientDAO c_dao = ClientDAO.getInstance();
 
 		try {
-			su_vo = r_dao.selectUserInfo(id, room_id);
+			su_vo = c_dao.selectUserInfo(id, room_id);
 
 			String phoneF = su_vo.getPhone().substring(0, 3);
 			String phoneM = su_vo.getPhone().substring(4, 8);
@@ -67,7 +68,7 @@ public class SelectUserFrmEvt implements ActionListener {
 			}
 		} catch (NumberFormatException nfe) {
 			JOptionPane.showMessageDialog(suf, "숫자만 가능합니다.");
-			updateMile =0;
+			updateMile = 0;
 			suf.getJtfMillege().setText("0");
 		} // end catch
 	}// useMillege
