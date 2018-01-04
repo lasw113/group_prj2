@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,8 +44,12 @@ public class ResMgrView extends JFrame {
 
 	private JPanel total_line_panel;
 	private JPanel totalpanel;
-	// private List<ResMgrVO> list_count;
+	@SuppressWarnings("unused")
+	private List<ResMgrVO> list_count;
 
+	ManagerDAO m_dao;
+
+	@SuppressWarnings("static-access")
 	public void admin_line_name(int i, JPanel line_panel, List<ResMgrVO> list) {
 		JLabel jbres_num, jbRoom, jbCnt, jbName, jbIn, jbOut, jbnote;// 룸, 인원수, 입실/퇴실 시간, 비고 보여주는 textFiled
 		JLabel gap1, gap2, gap3, gap4, gap5;
@@ -53,6 +58,7 @@ public class ResMgrView extends JFrame {
 		for (int cnt = 0; cnt < 12; cnt++) {
 			wrap[cnt] = new JPanel();
 			wrap[cnt].setPreferredSize(new Dimension(50, 60));
+			wrap[cnt].setBackground(new Color(255, 255, 255));
 		} // end for
 
 		jbres_num = new JLabel("예약번호");
@@ -63,13 +69,13 @@ public class ResMgrView extends JFrame {
 		jbOut = new JLabel("퇴실");
 		jbnote = new JLabel("비고");
 
-		// jbres_num.setHorizontalAlignment(jbres_num.CENTER);
-		// jbRoom.setHorizontalAlignment(jbRoom.CENTER);
-		// jbCnt.setHorizontalAlignment(jbCnt.CENTER);
-		// jbName.setHorizontalAlignment(jbName.CENTER);
-		// jbIn.setHorizontalAlignment(jbIn.CENTER);
-		// jbOut.setHorizontalAlignment(jbOut.CENTER);
-		// jbnote.setHorizontalAlignment(jbnote.CENTER);
+		jbres_num.setHorizontalAlignment(jbres_num.CENTER);
+		jbRoom.setHorizontalAlignment(jbRoom.CENTER);
+		jbCnt.setHorizontalAlignment(jbCnt.CENTER);
+		jbName.setHorizontalAlignment(jbName.CENTER);
+		jbIn.setHorizontalAlignment(jbIn.CENTER);
+		jbOut.setHorizontalAlignment(jbOut.CENTER);
+		jbnote.setHorizontalAlignment(jbnote.CENTER);
 
 		gap1 = new JLabel("");
 		gap2 = new JLabel("");
@@ -97,6 +103,7 @@ public class ResMgrView extends JFrame {
 	}// admin_line_name
 
 	// TextFiedl를 list에 넣기위한 method
+	@SuppressWarnings("static-access")
 	public void admin_line_tf(int i, JPanel line_panel, List<ResMgrVO> list) {
 
 		ResMgrVO rmvv;
@@ -105,32 +112,32 @@ public class ResMgrView extends JFrame {
 
 		// TextField 추가
 		list_Jbl.add(new JLabel(rmvv.getRes_id()));
-		// list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
 		list_Jbl.add(new JLabel(rmvv.getRoom_id()));
-		// list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
 		list_Jbl.add(new JLabel(String.valueOf(rmvv.getP_cnt()) + "명"));
-		// list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
 		list_Jbl.add(new JLabel(rmvv.getRes_name()));
-		// list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
 		list_Jbl.add(new JLabel(rmvv.getIn_time() + "시"));
-		// list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
 		list_Jbl.add(new JLabel(rmvv.getOut_time() + "시"));
-		// list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
+		list_Jbl.get(tf_count).setHorizontalAlignment(list_Jbl.get(tf_count).CENTER);
 		line_panel.add(list_Jbl.get(tf_count));
 		tf_count++;
 
@@ -141,19 +148,27 @@ public class ResMgrView extends JFrame {
 
 		// 버튼 추가 0 5 10 15
 
+		String path = System.getProperty("user.dir");
+		// btnLogin = new JButton(new
+		// ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/로그인 그라데이션.png"));
+
 		ResMgrVO rmvv;
 		rmvv = list.get(i);
 
+		// 있음 없음
 		if (rmvv.getRequest() == null) {
-			JButton btn = new JButton("없음");
-			btn.setFont(new Font("고딕", Font.BOLD, 10));
+			JButton btn = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/null_btn.png"));
+			// btn.setFont(new Font("고딕", Font.BOLD, 10));
+			// btn.setBackground(new Color(196, 255, 122));
 			list_btn.add(btn);
 			line_panel.add(list_btn.get(btn_count));
+
 			btn_count++;
 
 		} else {
-			JButton btn = new JButton("있음");
-			btn.setFont(new Font("고딕", Font.BOLD, 10));
+			JButton btn = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/be_btn.png"));
+			// btn.setFont(new Font("고딕", Font.BOLD, 10));
+			// btn.setBackground(new Color(196, 255, 122));
 			list_btn.add(btn);
 			line_panel.add(list_btn.get(btn_count));
 			btn_count++;
@@ -162,36 +177,44 @@ public class ResMgrView extends JFrame {
 		JLabel gap1 = new JLabel("");
 		line_panel.add(gap1);
 
+		// 입실
 		System.out.println(rmvv.getCheckin() + "체크여부 확인 !!!!!!!!!!!  == " + i);
 		if ("y".equals(rmvv.getCheckin())) {
-			JButton btton = new JButton("입실");
-			btton.setBackground(new Color(255, 128, 0));
-			btton.setFont(new Font("고딕", Font.BOLD, 10));
+			JButton btton = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/room_in_btn.png"));
+			// btton.setBackground(new Color(255, 128, 0));
+			// btton.setFont(new Font("고딕", Font.BOLD, 10));
 			list_btn.add(btton);
 			line_panel.add(list_btn.get(btn_count));
 			btn_count++;
 		} else {
-			JButton btton = new JButton("입실");
+			JButton btton = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/room_in_color.png"));
 			btton.setFont(new Font("고딕", Font.BOLD, 10));
+			btton.setBackground(new Color(196, 255, 122));
 			list_btn.add(btton);
 			line_panel.add(list_btn.get(btn_count));
 			btn_count++;
 		}
 
-		JButton btton2 = new JButton("퇴실");
-		btton2.setFont(new Font("고딕", Font.BOLD, 10));
+		// 퇴실
+		JButton btton2 = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/out_btn.png"));
+		// btton2.setFont(new Font("고딕", Font.BOLD, 10));
+		// btton2.setBackground(new Color(196, 255, 122));
 		list_btn.add(btton2);
 		line_panel.add(list_btn.get(btn_count));
 		btn_count++;
 
-		JButton btton3 = new JButton("예약취소");
-		btton3.setFont(new Font("고딕", Font.BOLD, 10));
+		// 예약취소
+		JButton btton3 = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/re_canle.png"));
+		// btton3.setFont(new Font("고딕", Font.BOLD, 10));
+		// btton3.setBackground(new Color(196, 255, 122));
 		list_btn.add(btton3);
 		line_panel.add(list_btn.get(btn_count));
 		btn_count++;
 
-		JButton btton4 = new JButton("변경");
-		btton4.setFont(new Font("고딕", Font.BOLD, 10));
+		// 변경
+		JButton btton4 = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/change_btn.png"));
+		// btton4.setFont(new Font("고딕", Font.BOLD, 10));
+		// btton4.setBackground(new Color(196, 255, 122));
 		list_btn.add(btton4);
 		line_panel.add(list_btn.get(btn_count));
 		btn_count++;
@@ -199,7 +222,7 @@ public class ResMgrView extends JFrame {
 		// System.out.println("btn = " + btn_count);
 	}// admin_line_btn
 
-	public JPanel ResMgrView1(int count, List<ResMgrVO> list) {
+	public JPanel ResMgrView(int count, List<ResMgrVO> list) {
 
 		// 전체 패널
 		totalpanel = new JPanel();
@@ -211,6 +234,8 @@ public class ResMgrView extends JFrame {
 		JPanel pan_date = new JPanel();
 		JPanel pan_btn = new JPanel();
 
+		pan_date.setBackground(new Color(255, 255, 255));
+		pan_btn.setBackground(new Color(255, 255, 255));
 		// 한줄을 담는 패널
 		total_line_panel = new JPanel();
 
@@ -226,7 +251,11 @@ public class ResMgrView extends JFrame {
 
 		// 날짜와 갱신하기 버튼 클릭!
 		JLabel now_date = new JLabel("  " + dTime + "  ");
-		btnrenew = new JButton("갱신");
+
+		String path = System.getProperty("user.dir");
+
+		btnrenew = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/renewal_btn.png"));
+		btnrenew.setSize(70,70);
 
 		// date를 테두리치는 코드
 		now_date.setBorder(new TitledBorder(new LineBorder(Color.black)));
@@ -238,12 +267,16 @@ public class ResMgrView extends JFrame {
 			line_panel.get(i).setBorder(new TitledBorder(new LineBorder(Color.black)));
 			line_panel.get(i).setPreferredSize(new Dimension(950, 50));
 			line_panel.get(i).setLayout(new GridLayout(2, 12));
+			line_panel.get(i).setBackground(new Color(255, 255, 255));
 		} // end for
 
 		// 크기지정
-		panel.setPreferredSize(new Dimension(950, 50));
+		panel.setPreferredSize(new Dimension(975, 40));
 		total_line_panel.setPreferredSize(new Dimension(950, 56 * list.size()));
-		// totalpanel.setPreferredSize(new Dimension(1000, 600));
+
+		// 색설정
+		panel.setBackground(new Color(255, 255, 255));
+		total_line_panel.setBackground(new Color(255, 255, 255));
 
 		// panel을 totalpanel에 넣기
 		for (int i = 0; i < count; i++) {
@@ -265,6 +298,7 @@ public class ResMgrView extends JFrame {
 		panel.add("Center", pan_date);
 		panel.add("East", pan_btn);
 
+		totalpanel.setBackground(new Color(255, 255, 255));
 		// add하는 부분
 		totalpanel.add(panel);
 
@@ -339,18 +373,22 @@ public class ResMgrView extends JFrame {
 
 				// 날짜와 갱신하기 버튼 클릭!
 				JLabel now_date = new JLabel("  " + dTime + "  ");
-				btnrenew = new JButton("갱신");
+				// 갱신
+				String path = System.getProperty("user.dir");
+				btnrenew = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/갱신.png"));
+
 
 				// date를 테두리치는 코드
-				now_date.setBorder(new TitledBorder(new LineBorder(Color.black)));
+				// now_date.setBorder(new TitledBorder(new LineBorder(Color.black)));
 				panel.setLayout(new BorderLayout());
 
 				// 각각의 패널에 크기지정하고, gridlayout으로 잡기
 
 				// 크기지정
-				panel.setPreferredSize(new Dimension(950, 50));
+				panel.setPreferredSize(new Dimension(975, 40));
 				total_line_panel.setPreferredSize(new Dimension(950, 56 * list.size()));
-				// totalpanel.setPreferredSize(new Dimension(1000, 600));
+
+				panel.setBackground(new Color(255, 255, 255));
 
 				// 날짜와 갱신버튼 추가
 				pan_date.add(now_date);
@@ -364,10 +402,11 @@ public class ResMgrView extends JFrame {
 				totalpanel.add(panel);
 
 				JPanel view = new JPanel();
-
 				JLabel jlbl = new JLabel("데이터가 없다");
 
 				view.add(jlbl);
+
+				totalpanel.setBackground(new Color(255, 255, 255));
 
 				// 스크롤 넣기 위한 것!
 				JScrollPane scrollPane = new JScrollPane(total_line_panel);
@@ -404,7 +443,7 @@ public class ResMgrView extends JFrame {
 				System.out.println("데이터 행의 수" + cnt);
 
 				// rmv.ResMgrView(cnt, list);
-				return rmv.ResMgrView1(cnt, list);
+				return rmv.ResMgrView(cnt, list);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -417,10 +456,10 @@ public class ResMgrView extends JFrame {
 	public List<ResMgrVO> resetData() throws SQLException {
 		@SuppressWarnings("unused")
 		ResMgrView rmv = new ResMgrView();
-		ManagerDAO r_dao = ManagerDAO.getInstance();
+		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 
-		list = r_dao.selectAll();
+		list = m_dao.selectAll();
 		// 갱신하기전 데이터 갯수를 파악하기!
 		return list;
 	}
@@ -454,6 +493,7 @@ public class ResMgrView extends JFrame {
 					line_panel.get(i).setBorder(new TitledBorder(new LineBorder(Color.black)));
 					line_panel.get(i).setPreferredSize(new Dimension(950, 50));
 					line_panel.get(i).setLayout(new GridLayout(2, 12));
+					line_panel.get(i).setBackground(new Color(255, 255, 255));
 				} // end for
 
 				// panel을 totalpanel에 넣기

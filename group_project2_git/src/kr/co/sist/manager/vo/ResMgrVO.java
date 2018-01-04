@@ -2,10 +2,10 @@ package kr.co.sist.manager.vo;
 
 public class ResMgrVO {
 	private String room_id, res_name, in_time, out_time, request, res_id, checkin, id;
-	int p_cnt, use_mile;
+	int p_cnt, use_mile, price;
 
 	public ResMgrVO(String room_id, int p_cnt, String res_name, String in_time, String out_time, String request,
-			String res_id, String checkin, String id, int use_mile) {
+			String res_id, String checkin, String id, int use_mile, int price) {
 		super();
 		this.room_id = room_id;
 		this.res_name = res_name;
@@ -17,6 +17,7 @@ public class ResMgrVO {
 		this.checkin = checkin;
 		this.id = id;
 		this.use_mile = use_mile;
+		this.price = price;
 	}
 
 	public String getRoom_id() {
@@ -58,4 +59,9 @@ public class ResMgrVO {
 	public int getUse_mile() {
 		return use_mile;
 	}
+
+	public int getPrice() {
+		return price;
+	}
+	
 }

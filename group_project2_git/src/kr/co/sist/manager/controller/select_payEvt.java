@@ -20,16 +20,20 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 
 	private select_pay sp;
 
+	@SuppressWarnings("unused")
 	private ManagerDAO m_dao;
 
 	private int select_otp = 0;
 
+	@SuppressWarnings("unused")
+	private ResMgrView rmv;
 
 	public select_payEvt(select_pay sp) {
 		this.sp = sp;
 	}
 
 	public select_payEvt(ResMgrView rmv) {
+		this.rmv = rmv;
 	}
 
 	// 카드, 현금 결제하는 method
@@ -41,6 +45,7 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 		String opt = "";
 
 		ResMgrVO rmvv = null;
+		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 		// System.out.println("인덱스 테스트" + cnt);
 
@@ -65,14 +70,10 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 
 	// 입실여부를 결정하는 method
 	public void checkin(int select) {
-		m_dao = ManagerDAO.getInstance();
-
 		int cnt = sp.getNumber();
 
-
-		// end else
-
 		ResMgrVO rmvv = null;
+		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 		// System.out.println("인덱스 테스트" + cnt);
 
@@ -109,17 +110,32 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == sp.getBtn()) {
+
 			if (select_otp == 0) {
 				JOptionPane.showMessageDialog(null, "결제방식을 선택해주세요");
 			} else {
 				System.out.println("메소드를 부를때 들어가는 값" + select_otp);
-				// 카드,
-				update_otp(select_otp);
-				checkin(select_otp);
-				// 여기서 입실시간은 checkin 메소드안에서 처리한다.
-				sp.dispose();
-			} // end if
+				select_pay sp = new select_pay();
+				m_dao = ManagerDAO.getInstance();
+				List<ResMgrVO> list;
+				ResMgrVO rmvv = null;
 
+				try {
+					list = m_dao.selectAll();
+					rmvv = list.get(sp.getNumber());
+
+					// 카드,
+					update_otp(select_otp);
+					checkin(select_otp);
+					sp.dispose();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				// 여기서 입실시간은 checkin 메소드안에서 처리한다.
+
+			} // end if
+			sp.dispose();
 		} // end if
 
 	}// actionPerformed

@@ -24,7 +24,6 @@ public class ManagerDAO {
 
 	private static ManagerDAO m_dao;
 
-
 	private ManagerDAO() {
 
 	}// ClientDAO
@@ -41,8 +40,7 @@ public class ManagerDAO {
 		Properties prop = new Properties();
 		String path = System.getProperty("user.dir");
 		try {
-			prop.load(new FileReader(
-					path+"/db/database.properties"));
+			prop.load(new FileReader(path + "/db/database.properties"));
 
 			Class.forName(prop.getProperty("driverClass"));
 
@@ -109,6 +107,7 @@ public class ManagerDAO {
 
 	///////////////////// 김진석/////////////////////////////
 	// 데이터베이스에서 원하는 정보정보 가져오기
+		// 데이터베이스에서 원하는 정보정보 가져오기
 		public List<ResMgrVO> selectAll() throws SQLException {
 			List<ResMgrVO> list = new ArrayList<ResMgrVO>();
 
@@ -123,7 +122,7 @@ public class ManagerDAO {
 				// 3. 쿼리문 생성객체 얻기
 				stmt = con.createStatement();
 				// 4. 쿼리문 수행후 결과 얻기
-				String selectQuery = "select  ri.room_id, rr.p_cnt, resin.res_name, rr.in_time, rr.out_time, resin.request, rr.res_id, rr.checkin, rr.id, resin.use_mile from room_info ri, room_res rr, res_info resin where  (ri.room_id = rr.room_id) and (rr.RES_ID = resin.RES_ID) and ((checkin='y') or (rr.checkin is null)) and (rr.res_date=to_char(  sysdate, 'yyyy-mm-dd')) order by res_id";
+				String selectQuery = "select  ri.room_id, rr.p_cnt, resin.res_name, rr.in_time, rr.out_time, resin.request, rr.res_id, rr.checkin, rr.id, resin.use_mile, ri.price from room_info ri, room_res rr, res_info resin where  (ri.room_id = rr.room_id) and (rr.RES_ID = resin.RES_ID) and ((checkin='y') or (rr.checkin is null)) and (rr.res_date=to_char(  sysdate, 'yyyy-mm-dd')) order by res_id";
 
 				rs = stmt.executeQuery(selectQuery);
 
@@ -133,7 +132,8 @@ public class ManagerDAO {
 				while (rs.next()) {
 					rmvv = new ResMgrVO(rs.getString("room_id"), rs.getInt("p_cnt"), rs.getString("res_name"),
 							rs.getString("in_time"), rs.getString("out_time"), rs.getString("request"),
-							rs.getString("res_id"), rs.getString("checkin"), rs.getString("id"), rs.getShort("use_mile"));
+							rs.getString("res_id"), rs.getString("checkin"), rs.getString("id"), rs.getInt("use_mile"),
+							rs.getInt("price"));
 					list.add(rmvv);
 				} // end while
 			} finally {
@@ -149,6 +149,51 @@ public class ManagerDAO {
 				} // end if
 			} // end try
 			return list;
+		}
+
+		// 시간정보를 가져오기!
+		public int Get_Intime(String room_id, String res_id) throws SQLException {
+
+			Connection con = null;
+			Statement stmt = null;
+			ResultSet rs = null;
+			try {
+				int pt = 0;
+				// 1. 드라이버 로딩
+				// 2. Connection 얻기
+				con = getConn();
+				// 3. 쿼리문 생성객체 얻기
+				stmt = con.createStatement();
+				// 4. 쿼리문 수행후 결과 얻기
+
+				StringBuilder selectQuery = new StringBuilder();
+
+				selectQuery.append(
+						"select in_time from(select  rownum r, rr.res_id, rr.room_id, in_time from   room_res rr, res_info ri  where res_date=to_char(  sysdate, 'yyyy-mm-dd') and rr.res_id = ri.res_id and room_id= '")
+						.append(room_id).append("' ").append("and rr.res_id !='").append(res_id)
+						.append("' ) where in_time > (select out_time  from    room_res where    res_id ='").append(res_id)
+						.append("' ) and r =1");
+
+				System.out.println("쿼리문 : " + selectQuery);
+				rs = stmt.executeQuery(selectQuery.toString());
+				if (rs.next()) {
+					pt = rs.getInt("in_time");
+					System.out.println("입실시간 = " + pt);
+				}
+
+				return pt;
+			} finally {
+				// 5. 연결 끊기
+				if (rs != null) {
+					rs.close();
+				} // end if
+				if (stmt != null) {
+					stmt.close();
+				} // end if
+				if (con != null) {
+					con.close();
+				} // end if
+			} // end try
 		}
 
 		// 카드, momey 업데이터
@@ -315,8 +360,37 @@ public class ManagerDAO {
 			} // end finally
 		}
 
-		//마일리지를 사용하는 쿼리문!
-		public void use_mile(String res_id, String id) throws SQLException {
+		// 퇴실을 누를경우 추가되는 마일리지
+		public void add_mile(double add_mile, String id) throws SQLException {
+			Connection con = null;
+			Statement stmt = null;
+
+			try {
+				con = getConn();
+				stmt = con.createStatement();
+				StringBuilder updateQuery = new StringBuilder();
+
+				System.out.println("여기까지왓나?-0---------ㅇDㅇㅇ");
+
+				updateQuery.append("update member set MILEAGE = MILEAGE + ").append(add_mile).append(" where id ='")
+						.append(id).append("'");
+
+				System.out.println("퇴실을 누를경우 추가되는 마일리지 쿼리문    " + updateQuery);
+				stmt.executeUpdate(updateQuery.toString());
+			} finally {
+				// 5. 연결 끊기
+				if (stmt != null) {
+					stmt.close();
+				} // end if
+
+				if (con != null) {
+					con.close();
+				} // end if
+			} // end finally
+		}// end use_mile
+
+		// 예약 취소를 하였을 때 다시 충전되는 마일리지
+		public void Use_Mile_Plus(String res_id, String id) throws SQLException {
 			Connection con = null;
 			Statement stmt = null;
 
@@ -328,9 +402,9 @@ public class ManagerDAO {
 				// res_ids = res_ids.substring(0, 7);
 				// update room_res set pay_opt = '현금' where res_id ='Res_047';
 
-				updateQuery.append("update member set MILEAGE = MILEAGE + (select use_mile from res_info where res_id='").append(res_id).append("') where id ='").append(id).append("'");
-						
-				
+				updateQuery.append("update member set MILEAGE = MILEAGE + (select use_mile from res_info where res_id='")
+						.append(res_id).append("') where id ='").append(id).append("'");
+
 				System.out.println("마일리지 사용하는 쿼리 - " + updateQuery);
 
 				stmt.executeUpdate(updateQuery.toString());
@@ -344,7 +418,7 @@ public class ManagerDAO {
 					con.close();
 				} // end if
 			} // end finally
-		}//end use_mile
+		}// end use_mile
 	/////////// 김진석/////////////////////////
 
 	////////// 함민이//////////////////////////
@@ -418,8 +492,8 @@ public class ManagerDAO {
 			StringBuilder selectRes = new StringBuilder();
 			selectRes.append(
 					"select to_char(rr.res_date,'yyyy-mm-dd')res_date,res_i.res_name,ri.room_id,rr.p_cnt,(ri.price*rr.p_cnt*(rr.out_time-rr.in_time))-nvl(res_i.use_mile,0) price,rr.in_time,rr.out_time ")
-			.append("from room_info ri, room_res rr, member mem , res_info res_i ")
-			.append("where rr.res_id=res_i.res_id and ri.room_id=rr.room_id and mem.id= rr.id and mem.id=? and to_char(sysdate,'yyyymmdd')>to_char(res_date,'yyyymmdd') and rr.checkin='n'");
+					.append("from room_info ri, room_res rr, member mem , res_info res_i ")
+					.append("where rr.res_id=res_i.res_id and ri.room_id=rr.room_id and mem.id= rr.id and mem.id=? and to_char(sysdate,'yyyymmdd')>to_char(res_date,'yyyymmdd') and rr.checkin='n'");
 			pstmt = con.prepareStatement(selectRes.toString());
 			pstmt.setString(1, id);
 

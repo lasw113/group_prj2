@@ -24,6 +24,7 @@ import kr.co.sist.manager.vo.ResMgrVO;
 public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 
 	private ResMgrView rmv;
+	ManagerDAO m_dao;
 
 	public ResMgrViewEvt(ResMgrView rmv) {
 		this.rmv = rmv;
@@ -32,11 +33,12 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 	// 요청사항 확인하는 메소드
 	public void setRequest(int Btn_Cnt) {
 		ResMgrVO rmvv = null;
-		ManagerDAO m_dao = ManagerDAO.getInstance();
+		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 		System.out.println(Btn_Cnt + "요청사항버튼!");
 		try {
 			list = m_dao.selectAll();
+			System.out.println(list.size() + " =========list크기");
 
 			// 요청사항이 비어있지 않다면
 			if (Btn_Cnt == 0) {
@@ -63,7 +65,7 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 	// 입실처리하는 메소드
 	public void roomIn(int cnt, int btn_cnt) {
 		select_pay sp = new select_pay();
-		ManagerDAO m_dao = ManagerDAO.getInstance();
+		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 		ResMgrVO rmvv = null;
 
@@ -83,13 +85,8 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 				int Intime = Integer.parseInt(rmvv.getIn_time());
 				int Outtime = Integer.parseInt(rmvv.getOut_time());
 				if (Intime <= dTime && Outtime > dTime) {
-					sp.select_pay1(cnt, btn_cnt);
+					sp.select_pay(cnt, btn_cnt);
 
-					System.out.println("사용한 마일리지 " + rmvv.getUse_mile());
-					//DB의 형이 number경우 자바에서 int형으로 가져올 때 null인경우 0으로처리해준다.
-					if(rmvv.getUse_mile() != 0) {
-						m_dao.use_mile(rmvv.getRes_id(), rmvv.getId());
-					}
 					rmv.getList_btn().get(btn_cnt).setBackground(new Color(255, 128, 0));
 				} else {
 					JOptionPane.showMessageDialog(rmv, "입실 시간이 되지 않았습니다.");
@@ -100,13 +97,8 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 				int Intime = Integer.parseInt(rmvv.getIn_time());
 				int Outtime = Integer.parseInt(rmvv.getOut_time());
 				if (Intime <= dTime && Outtime > dTime) {
-					sp.select_pay1(cnt, btn_cnt);
-					System.out.println("사용한 마일리지 " + rmvv.getUse_mile());
-					//DB의 형이 number경우 자바에서 int형으로 가져올 때 null인경우 0으로처리해준다.
-					System.out.println("사용한 마일리지 " + rmvv.getUse_mile());
-					if(rmvv.getUse_mile() != 0) {
-						m_dao.use_mile(rmvv.getRes_id(), rmvv.getId());
-					}
+					sp.select_pay(cnt, btn_cnt);
+
 					rmv.getList_btn().get(btn_cnt).setBackground(new Color(255, 128, 0));
 				} else {
 					JOptionPane.showMessageDialog(rmv, "입실 시간이 되지 않았습니다.");
@@ -122,7 +114,7 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 	// 퇴실처리하는 메소드
 	public void roomOut(int Btn_Cnt) {
 		ResMgrVO rmvv = null;
-		ManagerDAO m_dao = ManagerDAO.getInstance();
+		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 		System.out.println("퇴실 버튼 : " + Btn_Cnt);
 		int number = JOptionPane.showConfirmDialog(null, "정말로 퇴실하시겠습니까?");
@@ -143,6 +135,19 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 						JOptionPane.showMessageDialog(rmv, "입실여부를 확인해주세요");
 					} else if (rmvv.getCheckin() != null) {
 						m_dao.out_Rooming(rmvv.getRes_id());
+
+						System.out.println("*****************여기는 퇴실 누를때 마일리지 추가하는곳!");
+						double pirce;
+
+						int Intime = Integer.parseInt(rmvv.getIn_time());
+						int Outtime = Integer.parseInt(rmvv.getOut_time());
+						// 사용 시간
+						int UseTime = Outtime - Intime;
+
+						pirce = (UseTime * rmvv.getP_cnt() * rmvv.getPrice()) * 0.05;
+
+						m_dao.add_mile(pirce, rmvv.getId());
+
 						setRes();
 					}
 				} else if (Btn_Cnt != 0) {
@@ -154,6 +159,18 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 						JOptionPane.showMessageDialog(rmv, "입실여부를 확인해주세요");
 					} else if (rmvv.getCheckin() != null) {
 						m_dao.out_Rooming(rmvv.getRes_id());
+
+						System.out.println("*****************여기는 입실 누를때 마일리지 추가하는곳!");
+						double pirce;
+
+						int Intime = Integer.parseInt(rmvv.getIn_time());
+						int Outtime = Integer.parseInt(rmvv.getOut_time());
+						// 사용 시간
+						int UseTime = Outtime - Intime;
+
+						pirce = (UseTime * rmvv.getP_cnt() * rmvv.getPrice()) * 0.05;
+
+						m_dao.add_mile(pirce, rmvv.getId());
 						setRes();
 					}
 
@@ -170,7 +187,7 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 	public void roomCancle(int Btn_Cnt) {
 		System.out.println("예약취소  " + Btn_Cnt + "버튼");
 		ResMgrVO rmvv = null;
-		ManagerDAO m_dao = ManagerDAO.getInstance();
+		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 
 		int number = JOptionPane.showConfirmDialog(rmv, "정말로 예약취소하시겠습니까?");
@@ -185,20 +202,33 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 					rmvv = list.get(0);
 					rmv.setResView(list);
 					m_dao.delete_res(rmvv.getRes_id());
+
+					// 사용되는 마일리지를 다시 충전
+					System.out.println("사용한 마일리지 " + rmvv.getUse_mile());
+					// DB의 형이 number경우 자바에서 int형으로 가져올 때 null인경우 0으로처리해준다.
+					if (rmvv.getUse_mile() != 0) {
+						m_dao.Use_Mile_Plus(rmvv.getRes_id(), rmvv.getId());
+					}
 					setRes();
 				} else if (Btn_Cnt != 0) {
 					list = m_dao.selectAll();
 					Btn_Cnt = Btn_Cnt / 5;
 					rmvv = list.get(Btn_Cnt);
 					m_dao.delete_res(rmvv.getRes_id());
+
+					// 사용되는 마일리지를 다시 충전
+					// DB의 형이 number경우 자바에서 int형으로 가져올 때 null인경우 0으로처리해준다.
+					System.out.println("사용한 마일리지 " + rmvv.getUse_mile());
+					if (rmvv.getUse_mile() != 0) {
+						m_dao.Use_Mile_Plus(rmvv.getRes_id(), rmvv.getId());
+					}
 					setRes();
 				} // end else
 			} // end if
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		setRes();
 	}// roomCancle
 
 	// 시간 추가 메소드

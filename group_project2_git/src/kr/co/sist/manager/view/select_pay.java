@@ -1,5 +1,6 @@
 package kr.co.sist.manager.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -12,7 +13,6 @@ import javax.swing.JRadioButton;
 
 import kr.co.sist.manager.controller.select_payEvt;
 
-@SuppressWarnings("serial")
 public class select_pay extends JFrame {
 	private JButton btn;
 
@@ -23,13 +23,15 @@ public class select_pay extends JFrame {
 
 	private int btn_number;
 
-	public void select_pay1(int cnt, int btn_cnt) {
+	public void select_pay(int cnt, int btn_cnt) {
 		number = cnt;
 		btn_number = btn_cnt;
 		System.out.println("받아온 index " + number);
 		JPanel total_panel = new JPanel();
 		JPanel panel = new JPanel();
 		JPanel panel2 = new JPanel();
+
+		
 
 		btn = new JButton("확인");
 
@@ -43,6 +45,14 @@ public class select_pay extends JFrame {
 		group.add(money);
 
 		panel2.setLayout(new GridLayout(1, 2));
+		
+
+		//색바꾸기
+		total_panel.setBackground(new Color(255, 255, 255));
+		panel.setBackground(new Color(255, 255, 255));
+		panel2.setBackground(new Color(255, 255, 255));
+		card.setBackground(new Color(255, 255, 255));
+		money.setBackground(new Color(255, 255, 255));
 
 		view.setPreferredSize(new Dimension(150, 50));
 		card.setPreferredSize(new Dimension(70, 30));
