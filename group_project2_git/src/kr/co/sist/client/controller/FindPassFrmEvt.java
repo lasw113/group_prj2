@@ -51,20 +51,24 @@ public class FindPassFrmEvt implements ActionListener {
 
 		if (passId.equals("")) {
 			JOptionPane.showMessageDialog(fpf, "아이디를 입력해주세요");
+			fpf.getJtfId().requestFocus();
 			return;
 		}
 
 		if (passBirth.equals("")) {
 			JOptionPane.showMessageDialog(fpf, "생년월일을 입력해주세요");
+			fpf.getJtBirth().requestFocus();
 			return;
 		}
 		if (passHint.equals("----------------선택-------------------")) {// 비밀번호 힌트를 선택으로 했을때
 			JOptionPane.showMessageDialog(fpf, "비밀번호 힌트를 선택해주세요");
+			fpf.getJcbPassHint().requestFocus();
 			return;
 		}
 
 		if (passAns.equals("")) {
 			JOptionPane.showMessageDialog(fpf, "비밀번호 답을 입력해주세요");
+			fpf.getJtfPassAns().requestFocus();
 			return;
 		}
 		if (passAns.equals("null")) {

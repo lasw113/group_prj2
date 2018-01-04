@@ -86,6 +86,7 @@ public class JoinFrmEvt implements ActionListener {
 					char c2 = id.charAt(i);
 					if (!((c2 >= 0x61 && c2 <= 0x7A) || (c2 >= 0x41 && c2 <= 0x5A) || (c2 >= 0x30 && c2 <= 0x39))) {
 						JOptionPane.showMessageDialog(jf, "아이디는 영문자,숫자로 이루어져야 합니다.");
+						jf.getJtfId().requestFocus();
 						return;
 					} // end if
 				} // end for
@@ -93,39 +94,47 @@ public class JoinFrmEvt implements ActionListener {
 				// 비밀번호, 비밀번호 확인 부분이 입력하지 않았을때
 				if (pw.equals("null")) {
 					JOptionPane.showMessageDialog(jf, "사용할 수 없는 비밀번호입니다.");
+					jf.getJtfPass().requestFocus();
 					return;
 				} // end if
 				if (pw.equals("") || pwChk.equals("")) {
 					JOptionPane.showMessageDialog(jf, "비밀번호 또는 비밀번호 확인을 반드시 입력해주세요.");
+					jf.getJtfPass().requestFocus();
 					return;
 				} // end if
 					// 비밀번호가 일치하지 않을때
 				if (!pw.equals(pwChk)) {
 					JOptionPane.showMessageDialog(jf, "비밀번호가 일치하지 않습니다.");
+					jf.getJtfPass().requestFocus();
 					return;
 				} // end if
-					// 비밀번호가 13자리 초과 4자리 미만일때
+					// 비밀번호가 4자리 미만일 때
 				if (pw.length() < 4) {
 					JOptionPane.showMessageDialog(jf, "비밀번호는 4자리 이상이여야 합니다.");
+					jf.getJtfPass().requestFocus();
 					return;
 				} // end if
 				if (pass_index.equals("----------------선택-------------------")) {// 비밀번호 힌트를 선택으로 했을때
 					JOptionPane.showMessageDialog(jf, "비밀번호 힌트를 선택해주세요");
+					jf.getJcbPassHint().requestFocus();
 					return;
 				}
 				if (pass_ans.equals("")) {
 					// 비밀번호 힌트답 입력하지 않았을때
 					JOptionPane.showMessageDialog(jf, "비밀번호 힌트답을 반드시 입력해주세요.");
+					jf.getJtfHintAns().requestFocus();
 					return;
 				} // end if
 					// 이름을 입력하지 않았을때
 				if (name.equals("")) {
 					JOptionPane.showMessageDialog(jf, "이름을 반드시 입력해주세요.");
+					jf.getJtfName().requestFocus();
 					return;
 				} // end if
 				if (birth.equals("")) {
 					// 생년월일 입력하지 않았을때
 					JOptionPane.showMessageDialog(jf, "생년월일을 반드시 입력해주세요.");
+					jf.getJtfBirth().requestFocus();
 					return;
 				} // end if
 
@@ -133,6 +142,7 @@ public class JoinFrmEvt implements ActionListener {
 					char c1 = birth.charAt(i);
 					if ((c1 < 48 || c1 > 57) || (birth.length() != 6)) {// // 생년월일 6자리 + 숫자로 입력하지 않았을때
 						JOptionPane.showMessageDialog(jf, "올바르지 않은 생년월일 입니다.");
+						jf.getJtfBirth().requestFocus();
 						return;
 
 					} // end if
@@ -140,12 +150,14 @@ public class JoinFrmEvt implements ActionListener {
 					// 메일을 입력하지 않았을때
 				if (email.equals("")) {
 					JOptionPane.showMessageDialog(jf, "이메일을 반드시 입력해주세요.");
+					jf.getJtfEmail().requestFocus();
 					return;
 				} // end if
 
 				// 메일 유효성검사
 				if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
 					JOptionPane.showMessageDialog(jf, "올바르지 않은 이메일입니다.");
+					jf.getJtfEmail().requestFocus();
 					return;
 				} // end if
 
@@ -159,6 +171,7 @@ public class JoinFrmEvt implements ActionListener {
 					char c1 = phone_m.charAt(i);
 					if ((c1 < 48 || c1 > 57) || (phone_m.length() != 4)) {// 폰번호 가운데가 숫자가 아니고 4자리가 아닌경우
 						JOptionPane.showMessageDialog(jf, "핸드폰 번호는 4자리 숫자만 입력해주세요");
+						jf.getJtfPhoneM().requestFocus();
 						return;
 
 					} // end if
@@ -168,6 +181,7 @@ public class JoinFrmEvt implements ActionListener {
 					char c2 = phone_l.charAt(i);
 					if ((c2 < 48 || c2 > 57) || (phone_l.length() != 4)) {// 폰번호 마지막이 숫자가 아니고 4자리가 아닌경우
 						JOptionPane.showMessageDialog(jf, "핸드폰 번호는 4자리 숫자만 입력해주세요");
+						jf.getJtfPhoneL().requestFocus();
 						return;
 					} // end if
 				} // end for

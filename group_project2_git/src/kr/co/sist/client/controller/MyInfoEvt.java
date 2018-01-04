@@ -109,16 +109,19 @@ public class MyInfoEvt implements ActionListener {
 				if (chPassAns.equals("")) {
 					// 비밀번호 힌트답 입력하지 않았을때
 					JOptionPane.showMessageDialog(mif, "비밀번호 힌트답을 입력해주세요.");
+					mif.getJtfAnsPass().requestFocus();
 					return;
 				} // end if
 					// 이름을 입력하지 않았을때
 				if (name.equals("")) {
 					JOptionPane.showMessageDialog(mif, "이름을 입력해주세요.");
+					mif.getJtfName().requestFocus();
 					return;
 				} // end if
 				if (birth.equals("")) {
 					// 생년월일 입력하지 않았을때
 					JOptionPane.showMessageDialog(mif, "생년월일을 입력해주세요.");
+					mif.getJtfBirth().requestFocus();
 					return;
 				} // end if
 
@@ -126,6 +129,7 @@ public class MyInfoEvt implements ActionListener {
 					char c1 = birth.charAt(i);
 					if ((c1 < 48 || c1 > 57) || (birth.length() != 6)) {// // 생년월일 6자리 + 숫자로 입력하지 않았을때
 						JOptionPane.showMessageDialog(mif, "올바르지 않은 생년월일 입니다.");
+						mif.getJtfBirth().requestFocus();
 						return;
 
 					} // end if
@@ -134,18 +138,21 @@ public class MyInfoEvt implements ActionListener {
 				// 메일을 입력하지 않았을때
 				if (email.equals("")) {
 					JOptionPane.showMessageDialog(mif, "이메일을 입력해주세요.");
+					mif.getJtfEmail().requestFocus();
 					return;
 				} // end if
 
 				// 메일 유효성검사
 				if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
 					JOptionPane.showMessageDialog(mif, "올바르지 않은 이메일입니다.");
+					mif.getJtfEmail().requestFocus();
 					return;
 				} // end if
 
 				// 폰번호를 입력하지 않았을때
 				if (phone_m.equals("") || phone_l.equals("")) {
 					JOptionPane.showMessageDialog(mif, "핸드폰 번호를 입력해주세요.");
+					mif.getJtfEmail().requestFocus();
 					return;
 				} // end if
 
@@ -153,6 +160,7 @@ public class MyInfoEvt implements ActionListener {
 					char c1 = phone_m.charAt(i);
 					if ((c1 < 48 || c1 > 57) || (phone_m.length() != 4)) {
 						JOptionPane.showMessageDialog(mif, "핸드폰 번호는 4자리 숫자만 입력해주세요");
+						mif.getJtfPhoneM().requestFocus();
 						return;
 
 					} // end if
@@ -162,6 +170,7 @@ public class MyInfoEvt implements ActionListener {
 					char c2 = phone_l.charAt(i);
 					if ((c2 < 48 || c2 > 57) || (phone_l.length() != 4)) {
 						JOptionPane.showMessageDialog(mif, "핸드폰 번호는 4자리 숫자만 입력해주세요");
+						mif.getJtfPhoneL().requestFocus();
 						return;
 					} // end if
 				} // end for
@@ -214,14 +223,17 @@ public class MyInfoEvt implements ActionListener {
 
 			if (pw.equals("null")) {
 				JOptionPane.showMessageDialog(mif, "사용할 수 없는 비밀번호입니다.");
+				mif.getJtfPass().requestFocus();
 				return;
 			} // end if
 			if (!pw.equals(pwChk)) {
 				JOptionPane.showMessageDialog(mif, "비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+				mif.getJtfPass().requestFocus();
 				return;
 			}
 			if (pw.length() < 4) {
 				JOptionPane.showMessageDialog(mif, "비밀번호는 4자리 이상이어야 합니다.");
+				mif.getJtfPass().requestFocus();
 				return;
 			}
 

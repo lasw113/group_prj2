@@ -31,11 +31,13 @@ public class FindIDFrmEvt implements ActionListener {
 
 		if (fidName.equals("")) {
 			JOptionPane.showMessageDialog(fidf, "이름을 입력해주세요");
+			fidf.getJtfName().requestFocus();
 			return;
 		}
 
 		if (fidBirth.equals("")) {
 			JOptionPane.showMessageDialog(fidf, "생년월일을 입력해주세요");
+			fidf.getJtfBirth().requestFocus();
 			return;
 		}
 		if (fidBirth.equals("000000")) {
