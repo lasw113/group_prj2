@@ -98,9 +98,11 @@ public class UserMgrViewEvt extends MouseAdapter implements ActionListener {
 
 	@Override
 	public void mouseClicked(MouseEvent me) {
-		switch (me.getClickCount()) {
-		case DOUBLE_CLICK:
-			new MgrHistoryView(null, null, id);
+		if (me.getClickCount()==2) {
+		//case DOUBLE_CLICK:
+			int row=mgv.getJtUser().getSelectedRow();
+			String id=(String)mgv.getJtUser().getValueAt(row, 0);
+			new MgrHistoryView(mgv, null, id);
 
 		}
 	}// mouseClicked
@@ -109,7 +111,7 @@ public class UserMgrViewEvt extends MouseAdapter implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == mgv.getTfUser() || ae.getSource() == mgv.getBtnSearch()) {
 			id = mgv.getTfUser().getText();////////////////////
-			if (!id.equals("")) {
+			if (!"".equals(id)) {
 				// mgv.getDtmUser().setNumRows(0);// 테이블 초기화
 				if (!searchUser(id)) {
 
