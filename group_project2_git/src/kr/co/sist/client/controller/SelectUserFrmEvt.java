@@ -19,12 +19,11 @@ public class SelectUserFrmEvt implements ActionListener {
 	private int mille, updateMile;
 
 	private SelectUserVO su_vo;
-	
+
 	public SelectUserFrmEvt(SelectUserFrm suf) {
 		this.suf = suf;
 		setIdInfo(suf.getId(), suf.getRoom_id());
 	}
-
 
 	private void setIdInfo(String id, String room_id) {// 예약자 기본정보 세팅
 		RoomCDAO r_dao = RoomCDAO.getInstance();
@@ -53,18 +52,24 @@ public class SelectUserFrmEvt implements ActionListener {
 	}// setIdInfo
 
 	private void useMillege() {// 사용 마일리지 적용
-		int useMile = Integer.parseInt(suf.getJtfMillege().getText());
-		int price = (Integer.parseInt(su_vo.getPrice())
-				* (Integer.parseInt(suf.getOut_time()) - Integer.parseInt(suf.getIn_time())) * suf.getP_cnt())
-				- useMile;
-		int afterMile = Integer.parseInt(su_vo.getMillege()) - useMile;
-		if (useMile <= mille && useMile > 0) {
-			suf.getJtfPrice().setText(String.valueOf(price));
-			suf.getLblCanUse().setText("사용가능마일리지 : " + afterMile);
-			updateMile = useMile;
-		} else {
-			JOptionPane.showMessageDialog(suf, "사용 가능한 마일리지 금액이 아닙니다.");
-		}
+		try {
+			int useMile = Integer.parseInt(suf.getJtfMillege().getText());
+			int price = (Integer.parseInt(su_vo.getPrice())
+					* (Integer.parseInt(suf.getOut_time()) - Integer.parseInt(suf.getIn_time())) * suf.getP_cnt())
+					- useMile;
+			int afterMile = Integer.parseInt(su_vo.getMillege()) - useMile;
+			if (useMile <= mille && useMile >= 0) {
+				suf.getJtfPrice().setText(String.valueOf(price));
+				suf.getLblCanUse().setText("사용가능마일리지 : " + afterMile);
+				updateMile = useMile;
+			} else {
+				JOptionPane.showMessageDialog(suf, "사용 가능한 마일리지 금액이 아닙니다.");
+			}
+		} catch (NumberFormatException nfe) {
+			JOptionPane.showMessageDialog(suf, "숫자만 가능합니다.");
+			updateMile =0;
+			suf.getJtfMillege().setText("0");
+		} // end catch
 	}// useMillege
 
 	private void isNotEmpty() {// 사용자 정보가 적혀있지 않다면 메세지 띄우기
@@ -117,7 +122,7 @@ public class SelectUserFrmEvt implements ActionListener {
 			if (reservation()) {
 				JOptionPane.showMessageDialog(suf, "예약 완료되었습니다.");
 				suf.dispose();
-			}//end if
+			} // end if
 
 		} // end if
 
