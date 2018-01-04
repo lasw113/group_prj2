@@ -38,7 +38,7 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 		isInLabel = new JLabel[9];
 
 		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/HalfMike.png");
-		URL url2 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/HalfSully.png");
+		URL url2 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/halfSully.png");
 		URL url3 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/white_lblIn.png");
 		URL url4 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/mike2.png");
 
