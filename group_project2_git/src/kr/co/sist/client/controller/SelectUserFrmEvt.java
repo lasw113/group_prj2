@@ -74,12 +74,15 @@ public class SelectUserFrmEvt implements ActionListener {
 		} // end catch
 	}// useMillege
 
-	private void isNotEmpty() {// 사용자 정보가 적혀있지 않다면 메세지 띄우기
+	private boolean isNotEmpty() {// 사용자 정보가 적혀있지 않다면 메세지 띄우기
+		boolean flag = false;
+
 		if (suf.getJtfEmail().getText().equals("") || suf.getJtfName().getText().equals("")
 				|| suf.getJtfPhoneL().getText().equals("") || suf.getJtfPhoneM().getText().equals("")) {
 			JOptionPane.showMessageDialog(suf, "모든 정보를 입력해주세요");
-			return;
+			flag = true;
 		} // end if
+		return flag;
 	}// isNotEmpty
 
 	private boolean reservation() {// 예약 정보를 DB에 insert
@@ -120,7 +123,9 @@ public class SelectUserFrmEvt implements ActionListener {
 		} // end if
 
 		if (suf.getBtnRes() == ae.getSource()) {// 예약 하기 버튼
-			isNotEmpty();
+			if(isNotEmpty()) {
+				return;
+			}//end if
 			if (reservation()) {
 				JOptionPane.showMessageDialog(suf, "예약 완료되었습니다.");
 				suf.dispose();
