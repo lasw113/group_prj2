@@ -61,7 +61,7 @@ public class RequestFrmEvt implements Runnable, ActionListener {
 		Properties prop = new Properties();
 		String path = System.getProperty("user.dir");
 		prop.load(new FileReader(
-				path+"/src/kr/co/sist/client/dao/database.properties"));
+				path+"/db/database.properties"));
 		String ip = prop.getProperty("ip");
 		client = new Socket(ip, portNum);
 		System.out.println(portNum);
