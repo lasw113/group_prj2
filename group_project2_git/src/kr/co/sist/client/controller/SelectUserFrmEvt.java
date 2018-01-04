@@ -59,12 +59,13 @@ public class SelectUserFrmEvt implements ActionListener {
 					* (Integer.parseInt(suf.getOut_time()) - Integer.parseInt(suf.getIn_time())) * suf.getP_cnt())
 					- useMile;
 			int afterMile = Integer.parseInt(su_vo.getMillege()) - useMile;
-			if (useMile <= mille && useMile >= 0) {
+			if (useMile <= mille && useMile >= 0 && useMile <= price) {
 				suf.getJtfPrice().setText(String.valueOf(price));
 				suf.getLblCanUse().setText("사용가능마일리지 : " + afterMile);
 				updateMile = useMile;
 			} else {
 				JOptionPane.showMessageDialog(suf, "사용 가능한 마일리지 금액이 아닙니다.");
+				suf.getJtfMillege().setText("0");
 			}
 		} catch (NumberFormatException nfe) {
 			JOptionPane.showMessageDialog(suf, "숫자만 가능합니다.");
