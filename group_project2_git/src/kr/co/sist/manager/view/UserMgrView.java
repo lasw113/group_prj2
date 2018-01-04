@@ -1,6 +1,7 @@
 package kr.co.sist.manager.view;
 
 import java.awt.Color;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,7 +30,11 @@ public class UserMgrView extends JPanel {
 
 		lblUser = new JLabel("회원검색");
 		tfUser = new JTextField();
-		btnSearch = new JButton(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/check.png"));
+		
+		URL url1=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/check.png");
+		URL url2=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/resmike.png");
+		
+		btnSearch = new JButton(new ImageIcon(url1));
 		String[] userStatus = { "아이디", "이름", "전화번호", "마일리지" };
 		String[][] userData = { { "", "", "", "" } };
 		dtmUser = new DefaultTableModel(userData, userStatus);
@@ -60,7 +65,8 @@ public class UserMgrView extends JPanel {
 		header.setBackground(new Color(0x9ECC57));
 
 		setLayout(null);
-		lblpng=new JLabel(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/resmike.png"));
+		//lblpng=new JLabel(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/resmike.png"));
+		lblpng=new JLabel(new ImageIcon(url2));
 		lblpng.setBounds(120, 40, 200, 60);
 		
 		lblUser.setBounds(680, 30, 110, 30);

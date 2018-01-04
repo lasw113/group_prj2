@@ -3,6 +3,7 @@ package kr.co.sist.manager.view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,17 +37,26 @@ public class ReqMgrView extends JPanel implements Runnable,ActionListener{
 		btnImageAfter = new ImageIcon[9];
 		isInLabel = new JLabel[9];
 		
+		URL url1=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/HalfMike.png");
+		URL url2=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/HalfSully.png");
+		URL url3=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/white_lblIn.png");
+		URL url4=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/mike2.png");
+		
+		
 		String path = System.getProperty("user.dir");		
 				
-		inImg1 = new ImageIcon(path+"/src/kr/co/sist/studyroom/img/HalfMike.png");
-		inImg2 = new ImageIcon(path+"/src/kr/co/sist/studyroom/img/HalfSully.png");
-		whiteImg = new ImageIcon(path+"/src/kr/co/sist/studyroom/img/white_lblIn.png");
+		inImg1 = new ImageIcon(url1);
+		inImg2 = new ImageIcon(url2);
+		whiteImg = new ImageIcon(url3);
+//		inImg1 = new ImageIcon(path+"/src/kr/co/sist/studyroom/img/HalfMike.png");
+//		inImg2 = new ImageIcon(path+"/src/kr/co/sist/studyroom/img/HalfSully.png");
+//		whiteImg = new ImageIcon(path+"/src/kr/co/sist/studyroom/img/white_lblIn.png");
 		btnRoom=new JButton[9];
 		cmv= new ChatMgrView[9];
 		listServer = new ArrayList<ServerHelper>();		
 		room_num = new String[] {"S_01","S_02","S_03","S_04","M_05","M_06","M_07","L_08","X_09"};
 		pNum = new int[] {65000,64900,64800,64700,64600,64500,64400,64300,64200,64100};
-		lblImg = new JLabel(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/mike2.png"));
+		lblImg = new JLabel(new ImageIcon(url4));
 
 		for(int i=0 ; i < serverport.length ; i++  ) {
 			serverport[i]=pNum[i];

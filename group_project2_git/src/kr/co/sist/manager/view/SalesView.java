@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,14 +26,19 @@ public class SalesView extends JPanel {
 	
 	public SalesView() {
 		setLayout(null);
-		String path = System.getProperty("user.dir");	
-		backgroundImg= new ImageIcon(path+"/src/kr/co/sist/studyroom/img/backGroundSV.png");
+		
+		URL url1=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/backGroundSV.png");
+		URL url2=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/renew.png");
+//		String path = System.getProperty("user.dir");	
+//		backgroundImg= new ImageIcon(path+"/src/kr/co/sist/studyroom/img/backGroundSV.png");
+		backgroundImg= new ImageIcon(url1);
 		Date date= new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String today = sdf.format(date);
 		System.out.println(today);
 		lblDate= new JLabel(today);
-		btnRe = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/renew.png"));
+//		btnRe = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/renew.png"));
+		btnRe = new JButton(new ImageIcon(url2));
 		lblSalesName = new JLabel[5];
 		lblSalesValue = new JLabel[5];
 		

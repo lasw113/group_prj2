@@ -57,7 +57,7 @@ public class add_timeView extends JFrame {
 		combo = new JComboBox<Integer>();
 
 		if (possible_time == 0) {
-			JOptionPane.showMessageDialog(null,"시간추가를 할 수가 없습니다.");
+			JOptionPane.showMessageDialog(null, "시간추가를 할 수가 없습니다.");
 			return;
 		} else {
 			for (int i = 1; i <= possible_time; i++) {
@@ -65,7 +65,6 @@ public class add_timeView extends JFrame {
 			}
 			combo.setEditable(false);
 		}
-
 		btn_check = new JButton("확인");
 		btn_cancle = new JButton("취소");
 
@@ -112,8 +111,8 @@ public class add_timeView extends JFrame {
 	public void add_timeForm(int i) {
 
 		// list에 저장된 DB정보 가져오기!
-//		ResMgrVO rmvv = null;
-		ManagerDAO r_dao= ManagerDAO.getInstance();
+		// ResMgrVO rmvv = null;
+		ManagerDAO r_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 		index = i / 5;
 		System.out.println("해당되는 index : " + index);
@@ -121,10 +120,10 @@ public class add_timeView extends JFrame {
 		try {
 			list = r_dao.selectAll();
 			if (index == 0) {
-//				rmvv = list.get(0);
+				// rmvv = list.get(0);
 				frame_disposition(list, 0);
 			} else if (index != 0) {
-//				rmvv = list.get(index);
+				// rmvv = list.get(index);
 				frame_disposition(list, index);
 			} // end if
 		} catch (SQLException e) {

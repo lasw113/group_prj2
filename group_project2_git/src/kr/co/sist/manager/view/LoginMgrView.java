@@ -1,6 +1,7 @@
 package kr.co.sist.manager.view;
 
 import java.awt.Graphics;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,8 +27,11 @@ public class LoginMgrView extends JFrame {
 		jtfId = new JTextField();
 		jtfPass = new JPasswordField();
 		jtfPass.setEchoChar('*');
-		String path = System.getProperty("user.dir");
-		btnLogin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/로그인 그라데이션.png"));
+		URL url1=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/로그인 그라데이션.png");
+		URL url2=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/managerLongin.png");
+//		String path = System.getProperty("user.dir");
+//		btnLogin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/로그인 그라데이션.png"));
+		btnLogin = new JButton(new ImageIcon(url1));
 		lblId = new JLabel("아이디", JLabel.CENTER);
 		lblPass = new JLabel("비밀번호", JLabel.CENTER);
 
@@ -36,7 +40,8 @@ public class LoginMgrView extends JFrame {
 		JPanel backImg = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
-				g.drawImage(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "managerLongin.png").getImage(), 0, 0, null);
+//				g.drawImage(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "managerLongin.png").getImage(), 0, 0, null);
+				g.drawImage(new ImageIcon(url2).getImage(), 0, 0, null);
 			}
 		};
 		backImg.setLayout(null);
