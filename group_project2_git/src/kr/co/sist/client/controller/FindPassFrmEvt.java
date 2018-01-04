@@ -49,13 +49,13 @@ public class FindPassFrmEvt implements ActionListener {
 
 		flag = false;
 
-		if (passId.equals("")) {
+		if ("".equals(passId)) {
 			JOptionPane.showMessageDialog(fpf, "아이디를 입력해주세요");
 			fpf.getJtfId().requestFocus();
 			return;
 		}
 
-		if (passBirth.equals("")) {
+		if ("".equals(passBirth)) {
 			JOptionPane.showMessageDialog(fpf, "생년월일을 입력해주세요");
 			fpf.getJtBirth().requestFocus();
 			return;
@@ -66,7 +66,7 @@ public class FindPassFrmEvt implements ActionListener {
 			return;
 		}
 
-		if (passAns.equals("")) {
+		if ("".equals(passAns)) {
 			JOptionPane.showMessageDialog(fpf, "비밀번호 답을 입력해주세요");
 			fpf.getJtfPassAns().requestFocus();
 			return;
@@ -117,12 +117,11 @@ public class FindPassFrmEvt implements ActionListener {
 			int passLen = Pass.length();
 
 			Pass = Pass.substring(0, passLen / 2);
-			System.out.println(Pass.length());
 			for (int i = Pass.length(); i < passLen; i++) {
 				Pass += "*";
 			}
 
-			if (Pass.trim().equals("")) { // 일치하는 회원정보가 없을때
+			if ("".equals(Pass.trim())) { // 일치하는 회원정보가 없을때
 				JOptionPane.showMessageDialog(fpf, "일치하는 회원정보가 없습니다.");
 			} else {
 				JOptionPane.showMessageDialog(fpf, "회원님의 비밀번호는 " + Pass + " 입니다.");

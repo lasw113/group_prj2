@@ -36,13 +36,13 @@ public class LoginFrmEvt implements ActionListener {
 		}
 
 		// LogInForm에서 id, pw가 비었을때-누락된 사항
-		if (id.equals("")) { // ID입력란이 비어있는 경우
+		if ("".equals(id)) { // ID입력란이 비어있는 경우
 			JOptionPane.showMessageDialog(lf, "아이디를 입력하세요");
 			lf.getJtfId().requestFocus();
 			return;
 		}
 		// 비밀번호가 입력되지 않을경우 .
-		if (logPw.equals("")) {
+		if ("".equals(logPw)) {
 			JOptionPane.showMessageDialog(lf, "비밀번호를 입력하세요");
 			lf.getJtfPass().requestFocus();
 			return;

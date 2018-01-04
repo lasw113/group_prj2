@@ -48,7 +48,7 @@ public class JoinFrmEvt implements ActionListener {
 		if (chkId) {
 			JOptionPane.showMessageDialog(jf, id + "는(은) 이미 사용 중인 아이디 입니다.");
 
-		} else if (!id.equals("")) {
+		} else if (!"".equals(id)) {
 			JOptionPane.showMessageDialog(jf, id + "는(은) 사용 가능한 아이디 입니다.");
 			flag = true; // 밑에 입력안했을때의 if문을 타기위해 사용
 		} else {// 아이디 입력 하지 않았을때
@@ -97,7 +97,7 @@ public class JoinFrmEvt implements ActionListener {
 					jf.getJtfPass().requestFocus();
 					return;
 				} // end if
-				if (pw.equals("") || pwChk.equals("")) {
+				if ("".equals(pw) || "".equals(pwChk)) {
 					JOptionPane.showMessageDialog(jf, "비밀번호 또는 비밀번호 확인을 반드시 입력해주세요.");
 					jf.getJtfPass().requestFocus();
 					return;
@@ -119,19 +119,19 @@ public class JoinFrmEvt implements ActionListener {
 					jf.getJcbPassHint().requestFocus();
 					return;
 				}
-				if (pass_ans.equals("")) {
+				if ("".equals(pass_ans)) {
 					// 비밀번호 힌트답 입력하지 않았을때
 					JOptionPane.showMessageDialog(jf, "비밀번호 힌트답을 반드시 입력해주세요.");
 					jf.getJtfHintAns().requestFocus();
 					return;
 				} // end if
 					// 이름을 입력하지 않았을때
-				if (name.equals("")) {
+				if ("".equals(name)) {
 					JOptionPane.showMessageDialog(jf, "이름을 반드시 입력해주세요.");
 					jf.getJtfName().requestFocus();
 					return;
 				} // end if
-				if (birth.equals("")) {
+				if ("".equals(birth)) {
 					// 생년월일 입력하지 않았을때
 					JOptionPane.showMessageDialog(jf, "생년월일을 반드시 입력해주세요.");
 					jf.getJtfBirth().requestFocus();
@@ -148,7 +148,7 @@ public class JoinFrmEvt implements ActionListener {
 					} // end if
 				} // end for
 					// 메일을 입력하지 않았을때
-				if (email.equals("")) {
+				if ("".equals(email)) {
 					JOptionPane.showMessageDialog(jf, "이메일을 반드시 입력해주세요.");
 					jf.getJtfEmail().requestFocus();
 					return;
@@ -161,7 +161,7 @@ public class JoinFrmEvt implements ActionListener {
 					return;
 				} // end if
 
-				if (phone_m.equals("") || phone_l.equals("")) {
+				if ("".equals(phone_m) || "".equals(phone_l)) {
 					// 폰번호를 입력하지 않았을때
 					JOptionPane.showMessageDialog(jf, "핸드폰 번호를 반드시 입력해주세요.");
 					return;

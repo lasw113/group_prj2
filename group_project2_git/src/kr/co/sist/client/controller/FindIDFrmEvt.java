@@ -29,13 +29,13 @@ public class FindIDFrmEvt implements ActionListener {
 
 		flag = false;
 
-		if (fidName.equals("")) {
+		if ("".equals(fidName)) {
 			JOptionPane.showMessageDialog(fidf, "이름을 입력해주세요");
 			fidf.getJtfName().requestFocus();
 			return;
 		}
 
-		if (fidBirth.equals("")) {
+		if ("".equals(fidBirth)) {
 			JOptionPane.showMessageDialog(fidf, "생년월일을 입력해주세요");
 			fidf.getJtfBirth().requestFocus();
 			return;
@@ -45,7 +45,7 @@ public class FindIDFrmEvt implements ActionListener {
 			return;
 		}
 
-		if (fidPhoneM.equals("")||fidPhoneL.equals("")) {
+		if ("".equals(fidPhoneM)||"".equals(fidPhoneL)) {
 			JOptionPane.showMessageDialog(fidf, "핸드폰번호를 입력해주세요");
 			return;
 		}
@@ -71,7 +71,7 @@ public class FindIDFrmEvt implements ActionListener {
 		try {
 			id = c_dao.findID(fiv);
 
-			if (id.trim().equals("")) {
+			if ("".equals(id.trim())) {
 				// 일치하는 회원정보가 없을때
 				JOptionPane.showMessageDialog(fidf, "일치하는 회원정보가 없습니다.");
 				return;

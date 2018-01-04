@@ -106,19 +106,19 @@ public class MyInfoEvt implements ActionListener {
 				String phone_m = mif.getJtfPhoneM().getText();
 				String phone_l = mif.getJtfPhoneL().getText();
 
-				if (chPassAns.equals("")) {
+				if ("".equals(chPassAns)) {
 					// 비밀번호 힌트답 입력하지 않았을때
 					JOptionPane.showMessageDialog(mif, "비밀번호 힌트답을 입력해주세요.");
 					mif.getJtfAnsPass().requestFocus();
 					return;
 				} // end if
 					// 이름을 입력하지 않았을때
-				if (name.equals("")) {
+				if ("".equals(name)) {
 					JOptionPane.showMessageDialog(mif, "이름을 입력해주세요.");
 					mif.getJtfName().requestFocus();
 					return;
 				} // end if
-				if (birth.equals("")) {
+				if ("".equals(birth)) {
 					// 생년월일 입력하지 않았을때
 					JOptionPane.showMessageDialog(mif, "생년월일을 입력해주세요.");
 					mif.getJtfBirth().requestFocus();
@@ -136,7 +136,7 @@ public class MyInfoEvt implements ActionListener {
 				} // end for
 
 				// 메일을 입력하지 않았을때
-				if (email.equals("")) {
+				if ("".equals(email)) {
 					JOptionPane.showMessageDialog(mif, "이메일을 입력해주세요.");
 					mif.getJtfEmail().requestFocus();
 					return;
@@ -150,7 +150,7 @@ public class MyInfoEvt implements ActionListener {
 				} // end if
 
 				// 폰번호를 입력하지 않았을때
-				if (phone_m.equals("") || phone_l.equals("")) {
+				if ("".equals(phone_m) || "".equals(phone_l)) {
 					JOptionPane.showMessageDialog(mif, "핸드폰 번호를 입력해주세요.");
 					mif.getJtfEmail().requestFocus();
 					return;
