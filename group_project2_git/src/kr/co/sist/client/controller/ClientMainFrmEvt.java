@@ -107,6 +107,7 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 				}
 				break;
 			} // end if
+			break;
 		case LOGOUT_TAB:
 			switch (JOptionPane.showConfirmDialog(cmf, "로그아웃하시겠습니까?")) {
 			case JOptionPane.OK_OPTION:

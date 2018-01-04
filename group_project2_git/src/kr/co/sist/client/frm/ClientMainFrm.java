@@ -1,5 +1,7 @@
 package kr.co.sist.client.frm;
 
+import java.awt.Color;
+
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
@@ -17,7 +19,10 @@ public class ClientMainFrm extends JFrame {
 		this.id = id;
 		this.pass = pass;
 
+		this.getContentPane().setBackground(Color.white);
+
 		jtpClient = new JTabbedPane();
+		jtpClient.setBackground(Color.WHITE);
 
 		add("Center", jtpClient);
 
