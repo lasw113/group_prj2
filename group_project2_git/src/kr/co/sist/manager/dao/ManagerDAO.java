@@ -3,6 +3,7 @@ package kr.co.sist.manager.dao;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -38,9 +39,12 @@ public class ManagerDAO {
 	private Connection getConn() throws SQLException {
 		Connection con = null;
 		Properties prop = new Properties();
-		String path = System.getProperty("user.dir");
+//		String path = System.getProperty("user.dir");
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/client/dao/database.properties");
 		try {
-			prop.load(new FileReader(path + "/src/kr/co/sist/client/dao/database.properties"));
+//			prop.load(new FileReader(
+//					path+"/src/kr/co/sist/client/dao/database.properties"));
+			prop.load(new FileReader(String.valueOf(url1).substring(6)));
 
 			Class.forName(prop.getProperty("driverClass"));
 
