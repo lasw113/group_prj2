@@ -51,12 +51,10 @@ public class ClientDAO {
 	private Connection getConn() throws SQLException {
 		Connection con = null;
 		Properties prop = new Properties();
-//		String path = System.getProperty("user.dir");
-		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/client/dao/database.properties");
+		String path = System.getProperty("user.dir");
 		try {
-//			prop.load(new FileReader(
-//					path+"/src/kr/co/sist/client/dao/database.properties"));
-			prop.load(new FileReader(String.valueOf(url1).substring(6)));
+			prop.load(new FileReader(
+					path+"/db/database.properties"));
 
 			Class.forName(prop.getProperty("driverClass"));
 
