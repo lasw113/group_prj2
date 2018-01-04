@@ -1,5 +1,8 @@
 package kr.co.sist.client.frm;
 
+import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -7,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import javafx.scene.image.Image;
 import kr.co.sist.client.controller.HistoryFrmEvt;
 import kr.co.sist.client.controller.ResChkFrmEvt;
 
@@ -16,7 +20,7 @@ public class HistoryFrm extends JDialog {
 	private ResChkFrm rcf;
 
 	private JTable jtHistory;
-	private JLabel lblWho;
+	private JLabel lblWho, lblpng;
 	private DefaultTableModel dtmHistory;
 
 	private String id;
@@ -49,6 +53,7 @@ public class HistoryFrm extends JDialog {
 		jtHistory.getColumnModel().getColumn(3).setPreferredWidth(60);
 		jtHistory.getColumnModel().getColumn(4).setPreferredWidth(100);
 		jtHistory.getColumnModel().getColumn(5).setPreferredWidth(130);
+		
 
 		// 컬럼의 높이 변경
 		jtHistory.setRowHeight(30);
@@ -56,20 +61,22 @@ public class HistoryFrm extends JDialog {
 		jtHistory.getTableHeader().setReorderingAllowed(false);
 
 		JScrollPane jspHis = new JScrollPane(jtHistory);
-
-		JPanel jpHis = new JPanel();
-		jpHis.add(jspHis);
-
+		jspHis.getViewport().setBackground(Color.white);
 		lblWho=new JLabel("예약내역");
+		
+		lblpng=new JLabel(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/historysully.jpg"));
 		
 		new HistoryFrmEvt(this, rcfe,id);
 		setLayout(null);
 		
+		lblpng.setBounds(500, 40, 200, 60);
 		lblWho.setBounds(350, 30, 200, 30);
 		jspHis.setBounds(50, 100, 700, 500);
+		add(lblpng);
 		add(lblWho);
 		add(jspHis);
 		setBounds(100, 100, 800, 650);
+		this.getContentPane().setBackground(Color.white);
 		setResizable(false);
 		setVisible(true);
 

@@ -331,6 +331,7 @@ public class RoomCDAO {
 			rs = pstmt.executeQuery();
 
 			HistoryVO hvo = new HistoryVO();
+			System.out.println("??????????");
 			while (rs.next()) {
 				hvo = new HistoryVO(rs.getString("res_name"), rs.getString("room_id"), rs.getString("in_time"),
 						rs.getString("out_time"), rs.getString("res_date"), rs.getInt("p_cnt"), rs.getInt("price"));

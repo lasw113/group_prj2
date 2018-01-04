@@ -1,5 +1,8 @@
 package kr.co.sist.manager.view;
 
+import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,7 +19,7 @@ public class UserMgrView extends JPanel {
 	private DefaultTableModel dtmUser;
 	private JButton btnSearch;
 	private JTextField tfUser;
-	private JLabel lblUser;
+	private JLabel lblUser, lblpng;
 	private JTable jtUser;
 	private JPanel jpUser;
 	private String id;
@@ -25,11 +28,10 @@ public class UserMgrView extends JPanel {
 
 		lblUser = new JLabel("회원검색");
 		tfUser = new JTextField();
-		btnSearch = new JButton("검색");
+		btnSearch = new JButton(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/check.png"));
 		String[] userStatus = { "아이디", "이름", "전화번호", "마일리지" };
 		String[][] userData = { { "", "", "", "" } };
 		dtmUser = new DefaultTableModel(userData, userStatus);
-
 		jtUser = new JTable(dtmUser) {
 
 			// 컬럼의 내용편집 막기
@@ -49,23 +51,24 @@ public class UserMgrView extends JPanel {
 		jtUser.setRowHeight(30);
 		// 컬럼의 이동 막기
 		jtUser.getTableHeader().setReorderingAllowed(false);
-
 		JScrollPane jspUser = new JScrollPane(jtUser);
 		jspUser.setBounds(90, 100, 810, 450);
-
-		// jpUser=new JPanel();
-		// jpUser.add(jspUser);
+		jspUser.getViewport().setBackground(Color.WHITE);
 
 		setLayout(null);
-
+		lblpng=new JLabel(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/resmike.png"));
+		lblpng.setBounds(120, 40, 200, 60);
+		
 		lblUser.setBounds(680, 30, 110, 30);
 		tfUser.setBounds(740, 30, 130, 30);
 		btnSearch.setBounds(875, 30, 85, 30);
 
+		add(lblpng);
 		add(lblUser);
 		add(tfUser);
 		add(btnSearch);
 
+		setBackground(Color.white);
 		add("Center", jspUser);
 		UserMgrViewEvt umve = new UserMgrViewEvt(this, "ham");
 		jtUser.addMouseListener(umve);

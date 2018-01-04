@@ -1,5 +1,8 @@
 package kr.co.sist.client.frm;
 
+import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,7 +19,7 @@ public class ResChkFrm extends JPanel {
 	private JTabbedPane jtRoom;
 	private DefaultTableModel dtmRoom;
 	private JTable jtRes;
-	private JLabel lblRes;
+	private JLabel lblRes, lblpng;
 	private JButton btnHistory, btnCancel;
 	private JPanel jpRes;
 
@@ -30,6 +33,7 @@ public class ResChkFrm extends JPanel {
 		setLayout(null);
 		// defaultTableModel을 생성하고 값 할당
 		dtmRoom = new DefaultTableModel(resData, resStatus);
+		
 		// defaultTableModel을 사용하여 JTable 생성
 		jtRes = new JTable(dtmRoom) {
 
@@ -57,20 +61,31 @@ public class ResChkFrm extends JPanel {
 		jtRes.setRowHeight(30);
 		// 컬럼의 이동 막기
 		jtRes.getTableHeader().setReorderingAllowed(false);
+		
 
 		lblRes = new JLabel("예약현황");
 
 		// JTable 컬럼명 보여주기
 		JScrollPane jspRes = new JScrollPane(jtRes);
+		jspRes.getViewport().setBackground(Color.white);
 
-		btnHistory = new JButton("예약내역");
-		btnCancel = new JButton("예약취소");
-
+		String path=System.getProperty("user.dir");
+		System.out.println(path);
+		
+		btnHistory = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/history.png"));
+		btnCancel = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/cancel.png"));
+		
+		lblpng=new JLabel(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/resmike.png"));
+		lblpng.setBounds(600, 30, 200, 60);
+		
+		
 		lblRes.setBounds(70, 30, 150, 50);
 		jspRes.setBounds(90, 90, 810, 400);
 		btnHistory.setBounds(250, 500, 150, 50);
 		btnCancel.setBounds(600, 500, 150, 50);
+		
 
+		add(lblpng);
 		add(lblRes);
 		add(jspRes);
 		add(btnHistory);
@@ -81,7 +96,8 @@ public class ResChkFrm extends JPanel {
 		jtRes.addMouseListener(rcfe);// jtable이벤트
 		btnHistory.addActionListener(rcfe);// button이벤트
 		btnCancel.addActionListener(rcfe);// button이벤트
-
+		
+		setBackground(Color.WHITE);
 		setBounds(100, 100, 1000, 600);
 		setVisible(true);
 

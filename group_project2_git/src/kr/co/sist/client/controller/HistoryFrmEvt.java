@@ -37,6 +37,10 @@ public class HistoryFrmEvt {
 		try {
 			// 히스토리 조회
 			List<HistoryVO> listHis = r_cdao.setHistory(hv.getId());
+			if (listHis.size() == 0) {
+				JOptionPane.showMessageDialog(hv, "히스토리가 없습니다.");
+				return;
+			} // end if
 			tempHis.setRowCount(0);// ?
 			Object[] rowData = null;
 			// 히스토리가 존재한다면
@@ -47,7 +51,7 @@ public class HistoryFrmEvt {
 				rowData[0] = hvo.getRes_date();// 날짜
 				rowData[1] = hvo.getRes_name();// 이름
 				rowData[2] = hvo.getRoom_id();// 방번호
-				rowData[3] = hvo.getP_cnt();// 인원수
+				rowData[3] = hvo.getP_cnt();//인원수
 				rowData[4] = hvo.getPrice();// 이용금액
 				rowData[5] = hvo.getIn_time() + "~" + hvo.getOut_time();// 예약시간
 
@@ -55,7 +59,7 @@ public class HistoryFrmEvt {
 				tempHis.addRow(rowData);
 			} // end for
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(hv, "히스토리가 없습니다.");
+
 			e.printStackTrace();
 		} // end catch
 	}// setHistory

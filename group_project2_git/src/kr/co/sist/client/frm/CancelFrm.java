@@ -1,7 +1,9 @@
 package kr.co.sist.client.frm;
 
+import java.awt.Color;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,7 +31,8 @@ public class CancelFrm extends JFrame {
 		lblpass = new JLabel("비밀번호");
 		jpwPass = new JPasswordField();
 		jpwPass.setEchoChar('*');
-		btnOk = new JButton("확인");
+		String path = System.getProperty("user.dir");
+		btnOk = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/check.png"));
 
 		setLayout(null);
 		add(lblpass);
@@ -38,6 +41,7 @@ public class CancelFrm extends JFrame {
 		jpwPass.setBounds(180, 80, 155, 30);
 		add(btnOk);
 		btnOk.setBounds(120, 200, 130, 40);
+		this.getContentPane().setBackground(Color.white);
 		setBounds(350, 250, 400, 300);
 		setVisible(true);
 
