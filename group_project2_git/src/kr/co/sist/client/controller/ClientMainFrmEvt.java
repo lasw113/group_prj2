@@ -95,10 +95,11 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 			} // end if
 			if (cmf.isAdminLoginStatus() == true) {
 				MyInfoFrm mif = new MyInfoFrm();
-				tempTab.remove(3);// 탭을 삭제 후
-				tempTab.add("  내 정보 확인  ", mif);// 디자인을 가진 컴포넌트 배치
+//				tempTab.remove(3);// 탭을 삭제 후
+//				tempTab.add("  내 정보 확인  ", mif);// 디자인을 가진 컴포넌트 배치
+				tempTab.setComponentAt(3, mif);
 				// 탭이 메뉴로 넘어가는 걸 막는다.
-				tempTab.setSelectedIndex(3);
+//				tempTab.setSelectedIndex(3);
 				MyInfoEvt miv = new MyInfoEvt(mif);
 				try {
 					miv.setMyInfo();
