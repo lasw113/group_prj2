@@ -2,9 +2,9 @@ package kr.co.sist.client.frm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.net.URL;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -18,10 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
 
 import kr.co.sist.client.controller.RoomInfoFrmEvt;
 
@@ -61,19 +59,30 @@ public class RoomInfoFrm extends JPanel {
 		groupRoom1 = new ButtonGroup();
 		groupRoom2 = new ButtonGroup();
 
+//		String path = System.getProperty("user.dir");
+//		lblImg = new JLabel(new ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/s_01.png"));
+//		logo = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "siststudyroom.png"));
+//		logo2 = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "siststudyroom2.png"));
+//		btnNext = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "next.png"));
+		
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/s_01.jpg");
+		URL url2 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/siststudyroom.png");
+		URL url3 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/siststudyroom2.png");
+		URL url4 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/next.png");
+		URL url5 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/hand.png");
+		
+		lblImg = new JLabel(new ImageIcon(url1));
 		lblInfo = new JLabel("방 소개");
 		lblTime = new JLabel("예약시간");
-		lblCnt = new JLabel("예약인원");
-		lblImg = new JLabel(new ImageIcon("C:/dev/workspace/group_project2/src/studyroom/img/s_01.png"));
+		lblCnt = new JLabel("예약인원");		
 		lblRTime = new JLabel("최소 1시간 부터");
 		lblRCnt = new JLabel();
 		lblMonth = new JLabel("월");
 		lblDay = new JLabel("일");
 
-		String path = System.getProperty("user.dir");
-		logo = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "siststudyroom.png"));
-		logo2 = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "siststudyroom2.png"));
-		btnNext = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "next.png"));
+		logo = new JLabel(new ImageIcon(url2));
+		logo2 = new JLabel(new ImageIcon(url3));
+		btnNext = new JButton(new ImageIcon(url4));
 
 		jtaInfo = new JTextArea();
 		jtaInfo.setEditable(false);
@@ -213,7 +222,7 @@ public class RoomInfoFrm extends JPanel {
 		Time.add(jspTime);
 		Time.setBorder(new TitledBorder("시간 선택"));
 
-		JLabel hand = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "hand.png"));
+		JLabel hand = new JLabel(new ImageIcon(url5));
 
 		selectRoom = new JPanel();
 		selectRoom.setLayout(null);

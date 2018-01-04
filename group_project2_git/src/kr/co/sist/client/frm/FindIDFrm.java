@@ -1,6 +1,7 @@
 package kr.co.sist.client.frm;
 
 import java.awt.Color;
+import java.net.URL;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -38,8 +39,12 @@ public class FindIDFrm extends JDialog{
 		dcbPhone = new DefaultComboBoxModel<>(new String[] { "010", "011", "016", "017" });
 		jcbPhoneF.setModel(dcbPhone);
 
-		String path = System.getProperty("user.dir");
-		btnFindId = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/아이디 찾기.png"));
+//		String path = System.getProperty("user.dir");
+//		btnFindId = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/아이디 찾기.png"));
+		
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/아이디 찾기.png");		
+		btnFindId = new JButton(new ImageIcon(url1));
+		
 		lblName = new JLabel("이름");
 		lblBirth = new JLabel("생년월일");
 		lblPhone = new JLabel("핸드폰");

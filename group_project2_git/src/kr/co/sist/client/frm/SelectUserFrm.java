@@ -1,6 +1,7 @@
 package kr.co.sist.client.frm;
 
 import java.awt.Color;
+import java.net.URL;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -50,10 +51,17 @@ public class SelectUserFrm extends JDialog {
 		lblCanUse = new JLabel("사용가능마일리지");
 		lblPrice = new JLabel("방금액");
 		
-		String path = System.getProperty("user.dir");
-		btnClose = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "close.png"));
-		btnRes = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "reservation.png"));
-		btnUseM = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "use.png"));
+//		String path = System.getProperty("user.dir");
+//		btnClose = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "close.png"));
+//		btnRes = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "reservation.png"));
+//		btnUseM = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "use.png"));
+		
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/close.png");
+		URL url2 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/reservation.png");
+		URL url3 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/use.png");
+		btnClose = new JButton(new ImageIcon(url1));
+		btnRes = new JButton(new ImageIcon(url2));
+		btnUseM = new JButton(new ImageIcon(url3));
 
 		dcbmPhoneF = new DefaultComboBoxModel<String>();
 		dcbmPhoneF.addElement("010");

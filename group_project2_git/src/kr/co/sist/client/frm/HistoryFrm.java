@@ -1,17 +1,16 @@
 package kr.co.sist.client.frm;
 
 import java.awt.Color;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import javafx.scene.image.Image;
 import kr.co.sist.client.controller.HistoryFrmEvt;
 import kr.co.sist.client.controller.ResChkFrmEvt;
 
@@ -65,7 +64,9 @@ public class HistoryFrm extends JDialog {
 		jspHis.getViewport().setBackground(Color.white);
 		lblWho=new JLabel("예약내역");
 		
-		lblpng=new JLabel(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/historysully.jpg"));
+//		lblpng=new JLabel(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/historysully.jpg"));
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/historysully.png");
+		lblpng=new JLabel(new ImageIcon(url1));
 		
 		new HistoryFrmEvt(this, rcfe,id);
 		setLayout(null);

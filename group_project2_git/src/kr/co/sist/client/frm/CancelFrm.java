@@ -2,6 +2,7 @@ package kr.co.sist.client.frm;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,8 +32,12 @@ public class CancelFrm extends JFrame {
 		lblpass = new JLabel("비밀번호");
 		jpwPass = new JPasswordField();
 		jpwPass.setEchoChar('*');
-		String path = System.getProperty("user.dir");
-		btnOk = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/check.png"));
+		
+//		String path = System.getProperty("user.dir");
+//		btnOk = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/check.png"));
+		
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/check.png");
+		btnOk = new JButton(new ImageIcon(url1));
 
 		setLayout(null);
 		add(lblpass);

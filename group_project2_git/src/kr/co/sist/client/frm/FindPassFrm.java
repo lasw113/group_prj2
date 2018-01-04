@@ -1,6 +1,7 @@
 package kr.co.sist.client.frm;
 
 import java.awt.Color;
+import java.net.URL;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -36,8 +37,11 @@ public class FindPassFrm extends JDialog {
 		jcbPassHint = new JComboBox<>(dcbm);
 		jcbPassHint.setModel(dcbm);
 
-		String path = System.getProperty("user.dir");
-		btnFindPass = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/비밀번호 찾기.png"));
+//		String path = System.getProperty("user.dir");
+//		btnFindPass = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/비밀번호 찾기.png"));
+		
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/비밀번호 찾기.png");
+		btnFindPass = new JButton(new ImageIcon(url1));
 		lblId = new JLabel("아이디");
 		lblBirth = new JLabel("생년월일");
 		lblPassHint = new JLabel("비밀번호 힌트");

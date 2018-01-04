@@ -1,6 +1,7 @@
 package kr.co.sist.client.frm;
 
 import java.awt.Color;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,14 +29,25 @@ public class LoginFrm extends JFrame {
 		jtfPass = new JPasswordField();
 		jtfPass.setEchoChar('*');
 		//btnLogin = new JButton("로그인");
-		String path = System.getProperty("user.dir");
-		btnLogin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/로그인 그라데이션.png"));
-		btnJoin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/회원가입.png"));
-		btnFindId=new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/아이디 찾기.png"));
-		btnFindPass=new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/비밀번호 찾기.png"));
+//		String path = System.getProperty("user.dir");
+//		btnLogin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/로그인 그라데이션.png"));
+//		btnJoin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/회원가입.png"));
+//		btnFindId=new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/아이디 찾기.png"));
+//		btnFindPass=new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/비밀번호 찾기.png"));
+		
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/로그인 그라데이션.png");
+		URL url2 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/회원가입.png");
+		URL url3 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/아이디 찾기.png");
+		URL url4 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/비밀번호 찾기.png");
+		URL url5 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/그림4.png");
+		btnLogin = new JButton(new ImageIcon(url1));
+		btnJoin = new JButton(new ImageIcon(url2));
+		btnFindId=new JButton(new ImageIcon(url3));
+		btnFindPass=new JButton(new ImageIcon(url4));
+		
+		lblLogo= new JLabel(new ImageIcon(url5));
 		lblId = new JLabel("아이디", JLabel.CENTER);
 		lblPass = new JLabel("비밀번호", JLabel.CENTER);
-		lblLogo= new JLabel(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/그림4.png"));
 		
 		//btnLogin.setBorderPainted(false);
 		btnLogin.setContentAreaFilled(false);

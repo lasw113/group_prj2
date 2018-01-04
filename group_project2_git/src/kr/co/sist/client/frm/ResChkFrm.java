@@ -1,6 +1,7 @@
 package kr.co.sist.client.frm;
 
 import java.awt.Color;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -70,15 +71,23 @@ public class ResChkFrm extends JPanel {
 		JScrollPane jspRes = new JScrollPane(jtRes);
 		jspRes.getViewport().setBackground(Color.white);
 
-		String path=System.getProperty("user.dir");
 		
 		JTableHeader header=jtRes.getTableHeader();
 		header.setBackground(new Color(0x9ECC57));
 		
-		btnHistory = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/history.png"));
-		btnCancel = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/cancel.png"));
+//		String path=System.getProperty("user.dir");
+//		btnHistory = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/history.png"));
+//		btnCancel = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/cancel.png"));
+//		
+//		lblpng=new JLabel(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/resmike.png"));
 		
-		lblpng=new JLabel(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/resmike.png"));
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/history.png");
+		URL url2 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/cancel.png");
+		URL url3 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/resmike.png");
+		btnHistory = new JButton(new ImageIcon(url1));
+		btnCancel = new JButton(new ImageIcon(url2));
+		
+		lblpng=new JLabel(new ImageIcon(url3));
 		lblpng.setBounds(600, 30, 200, 60);
 		
 		

@@ -1,6 +1,7 @@
 package kr.co.sist.client.frm;
 
 import java.awt.Color;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,8 +25,12 @@ public class ChkPassFrm extends JDialog {
 		lblPass = new JLabel("비밀번호");
 		jpwPass = new JPasswordField();
 		jpwPass.setEchoChar('*');
-		String path = System.getProperty("user.dir");
-		btnOk = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/ChkPassFrm-확인.png"));
+		
+//		String path = System.getProperty("user.dir");
+//		btnOk = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/ChkPassFrm-확인.png"));
+		
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/ChkPassFrm-확인.png");
+		btnOk = new JButton(new ImageIcon(url1));
 		
 		setLayout(null);
 		

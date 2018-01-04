@@ -1,6 +1,7 @@
 package kr.co.sist.client.frm;
 
 import java.awt.Color;
+import java.net.URL;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -50,10 +51,17 @@ public class JoinFrm extends JDialog {
 		dcbPassHint = new DefaultComboBoxModel<>(new String[] {});
 		jcbPassHint.setModel(dcbPassHint);
 
-		String path = System.getProperty("user.dir");
-		btnDuplicate = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/중복체크.png"));
-		btnJoin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/JoinFrm-가입.png"));
-		btnCancel = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/JoinFrm-취소.png"));
+//		String path = System.getProperty("user.dir");
+//		btnDuplicate = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/중복체크.png"));
+//		btnJoin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/JoinFrm-가입.png"));
+//		btnCancel = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/JoinFrm-취소.png"));
+		
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/중복체크.png");
+		URL url2 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/JoinFrm-가입.png");
+		URL url3 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/JoinFrm-취소.png");
+		btnDuplicate = new JButton(new ImageIcon(url1));
+		btnJoin = new JButton(new ImageIcon(url2));
+		btnCancel = new JButton(new ImageIcon(url3));
 
 		lblId = new JLabel("아이디");
 		lblPass = new JLabel("비밀번호");

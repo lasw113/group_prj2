@@ -1,6 +1,7 @@
 package kr.co.sist.client.frm;
 
 import java.awt.Color;
+import java.net.URL;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -49,10 +50,18 @@ public class MyInfoFrm extends JPanel{
 		dcbPassHint = new DefaultComboBoxModel<>(new String[] {});
 		jdbPassHint.setModel(dcbPassHint);
 
-		String path = System.getProperty("user.dir");
-		btnModify = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/수정하기.png"));
-		btnDropOut = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/탈퇴하기.png"));
+//		String path = System.getProperty("user.dir");
+//		btnModify = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/수정하기.png"));
+//		btnDropOut = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/탈퇴하기.png"));
 		
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/수정하기.png");
+		URL url2 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/탈퇴하기.png");
+		URL url3 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/MyInfoFrm.png");
+		
+		btnModify = new JButton(new ImageIcon(url1));
+		btnDropOut = new JButton(new ImageIcon(url2));
+		
+		lblChar=new JLabel(new ImageIcon(url3));
 		lblId = new JLabel("아이디");
 		lblPass = new JLabel("비밀번호");
 		lblChkPass = new JLabel("비밀번호 확인");
@@ -65,7 +74,6 @@ public class MyInfoFrm extends JPanel{
 		lblMileage=new JLabel("마일리지");
 		lblPassGuide=new JLabel("*비밀번호 수정시에는 비밀번호만 입력해주세요");
 		lblPassGuide.setForeground(Color.RED);
-		lblChar=new JLabel(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/MyInfoFrm.png"));
 		
 		
 		JLabel jl1=new JLabel("-");
