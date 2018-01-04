@@ -199,7 +199,7 @@ public class ResMgrView extends JFrame {
 		// System.out.println("btn = " + btn_count);
 	}// admin_line_btn
 
-	public JPanel ResMgrView(int count, List<ResMgrVO> list) {
+	public JPanel ResMgrView1(int count, List<ResMgrVO> list) {
 
 		// 전체 패널
 		totalpanel = new JPanel();
@@ -404,7 +404,7 @@ public class ResMgrView extends JFrame {
 				System.out.println("데이터 행의 수" + cnt);
 
 				// rmv.ResMgrView(cnt, list);
-				return rmv.ResMgrView(cnt, list);
+				return rmv.ResMgrView1(cnt, list);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -415,6 +415,7 @@ public class ResMgrView extends JFrame {
 
 	// db에서 데이터 받아오는 method
 	public List<ResMgrVO> resetData() throws SQLException {
+		@SuppressWarnings("unused")
 		ResMgrView rmv = new ResMgrView();
 		ManagerDAO r_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;

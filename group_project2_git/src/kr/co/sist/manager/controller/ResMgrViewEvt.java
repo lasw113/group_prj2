@@ -83,7 +83,7 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 				int Intime = Integer.parseInt(rmvv.getIn_time());
 				int Outtime = Integer.parseInt(rmvv.getOut_time());
 				if (Intime <= dTime && Outtime > dTime) {
-					sp.select_pay(cnt, btn_cnt);
+					sp.select_pay1(cnt, btn_cnt);
 
 					System.out.println("사용한 마일리지 " + rmvv.getUse_mile());
 					//DB의 형이 number경우 자바에서 int형으로 가져올 때 null인경우 0으로처리해준다.
@@ -100,7 +100,7 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 				int Intime = Integer.parseInt(rmvv.getIn_time());
 				int Outtime = Integer.parseInt(rmvv.getOut_time());
 				if (Intime <= dTime && Outtime > dTime) {
-					sp.select_pay(cnt, btn_cnt);
+					sp.select_pay1(cnt, btn_cnt);
 					System.out.println("사용한 마일리지 " + rmvv.getUse_mile());
 					//DB의 형이 number경우 자바에서 int형으로 가져올 때 null인경우 0으로처리해준다.
 					System.out.println("사용한 마일리지 " + rmvv.getUse_mile());

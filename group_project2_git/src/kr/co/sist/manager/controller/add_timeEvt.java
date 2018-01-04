@@ -33,8 +33,6 @@ public class add_timeEvt extends WindowAdapter implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// combobox를 누를 때
-		int combo_index = 0;
 
 		// 확인 버튼을 누를때
 		if (e.getSource() == at.getBtn_check()) {

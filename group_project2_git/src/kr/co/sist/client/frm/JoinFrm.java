@@ -95,10 +95,10 @@ public class JoinFrm extends JDialog {
 
 		lblBirth.setBounds(30, 330, 80, 15);
 		jtfBirth.setBounds(150, 325, 100, 25);
+		lblBirthGuide.setBounds(30, 355, 280, 15);
 
 		lblEmail.setBounds(30, 380, 80, 15);
 		jtfEmail.setBounds(150, 375, 140, 25);
-		lblBirthGuide.setBounds(30, 405, 280, 15);
 
 		lblPhone.setBounds(30, 430, 50, 15);
 		jcbPhoneF.setBounds(110, 425, 60, 25);

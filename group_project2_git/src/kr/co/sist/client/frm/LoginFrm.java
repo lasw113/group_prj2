@@ -46,7 +46,7 @@ public class LoginFrm extends JFrame {
 		
 		setLayout(null);
 		
-		lblLogo.setBounds(50, 10, 210, 110);
+		lblLogo.setBounds(50, 10, 210, 120);
 		btnLogin.setBounds(85, 230, 120, 30);
 		btnJoin.setBounds(85, 290, 120, 30);
 		btnFindId.setBounds(85, 350, 120, 30);

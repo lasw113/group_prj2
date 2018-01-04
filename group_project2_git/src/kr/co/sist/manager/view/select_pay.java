@@ -23,7 +23,7 @@ public class select_pay extends JFrame {
 
 	private int btn_number;
 
-	public void select_pay(int cnt, int btn_cnt) {
+	public void select_pay1(int cnt, int btn_cnt) {
 		number = cnt;
 		btn_number = btn_cnt;
 		System.out.println("¹Ş¾Æ¿Â index " + number);
