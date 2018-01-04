@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import kr.co.sist.client.controller.ResChkFrmEvt;
 
@@ -70,7 +71,9 @@ public class ResChkFrm extends JPanel {
 		jspRes.getViewport().setBackground(Color.white);
 
 		String path=System.getProperty("user.dir");
-		System.out.println(path);
+		
+		JTableHeader header=jtRes.getTableHeader();
+		header.setBackground(new Color(0x9ECC57));
 		
 		btnHistory = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/history.png"));
 		btnCancel = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/cancel.png"));

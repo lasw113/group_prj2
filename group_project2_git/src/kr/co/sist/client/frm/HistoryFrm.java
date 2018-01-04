@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import javafx.scene.image.Image;
 import kr.co.sist.client.controller.HistoryFrmEvt;
@@ -68,6 +69,9 @@ public class HistoryFrm extends JDialog {
 		
 		new HistoryFrmEvt(this, rcfe,id);
 		setLayout(null);
+		
+		JTableHeader header=jtHistory.getTableHeader();
+		header.setBackground(new Color(0x63B7BB));
 		
 		lblpng.setBounds(500, 40, 200, 60);
 		lblWho.setBounds(350, 30, 200, 30);

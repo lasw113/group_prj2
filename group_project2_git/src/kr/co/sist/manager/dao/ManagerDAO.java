@@ -357,7 +357,7 @@ public class ManagerDAO {
 		try {
 			con = getConn();
 			StringBuilder selectMem = new StringBuilder();
-			selectMem.append("select id, name, phone, mileage from member");
+			selectMem.append("select id, name, phone, mileage from member where name !='null'");
 			pstmt = con.prepareStatement(selectMem.toString());
 
 			rs = pstmt.executeQuery();

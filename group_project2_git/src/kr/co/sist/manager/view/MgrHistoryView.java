@@ -1,10 +1,13 @@
 package kr.co.sist.manager.view;
 
+import java.awt.Color;
+
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import kr.co.sist.manager.controller.MgrHistoryViewEvt;
 import kr.co.sist.manager.controller.UserMgrViewEvt;
@@ -61,10 +64,14 @@ public class MgrHistoryView extends JDialog{
 
 		JScrollPane jspHis = new JScrollPane(jtMgrHis);
 		
-
+		jspHis.getViewport().setBackground(Color.white);
 		new MgrHistoryViewEvt(this, umve,id);
+		
+		JTableHeader header=jtMgrHis.getTableHeader();
+		header.setBackground(new Color(0x63B7BB));
 
 		add("Center", jspHis);
+		this.getContentPane().setBackground(Color.white);
 		setBounds(100, 100, 800, 650);
 		setResizable(false);
 		setVisible(true);

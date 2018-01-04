@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import kr.co.sist.manager.controller.UserMgrViewEvt;
 
@@ -54,6 +55,9 @@ public class UserMgrView extends JPanel {
 		JScrollPane jspUser = new JScrollPane(jtUser);
 		jspUser.setBounds(90, 100, 810, 450);
 		jspUser.getViewport().setBackground(Color.WHITE);
+		
+		JTableHeader header=jtUser.getTableHeader();
+		header.setBackground(new Color(0x9ECC57));
 
 		setLayout(null);
 		lblpng=new JLabel(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/resmike.png"));
