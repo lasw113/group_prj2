@@ -29,10 +29,6 @@ public class ManagerView extends JFrame {
 			public void windowClosing(WindowEvent we) {
 				dispose(); //windowClosed»£√‚
 			}//windowClosing
-			@Override
-			public void windowClosed(WindowEvent we) {
-				//mve.close();
-			}//windowClosed
 		});
 		
 	}//ClientMainFrm

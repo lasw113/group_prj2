@@ -51,7 +51,6 @@ public class ServerHelper extends Thread{
 		}catch(java.net.BindException be){
 			return;
 		}catch(java.net.SocketException se) {
-			System.out.println("¼ÒÄÏ ²¨Áü.");
 			//se.printStackTrace();
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -76,7 +75,6 @@ public class ServerHelper extends Thread{
 					cmv[cmvIndex].getJtaChat().append(msg +"\n");
 			}//end while
 		}catch(NullPointerException npe) {
-			System.out.println("¼­¹ö°¡ ²¨Á³¾î¿°.");
 			//npe.printStackTrace();
 		}catch(EOFException eof) { 
 			JOptionPane.showMessageDialog(null, "Á¢¼ÓÀÚ Á¢¼Ó Á¾·á");
@@ -124,9 +122,6 @@ public class ServerHelper extends Thread{
 	public void closeServer() throws IOException {
 		if(client!=null) {
 			client.close();	
-		}
-		if(ss!= null) {
-			ss.close();
 		}//end if
 	}//closeServer
 

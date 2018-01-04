@@ -465,7 +465,6 @@ public class ManagerDAO {
 			rs.next();
 			s_vo.setCard(rs.getInt(1));
 			total += rs.getInt("cardsales");
-			System.out.println(rs.getInt(1));
 			if (rs != null) {
 				rs.close();
 			}
@@ -484,7 +483,6 @@ public class ManagerDAO {
 			rs.next();
 			s_vo.setCash(rs.getInt(1));
 			total += rs.getInt(1);
-			System.out.println(rs.getInt(1));
 
 			if (rs != null) {
 				rs.close();
@@ -501,7 +499,6 @@ public class ManagerDAO {
 			rs.next();
 			s_vo.setMilleage(rs.getInt(1));
 			total += rs.getInt(1);
-			System.out.println(rs.getInt(1));
 
 			if (rs != null) {
 				rs.close();
@@ -516,7 +513,6 @@ public class ManagerDAO {
 			rs = pstmt.executeQuery();
 			rs.next();
 			s_vo.setT_cnt(rs.getInt("countclient"));
-			System.out.println(rs.getInt("countclient"));
 
 		} finally {
 			dbClose(con, pstmt, rs);

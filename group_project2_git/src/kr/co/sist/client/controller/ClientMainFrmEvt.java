@@ -1,8 +1,6 @@
 package kr.co.sist.client.controller;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -21,18 +19,18 @@ import kr.co.sist.client.frm.RequestFrm;
 import kr.co.sist.client.frm.ResChkFrm;
 import kr.co.sist.client.frm.RoomInfoFrm;
 
-public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
-	public static final int RESERVATION_TAB = 0;
-	public static final int CHECK_TAB = 1;
-	public static final int REQUEST_TAB = 2;
-	public static final int INFO_TAB = 3;
-	public static final int LOGOUT_TAB = 4;
+public class ClientMainFrmEvt extends MouseAdapter{
+	private static final int RESERVATION_TAB = 0;
+	private static final int CHECK_TAB = 1;
+	private static final int REQUEST_TAB = 2;
+	private static final int INFO_TAB = 3;
+	private static final int LOGOUT_TAB = 4;
 	private RoomInfoFrm rif;
 	private ClientMainFrm cmf;
 	private ResChkFrm rcf;
 	private String id, pass;
 	private String room_id;
-	private boolean isIn = false;
+	private boolean isIn;
 	private ClientDAO c_dao;
 
 	public ClientMainFrmEvt(ClientMainFrm cmf) {
@@ -165,12 +163,6 @@ public class ClientMainFrmEvt extends MouseAdapter implements ActionListener {
 
 	public void setIn(boolean isIn) {
 		this.isIn = isIn;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

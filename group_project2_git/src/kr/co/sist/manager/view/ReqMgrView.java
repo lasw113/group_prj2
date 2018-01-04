@@ -84,7 +84,6 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 		lblImg.setBounds(755, 250, 240, 278);
 		add(lblImg);
 		for (int i = 0; i < 3; i++) {
-			System.out.println(i);
 			btnRoom[i].setBounds(250 * i + 60, 100, 190, 90);
 			btnRoom[i + 3].setBounds(250 * i + 60, 265, 190, 90);
 			btnRoom[i + 6].setBounds(250 * i + 60, 430, 190, 90);
@@ -135,8 +134,6 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 				button.setIcon(btnImageBefore[i]);
 				isInLabel[i].setIcon(whiteImg);
 			}
-			System.out.println(listServer);
-			System.out.println(listServer.get(i) + "쿠크쿠크");
 		}
 	}
 
@@ -145,7 +142,6 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 		for (int i = 0; i < serverport.length; i++) {
 			ServerHelper sh = new ServerHelper(this, btnRoom[i], serverport[i], isInLabel[i]);
 			listServer.add(sh);
-			System.out.println(listServer);
 			sh.start();
 		}
 		while (true) {
@@ -153,10 +149,8 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 				if (listServer.get(i).chk != false) {
 					System.out.println(listServer.get(i));
 					listServer.remove(i);
-					System.out.println(i + "번 째" + "없앴어");
 					ServerHelper sh = new ServerHelper(this, btnRoom[i], serverport[i], isInLabel[i]);
 					listServer.add(sh);
-					System.out.println(sh);
 					sh.start();
 					btnRoom[i].setIcon(btnImageBefore[i]);
 					btnRoom[i].setToolTipText(room_num[i] + "접속자가 없습니다.");

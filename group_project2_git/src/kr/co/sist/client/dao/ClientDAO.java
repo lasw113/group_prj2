@@ -531,7 +531,6 @@ public class ClientDAO {
 		rs.next();
 			System.out.println(rs.getInt(1));
 			cnt=rs.getInt(1);
-		System.out.println(cnt+"¿Ã∞≈¿›æ∆?");
 		}finally {
 			dbClose(con,pstmt,rs);
 		}
