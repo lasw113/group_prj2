@@ -40,7 +40,7 @@ public class SelectUserFrm extends JDialog {
 		this.id = id;
 		this.srr_vo = srr_vo;
 		setLayout(null);
-		this.getContentPane().setBackground(Color.WHITE);
+		this.getContentPane().setBackground(new Color(0x63B7BB));
 		
 		lblName = new JLabel("예약자");
 		lblPhone = new JLabel("연락처");

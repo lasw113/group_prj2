@@ -2,6 +2,7 @@ package kr.co.sist.client.frm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -17,7 +18,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 import kr.co.sist.client.controller.RoomInfoFrmEvt;
 
@@ -36,13 +40,13 @@ public class RoomInfoFrm extends JPanel {
 	private DefaultTableModel dtmTime;
 	private JComboBox<String> jcbMonth, jcbDay, jcbCnt;
 	private DefaultComboBoxModel<String> dcmbMonth, dcmbDay, dcmbCnt;
-	
+
 	private String id;
 
 	public RoomInfoFrm(String id) {
 		this.id = id;
 		setLayout(null);
-		
+
 		lblEquipment = new JLabel[6];
 		for (int i = 0; i < lblEquipment.length; i++) {
 			lblEquipment[i] = new JLabel();
@@ -92,13 +96,12 @@ public class RoomInfoFrm extends JPanel {
 				return false;
 			}// isCellEditable
 		};
+		JTableHeader jth = jtTime.getTableHeader();
+		jth.setBackground(new Color(0x63B7BB));
 		jtTime.getTableHeader().setReorderingAllowed(false);
 		JScrollPane jspTime = new JScrollPane(jtTime);
 
 		dcmbMonth = new DefaultComboBoxModel<String>();
-//		for (int i = 1; i < 13; i++) {
-//			dcmbMonth.addElement(i + "");
-//		}
 		jcbMonth = new JComboBox<String>(dcmbMonth);
 
 		dcmbDay = new DefaultComboBoxModel<String>();
@@ -209,7 +212,7 @@ public class RoomInfoFrm extends JPanel {
 		Time.setBounds(0, 100, 960, 100);
 		Time.add(jspTime);
 		Time.setBorder(new TitledBorder("시간 선택"));
-		
+
 		JLabel hand = new JLabel(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "hand.png"));
 
 		selectRoom = new JPanel();
@@ -232,7 +235,7 @@ public class RoomInfoFrm extends JPanel {
 
 		lblCnt.setBounds(420, 170, 60, 30);
 		lblRCnt.setBounds(490, 170, 100, 30);
-		
+
 		logo.setBounds(0, 0, 970, 540);
 		logo2.setBounds(0, 540, 970, 320);
 
@@ -246,7 +249,7 @@ public class RoomInfoFrm extends JPanel {
 		Time.setBackground(Color.white);
 		roomInfo.setBackground(Color.white);
 		selectRoom.setBackground(Color.white);
-	
+
 		rb1.setOpaque(false);
 		rb2.setOpaque(false);
 		rb3.setOpaque(false);
