@@ -3,7 +3,6 @@ package kr.co.sist.client.dao;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,7 +19,6 @@ import kr.co.sist.client.vo.ResChkVO;
 import kr.co.sist.client.vo.RoomInfoVO;
 import kr.co.sist.client.vo.SelectTimeChkVO;
 import kr.co.sist.client.vo.SelectTimeVO;
-import kr.co.sist.client.vo.SelectUserVO;
 import kr.co.sist.client.vo.UpdateMileVO;
 
 public class RoomCDAO {
