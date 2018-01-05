@@ -20,13 +20,13 @@ public class MgrHistoryViewEvt {
 		
 	}//MgrHistoryViewEvt
 	
+	//회원의 과거예약내역
 	public void searchHis() {
 		DefaultTableModel tempHis=mhv.getDtmMgrHis();
 		ManagerDAO m_dao=ManagerDAO.getInstance();
 		
 		try {
 			List<HistoryVO> MgrHis=m_dao.searchHis(mhv.getId());
-			//어떻게 mhv에서 아이디를 가지고오는지
 			tempHis.setRowCount(0);
 			Object[] rowData=null;
 			//회원의 히스토리가 존재한다면

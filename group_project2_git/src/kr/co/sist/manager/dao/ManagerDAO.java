@@ -410,6 +410,7 @@ public class ManagerDAO {
 		try {
 			con = getConn();
 			StringBuilder selectMem = new StringBuilder();
+			//이름이 null이 아닐 경우 회원의 아이디, 이름, 휴대폰번호, 마일리지를 출력
 			selectMem.append("select id, name, phone, mileage from member where name !='null'");
 			pstmt = con.prepareStatement(selectMem.toString());
 
@@ -426,7 +427,6 @@ public class ManagerDAO {
 		return listMem;
 	}// ResChk
 
-	// 아이디로 회원 조회
 	// 아이디로 회원 조회
 	public List<UserVO> searchUser(String id) throws SQLException {
 		List<UserVO> listMem = new ArrayList<UserVO>();
@@ -467,6 +467,7 @@ public class ManagerDAO {
 		try {
 			con = getConn();
 			StringBuilder selectRes = new StringBuilder();
+			//회원의 과거예약 출력 : 예약코드, 이름, 방번호, 인원수, 이용금액, 예약시간, 예약날짜
 			selectRes.append(
 					"select to_char(rr.res_date,'yyyy-mm-dd')res_date,res_i.res_name,ri.room_id,rr.p_cnt,(ri.price*rr.p_cnt*(rr.out_time-rr.in_time))-nvl(res_i.use_mile,0) price,rr.in_time,rr.out_time ")
 					.append("from room_info ri, room_res rr, member mem , res_info res_i ")

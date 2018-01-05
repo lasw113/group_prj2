@@ -19,10 +19,11 @@ public class CancelEvt implements ActionListener {
 	private String admin_pass;
 
 	public CancelEvt(CancelFrm cf, ResChkFrm rcf) throws IOException {
-		this.cf = cf;// ?
+		this.cf = cf;
 
 	}// CanecelEvt
 
+	//입력한 비밀번호와 회원의 비밀번호 비교
 	public boolean chkPass(String pass) {
 		boolean flag = false;
 
@@ -36,6 +37,7 @@ public class CancelEvt implements ActionListener {
 
 	}// chkPass
 
+	//예약취소
 	public void cacelRes(String id, String res_id) {
 
 		RoomCDAO r_cdao = RoomCDAO.getInstance();

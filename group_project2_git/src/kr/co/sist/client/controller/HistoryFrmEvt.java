@@ -21,6 +21,7 @@ public class HistoryFrmEvt {
 		search(id);
 	}// HistoryFrmEvt
 
+	//id를 출력해서 라벨 출력
 	public void search(String id) {
 		RoomCDAO rcdao = RoomCDAO.getInstance();
 		try {
@@ -30,6 +31,7 @@ public class HistoryFrmEvt {
 		}
 	}
 
+	//회원의 과거내역 출력
 	public void setHistory() {
 		DefaultTableModel tempHis = hv.getDtmHistory();
 		RoomCDAO r_cdao = RoomCDAO.getInstance();

@@ -283,6 +283,7 @@ public class RoomCDAO {
 		return listRes;
 	}// ResChk
 
+	//과거 예약내역을 조회하는 일
 	public List<HistoryVO> setHistory(String id) throws SQLException {
 		List<HistoryVO> listHis = new ArrayList<HistoryVO>();
 
@@ -293,6 +294,7 @@ public class RoomCDAO {
 		try {
 			con = getConn();
 			StringBuilder selectRes = new StringBuilder();
+			//checkin이 'n'일때의 날짜, 이름, 방번호, 인원수, 이용금액, 예약시간출력
 			selectRes.append(
 					"select to_char(rr.res_date,'yyyy-mm-dd')res_date,res_i.res_name,ri.room_id,rr.p_cnt,(ri.price*rr.p_cnt*(rr.out_time-rr.in_time))-nvl(res_i.use_mile,0) price,rr.in_time,rr.out_time ")
 					.append("from room_info ri, room_res rr, member mem , res_info res_i ")
@@ -315,13 +317,14 @@ public class RoomCDAO {
 
 	}// setHistory
 
-	// 예약 삭제
+	// 예약 취소
 	public void cancelRes(CancelResVO cr_vo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = getConn();
 			StringBuilder updateRes = new StringBuilder();
+			//예약했을 때 사용했던 마일리지를 다시 원래 마일리지로 업데이트
 			updateRes.append("update member ")
 					.append("set mileage = mileage +nvl((select use_mile from res_info where res_id=?),0)")// 마일리지 사용
 					.append("where id =?");
@@ -337,6 +340,7 @@ public class RoomCDAO {
 
 			con = getConn();
 
+			//res_info 테이블에서 예약 삭제
 			String cancelRes = "delete from res_info where res_id=? ";
 			pstmt = con.prepareStatement(cancelRes);
 			// 바인드 변수에 값 넣기
@@ -349,6 +353,7 @@ public class RoomCDAO {
 
 			con = getConn();
 
+			//room_res에서 예약삭제
 			String cancelRes1 = "delete from room_res where res_id=?";
 			pstmt = con.prepareStatement(cancelRes1);
 			pstmt.setString(1, cr_vo.getRes_id());
