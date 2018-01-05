@@ -14,7 +14,7 @@ public class ChkPassEvt implements ActionListener {
 	private ChkPassFrm cpf;
 	private ClientMainFrm cmf;
 	private ClientDAO c_dao;
-	String id, inputPass = "";
+	private String id, inputPass = "";
 
 	public ChkPassEvt(ChkPassFrm cpf, ClientMainFrm cmf) {
 		this.cpf = cpf;

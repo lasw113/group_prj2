@@ -16,7 +16,7 @@ public class FindPassFrmEvt implements ActionListener {
 	private FindPassFrm fpf;
 	private FindPassVO fpv;
 	private ClientDAO c_dao;
-	String Pass;
+	private String Pass;
 	private boolean flag;
 
 	public FindPassFrmEvt(FindPassFrm fpf) {

@@ -24,7 +24,7 @@ import kr.co.sist.client.vo.SelectTimeVO;
 
 public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, ItemListener {
 
-	public static final int CLICK = 1;
+	private static final int CLICK = 1;
 
 	private RoomInfoFrm rif;
 	private String[] room_id = { "S_01", "S_02", "S_03", "S_04", "M_05", "M_06", "M_07", "L_08", "X_09" };

@@ -15,7 +15,7 @@ public class FindIDFrmEvt implements ActionListener {
 	private ClientDAO c_dao;
 	private FindIDVO fiv;
 	private boolean flag;
-	static String id;
+	private static String id;
 
 	public FindIDFrmEvt(FindIDFrm fidf) {
 		this.fidf = fidf;
