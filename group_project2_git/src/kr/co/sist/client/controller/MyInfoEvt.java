@@ -239,6 +239,8 @@ public class MyInfoEvt implements ActionListener {
 
 			if (c_dao.changePass(cpv)) {
 				JOptionPane.showMessageDialog(mif, "비밀번호가 수정되었습니다.");
+				mif.getJtfPass().setText("");
+				mif.getJtfChkPass().setText("");
 			} else {
 				JOptionPane.showMessageDialog(mif, "시스템오류 발생 ");
 			}
