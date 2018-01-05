@@ -18,7 +18,7 @@ public class HistoryFrmEvt {
 
 		// HistoryFrm에 데이터 추가
 		setHistory();
-		search(id);// 나중에 바꿔야 ham
+		search(id);
 	}// HistoryFrmEvt
 
 	public void search(String id) {

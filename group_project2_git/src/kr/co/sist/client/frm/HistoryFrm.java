@@ -65,7 +65,7 @@ public class HistoryFrm extends JDialog {
 		lblWho=new JLabel("예약내역");
 		
 //		lblpng=new JLabel(new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/studyroom/img/historysully.jpg"));
-		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/historysully.png");
+		URL url1 = getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/historysully.jpg");
 		lblpng=new JLabel(new ImageIcon(url1));
 		
 		new HistoryFrmEvt(this, rcfe,id);
