@@ -20,11 +20,11 @@ import kr.co.sist.client.frm.ResChkFrm;
 import kr.co.sist.client.frm.RoomInfoFrm;
 
 public class ClientMainFrmEvt extends MouseAdapter{
-	private static final int RESERVATION_TAB = 0;
-	private static final int CHECK_TAB = 1;
-	private static final int REQUEST_TAB = 2;
-	private static final int INFO_TAB = 3;
-	private static final int LOGOUT_TAB = 4;
+	public static final int RESERVATION_TAB = 0;
+	public static final int CHECK_TAB = 1;
+	public static final int REQUEST_TAB = 2;
+	public static final int INFO_TAB = 3;
+	public static final int LOGOUT_TAB = 4;
 	private RoomInfoFrm rif;
 	private ClientMainFrm cmf;
 	private ResChkFrm rcf;
