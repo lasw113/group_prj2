@@ -3,7 +3,6 @@ package kr.co.sist.manager.dao;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -174,11 +173,9 @@ public class ManagerDAO {
 						.append("' ) where in_time > (select out_time  from    room_res where    res_id ='").append(res_id)
 						.append("' ) and r =1");
 
-				System.out.println("쿼리문 : " + selectQuery);
 				rs = stmt.executeQuery(selectQuery.toString());
 				if (rs.next()) {
 					pt = rs.getInt("in_time");
-					System.out.println("입실시간 = " + pt);
 				}
 
 				return pt;
@@ -206,14 +203,12 @@ public class ManagerDAO {
 				con = getConn();
 				stmt = con.createStatement();
 				StringBuilder updateQuery = new StringBuilder();
-				System.out.println(res_ids);
 
 				// res_ids = res_ids.substring(0, 7);
 				// update room_res set pay_opt = '현금' where res_id ='Res_047';
 
 				updateQuery.append("update room_res set pay_opt = '").append(how_pay).append("'").append(" where res_id ='")
 						.append(res_ids).append("'");
-				System.out.println(updateQuery);
 
 				stmt.executeUpdate(updateQuery.toString());
 			} finally {
@@ -236,17 +231,14 @@ public class ManagerDAO {
 			Statement stmt = null;
 
 			String msg = "'y'로 처리";
-			System.out.println(msg);
 			try {
 				// res_ids = res_ids.substring(0, 7);
 				con = getConn();
 				stmt = con.createStatement();
 				StringBuilder updateQuery = new StringBuilder();
-				System.out.println(res_ids + " 예약번호를 가진 사용자의 입실여부를 y로 바꾸기");
 
 				updateQuery.append("update room_res set checkin='y' ").append(" where res_id ='").append(res_ids)
 						.append("'");
-				System.out.println(updateQuery);
 				stmt.executeUpdate(updateQuery.toString());
 
 			} finally {
@@ -267,17 +259,14 @@ public class ManagerDAO {
 			Statement stmt = null;
 
 			String msg = "'n'로 처리";
-			System.out.println(msg);
 			try {
 				// res_ids = res_ids.substring(0, 7);
 				con = getConn();
 				stmt = con.createStatement();
 				StringBuilder updateQuery = new StringBuilder();
-				System.out.println(res_ids + " 예약번호를 가진 사용자의 입실여부를 y로 바꾸기");
 
 				updateQuery.append("update room_res set checkin='n' ").append(" where res_id ='").append(res_ids)
 						.append("'");
-				System.out.println(updateQuery);
 				stmt.executeUpdate(updateQuery.toString());
 
 			} finally {
@@ -297,20 +286,17 @@ public class ManagerDAO {
 			Connection con = null;
 			Statement stmt = null;
 
-			System.out.println("추가할시간 : " + plus_time + " / 예약아이디 : " + res_ids);
 
 			try {
 				con = getConn();
 				stmt = con.createStatement();
 				StringBuilder updateQuery = new StringBuilder();
-				System.out.println(res_ids);
 
 				// res_ids = res_ids.substring(0, 9);
 				// update room_res set pay_opt = '현금' where res_id ='Res_047';
 
 				updateQuery.append("update room_res set out_time = to_number(out_time,99)+").append(plus_time)
 						.append(" where res_id ='").append(res_ids).append("'");
-				System.out.println(updateQuery);
 
 				stmt.executeUpdate(updateQuery.toString());
 
@@ -330,7 +316,6 @@ public class ManagerDAO {
 		public void delete_res(String res_ids) throws SQLException {
 			Connection con = null;
 			Statement stmt = null;
-			System.out.println(res_ids);
 			try {
 				con = getConn();
 				stmt = con.createStatement();
@@ -338,15 +323,10 @@ public class ManagerDAO {
 
 				deleteQuery.append("delete from res_info where res_id='").append(res_ids).append("'");
 				stmt.executeUpdate(deleteQuery.toString());
-				System.out.println("res_info 데이터지우기");
-				System.out.println(deleteQuery);
 
 				deleteQuery = new StringBuilder("");
-				System.out.println("============================");
 				deleteQuery.append("delete from room_res where res_id='").append(res_ids).append("'");
 				stmt.executeUpdate(deleteQuery.toString());
-				System.out.println("res_info 데이터지우기");
-				System.out.println(deleteQuery);
 
 			} finally {
 				// 5. 연결 끊기
@@ -370,12 +350,10 @@ public class ManagerDAO {
 				stmt = con.createStatement();
 				StringBuilder updateQuery = new StringBuilder();
 
-				System.out.println("여기까지왓나?-0---------ㅇDㅇㅇ");
 
 				updateQuery.append("update member set MILEAGE = MILEAGE + ").append(add_mile).append(" where id ='")
 						.append(id).append("'");
 
-				System.out.println("퇴실을 누를경우 추가되는 마일리지 쿼리문    " + updateQuery);
 				stmt.executeUpdate(updateQuery.toString());
 			} finally {
 				// 5. 연결 끊기
@@ -405,7 +383,6 @@ public class ManagerDAO {
 				updateQuery.append("update member set MILEAGE = MILEAGE + (select use_mile from res_info where res_id='")
 						.append(res_id).append("') where id ='").append(id).append("'");
 
-				System.out.println("마일리지 사용하는 쿼리 - " + updateQuery);
 
 				stmt.executeUpdate(updateQuery.toString());
 			} finally {
