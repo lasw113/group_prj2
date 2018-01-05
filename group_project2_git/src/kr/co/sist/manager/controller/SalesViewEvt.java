@@ -18,13 +18,13 @@ public class SalesViewEvt implements ActionListener{
 	public SalesViewEvt(SalesView sv){
 		this.sv = sv;
 		setSales();
-	}
+	}//SalesViewEvt
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource()==sv.getBtnRe()) {
 			reSales();
 		}//end if
-	}
+	}//actionPerformed
 	private void reSales() {//매출 정보를 갱신하는 메소드
 		svo= new SalesVO();
 		m_dao=ManagerDAO.getInstance();
@@ -37,9 +37,8 @@ public class SalesViewEvt implements ActionListener{
 			lblTemp[3].setText(String.valueOf(svo.getT_cnt())+" 명 ");
 			lblTemp[4].setText(String.valueOf(svo.getT_sales())+ " 원 ");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}//end catch
 	}//reSales
 	private void setSales() {//매출 정보를 배치하는 메소드
 		svo=new SalesVO();
@@ -53,8 +52,7 @@ public class SalesViewEvt implements ActionListener{
 			lblTemp[3].setText(String.valueOf(svo.getT_cnt())+" 명 ");
 			lblTemp[4].setText(String.valueOf(svo.getT_sales())+ " 원 ");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}//end catch
 	}//setSales
 }//class

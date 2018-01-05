@@ -50,7 +50,7 @@ public class SalesView extends JPanel {
 			lblSalesValue[i].setFont(new Font("Dialog",Font.BOLD,20));
 			add(lblSalesName[i]);
 			add(lblSalesValue[i]);
-		}
+		}//end for
 		
 		btnRe.setBorderPainted(false);// 외곽선 제거
 		btnRe.setContentAreaFilled(false); // 내용영역 채우기 x
@@ -71,7 +71,7 @@ public class SalesView extends JPanel {
 		
 		SalesViewEvt  sve= new SalesViewEvt(this);
 		btnRe.addActionListener(sve);
-	}
+	}//SalesView
 	
 	protected void paintComponent(Graphics g) {
 		 g.drawImage(backgroundImg.getImage(), 0, 0, null);
@@ -93,7 +93,7 @@ public class SalesView extends JPanel {
 
 	    g2.setStroke(new BasicStroke(3,BasicStroke.CAP_ROUND,0));
 	    g2.draw(new Line2D.Double(120,430,720,430));
-	 }
+	 }//paintComponent
 
 	public JLabel[] getLblSalesName() {
 		return lblSalesName;

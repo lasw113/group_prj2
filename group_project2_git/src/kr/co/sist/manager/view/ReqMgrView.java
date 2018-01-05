@@ -20,18 +20,19 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 	private JButton[] btnRoom;
 	private ChatMgrView[] cmv;
 	private String[] room_num;
-	int[] pNum;
+	private int[] pNum; //port번호를 담을 변수 
 	private Thread tListen;
 	private int[] serverport;
 	private JLabel lblImg;
 	private JLabel[] isInLabel;
-	public static List<ServerHelper> listServer;
+	public static List<ServerHelper> listServer; //ServerHelper를 여러개 돌린 정보를 저장할 list
 	public ImageIcon[] btnImageBefore;
 	public ImageIcon[] btnImageAfter;
 	public ImageIcon inImg1, inImg2, whiteImg;
+	private int temp;
 
 	public ReqMgrView() {
-
+		temp=-1;
 		serverport = new int[9];
 		btnImageBefore = new ImageIcon[9];
 		btnImageAfter = new ImageIcon[9];
@@ -109,7 +110,7 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 
 		setBackground(Color.white);
 		isStart();
-	}
+	}//ReqMgrView
 
 	private void isStart() {
 		if (tListen == null) {
@@ -119,10 +120,6 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 		} // end if
 	}// isStart
 
-	public JButton[] getBtnRoom() {
-		return btnRoom;
-	}// getBtnRoom
-
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		JButton button = (JButton) ae.getSource();
@@ -131,33 +128,40 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 				cmv[i].setVisible(true);
 				button.setIcon(btnImageBefore[i]);
 				isInLabel[i].setIcon(whiteImg);
-			}
-		}
-	}
+			}//end if
+		}//end for
+	}//actionPerformed
 
 	@Override
 	public void run() {
+
 		for (int i = 0; i < serverport.length; i++) {
 			ServerHelper sh = new ServerHelper(this, btnRoom[i], serverport[i], isInLabel[i]);
 			listServer.add(sh);
 			sh.start();
-		}
+		}//end for
+
 		while (true) {
-			for (int i = 0; i < serverport.length; i++) {
+			for (int i = 0; i < listServer.size(); i++) {
 				if (listServer.get(i).chk != false) {
 					listServer.remove(i);
 					ServerHelper sh = new ServerHelper(this, btnRoom[i], serverport[i], isInLabel[i]);
-					listServer.add(sh);
+					listServer.add(i, sh);
 					sh.start();
+					//listServer.get(i).getPort();
 					btnRoom[i].setIcon(btnImageBefore[i]);
 					btnRoom[i].setToolTipText(room_num[i] + "접속자가 없습니다.");
 					isInLabel[i].setIcon(whiteImg);
 					cmv[i].getJtaChat().setText(room_num[i] + " 에서 보내온 메세지입니다. \n");
-				}
-			}
-		}
-
+					
+				}//end if
+			}//end for
+		}//end while
 	}// run
+
+	public JButton[] getBtnRoom() {
+		return btnRoom;
+	}// getBtnRoom
 
 	public int[] getServerport() {
 		return serverport;

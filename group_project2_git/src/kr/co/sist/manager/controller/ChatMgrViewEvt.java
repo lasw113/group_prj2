@@ -18,17 +18,19 @@ public class ChatMgrViewEvt implements ActionListener  {
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource()==cmv.getJtfMessage()||ae.getSource()==cmv.getBtnSent()) {
 			String manager="°ü¸®ÀÚ : "+cmv.getJtfMessage().getText()+"\n";
+			
 			for(int j=0;j<rmv.listServer.size();j++) {
 				if(cmv.getP_num()==rmv.listServer.get(j).getPort()) {
 					rmv.listServer.get(j).sendMsg(manager);
+					
 					if(rmv.listServer.get(j).isChkClientIn()==true) {
-					cmv.getJtaChat().append(manager);
-					}
+						cmv.getJtaChat().append(manager);
+					}//end if
+					
 					cmv.getJtfMessage().setText("");
 					cmv.getJtfMessage().requestFocus();
-				}
-			}
-
+				}//end if
+			}//end for
 		}//end if
 	}//actionPerformed
 

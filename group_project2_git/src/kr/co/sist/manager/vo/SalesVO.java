@@ -5,7 +5,7 @@ public class SalesVO {
 
 	public SalesVO() {
 		super();
-	}
+	}//SalesVO
 
 	public SalesVO(int cash, int card, int milleage, int t_cnt, int t_sales) {
 		super();
@@ -14,7 +14,7 @@ public class SalesVO {
 		this.milleage = milleage;
 		this.t_cnt = t_cnt;
 		this.t_sales = t_sales;
-	}
+	}//SalesVO
 
 	public int getCash() {
 		return cash;
@@ -56,4 +56,4 @@ public class SalesVO {
 		this.t_sales = t_sales;
 	}
 	
-}
+}//class

@@ -77,7 +77,6 @@ public class ChatMgrView extends JDialog {
 		setBounds(100, 100, 1000, 650);
 		setResizable(false);
 		
-		// setVisible(true);
 	}// ChatMgrView
 
 	public JTextArea getJtaChat() {
