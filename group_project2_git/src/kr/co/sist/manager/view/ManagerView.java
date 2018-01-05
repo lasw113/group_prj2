@@ -1,4 +1,5 @@
 package kr.co.sist.manager.view;
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -15,7 +16,10 @@ public class ManagerView extends JFrame {
 	public ManagerView() {
 		super("林) 胶磐叼 冯 包府 - 包府磊");
 		tpTab= new JTabbedPane();
+		tpTab.setBackground(Color.WHITE);
 		add("Center", tpTab);
+		
+		this.getContentPane().setBackground(Color.white);
 		
 		@SuppressWarnings("unused")
 		ManagerViewEvt mve = new ManagerViewEvt(this);

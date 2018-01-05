@@ -59,7 +59,7 @@ public class SelectUserFrmEvt implements ActionListener {
 					* (Integer.parseInt(suf.getOut_time()) - Integer.parseInt(suf.getIn_time())) * suf.getP_cnt())
 					- useMile;
 			int afterMile = Integer.parseInt(su_vo.getMillege()) - useMile;
-			if (useMile <= mille && useMile >= 0 && useMile <= price) {
+			if (useMile <= mille && useMile >= 0 && useMile <=Integer.parseInt(su_vo.getPrice())) {
 				suf.getJtfPrice().setText(String.valueOf(price));
 				suf.getLblCanUse().setText("사용가능마일리지 : " + afterMile);
 				updateMile = useMile;

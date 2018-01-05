@@ -98,8 +98,6 @@ public class ServerHelper extends Thread{
 	public void sendMsg(String msg){
 		try {
 			String serverMsg= msg;
-			System.out.println(serverMsg);
-			System.out.println(dosWriteStream);
 			dosWriteStream.writeUTF(serverMsg);
 			dosWriteStream.flush(); //스트림의 메세지를 접속 소켓으로 분출
 			chkClientIn=true;

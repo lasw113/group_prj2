@@ -49,7 +49,6 @@ public class add_timeEvt extends WindowAdapter implements ActionListener {
 			int index = at.getIndex();
 			try {
 				list = m_dao.selectAll();
-				// System.out.println("------------------" + rmv.getList_tf());
 				// 변경 가능한 시간인지 확인하고, 변경 가능한 시간이라면 업데이트를 수행하고,
 				// 부모창에 있는 시간을 변경
 
@@ -58,9 +57,7 @@ public class add_timeEvt extends WindowAdapter implements ActionListener {
 				rmvv = list.get(index);
 				String chage_outTime = (Integer.parseInt(list.get(index).getOut_time())
 						+ at.getCombo().getSelectedIndex() + 1) + "";
-				System.out.println(chage_outTime);
 				rmv.getList_tf().get(count).setText(chage_outTime + "시");
-				System.out.println(rmvv.getRes_id());
 				m_dao.plus_time(at.getCombo().getSelectedIndex() + 1, rmvv.getRes_id());
 
 				at.dispose();

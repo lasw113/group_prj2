@@ -35,25 +35,20 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 		ResMgrVO rmvv = null;
 		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
-		System.out.println(Btn_Cnt + "요청사항버튼!");
 		try {
 			list = m_dao.selectAll();
-			System.out.println(list.size() + " =========list크기");
 
 			// 요청사항이 비어있지 않다면
 			if (Btn_Cnt == 0) {
 				rmvv = list.get(0);
 				TextArea ta = new TextArea(rmvv.getRequest());
 				JOptionPane.showMessageDialog(null, ta);
-				System.out.println("요청사항 확인  " + Btn_Cnt + "버튼");
 
 			} else if (Btn_Cnt != 0) {
 				Btn_Cnt = Btn_Cnt / 5;
 				rmvv = list.get(Btn_Cnt);
 				TextArea ta = new TextArea(rmvv.getRequest());
-				System.out.println(rmvv.getRequest());
 				JOptionPane.showMessageDialog(null, ta);
-				System.out.println("요청사항 확인  " + Btn_Cnt + "버튼");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -69,13 +64,11 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 		List<ResMgrVO> list;
 		ResMgrVO rmvv = null;
 
-		System.out.println("해당 줄" + cnt + " ------------ 버튼index " + btn_cnt);
 		// 오늘 날짜 받는 쿼리
 		SimpleDateFormat formatter = new SimpleDateFormat("kk", Locale.KOREA);
 		Date currentTime = new Date();
 		int dTime = Integer.parseInt(formatter.format(currentTime));
 
-		System.out.println(dTime);
 		try {
 
 			// cnt를 나눠야 한다.(index를 구하기위해서)
@@ -116,9 +109,7 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 		ResMgrVO rmvv = null;
 		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
-		System.out.println("퇴실 버튼 : " + Btn_Cnt);
 		int number = JOptionPane.showConfirmDialog(null, "정말로 퇴실하시겠습니까?");
-		System.out.println("joptionpane 예/아니요/취소  " + number);
 
 		try {
 
@@ -129,14 +120,12 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 					rmvv = list.get(0);
 					// rmv.setResView(list);
 
-					System.out.println(rmvv.getCheckin() + " ----------------");
 
 					if (rmvv.getCheckin() == null) {
 						JOptionPane.showMessageDialog(rmv, "입실여부를 확인해주세요");
 					} else if (rmvv.getCheckin() != null) {
 						m_dao.out_Rooming(rmvv.getRes_id());
 
-						System.out.println("*****************여기는 퇴실 누를때 마일리지 추가하는곳!");
 						double pirce;
 
 						int Intime = Integer.parseInt(rmvv.getIn_time());
@@ -154,13 +143,11 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 					list = m_dao.selectAll();
 					Btn_Cnt = Btn_Cnt / 5;
 					rmvv = list.get(Btn_Cnt);
-					System.out.println(rmvv.getCheckin() + " ----------------");
 					if (rmvv.getCheckin() == null) {
 						JOptionPane.showMessageDialog(rmv, "입실여부를 확인해주세요");
 					} else if (rmvv.getCheckin() != null) {
 						m_dao.out_Rooming(rmvv.getRes_id());
 
-						System.out.println("*****************여기는 입실 누를때 마일리지 추가하는곳!");
 						double pirce;
 
 						int Intime = Integer.parseInt(rmvv.getIn_time());
@@ -185,14 +172,12 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 
 	// 예약취소하는 메소드
 	public void roomCancle(int Btn_Cnt) {
-		System.out.println("예약취소  " + Btn_Cnt + "버튼");
 		ResMgrVO rmvv = null;
 		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
 
 		int number = JOptionPane.showConfirmDialog(rmv, "정말로 예약취소하시겠습니까?");
 
-		System.out.println(number);
 
 		try {
 			if (number == 0) {
@@ -204,7 +189,6 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 					m_dao.delete_res(rmvv.getRes_id());
 
 					// 사용되는 마일리지를 다시 충전
-					System.out.println("사용한 마일리지 " + rmvv.getUse_mile());
 					// DB의 형이 number경우 자바에서 int형으로 가져올 때 null인경우 0으로처리해준다.
 					if (rmvv.getUse_mile() != 0) {
 						m_dao.Use_Mile_Plus(rmvv.getRes_id(), rmvv.getId());
@@ -218,7 +202,6 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 
 					// 사용되는 마일리지를 다시 충전
 					// DB의 형이 number경우 자바에서 int형으로 가져올 때 null인경우 0으로처리해준다.
-					System.out.println("사용한 마일리지 " + rmvv.getUse_mile());
 					if (rmvv.getUse_mile() != 0) {
 						m_dao.Use_Mile_Plus(rmvv.getRes_id(), rmvv.getId());
 					}
@@ -236,7 +219,6 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 		add_timeView atf = new add_timeView(rmv);
 		ResMgrView rmv = new ResMgrView();
 
-		System.out.println("시간 추가  " + cnt + "버튼");
 
 		// 시간추가 프레임!
 		atf.add_timeForm(cnt);
@@ -306,7 +288,6 @@ public class ResMgrViewEvt extends WindowAdapter implements ActionListener {
 				} else if (i != 1) {
 					int Btn_Cnt;
 					Btn_Cnt = i / 5;
-					System.out.println(Btn_Cnt);
 					roomIn(Btn_Cnt, i);
 				}
 

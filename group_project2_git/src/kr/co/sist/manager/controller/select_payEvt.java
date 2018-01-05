@@ -47,7 +47,6 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 		ResMgrVO rmvv = null;
 		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
-		// System.out.println("인덱스 테스트" + cnt);
 
 		try {
 			if (select == 1) {
@@ -59,9 +58,7 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 			} // end else
 			list = m_dao.selectAll();
 			rmvv = list.get(cnt);
-			System.out.println(rmvv.getRes_id());
 			String msg = m_dao.opt_pay(opt, rmvv.getRes_id());
-			System.out.println(msg);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -75,13 +72,10 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 		ResMgrVO rmvv = null;
 		m_dao = ManagerDAO.getInstance();
 		List<ResMgrVO> list;
-		// System.out.println("인덱스 테스트" + cnt);
 
 		try {
-			// System.out.println(opt);
 			list = m_dao.selectAll();
 			rmvv = list.get(cnt);
-			System.out.println(rmvv.getRes_id());
 
 			// 방이 입실을 y로 바꾸는 쿼리
 			m_dao.in_Rooming(rmvv.getRes_id());
@@ -96,12 +90,10 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 
 		if (sp.getCard().isSelected()) {
 			select_otp = 1;
-			System.out.println("카드 / " + select_otp);
 		}
 
 		if (sp.getMoney().isSelected()) {
 			select_otp = 2;
-			System.out.println("현금 / " + select_otp);
 		}
 
 	}// itemStateChanged
@@ -114,7 +106,6 @@ public class select_payEvt extends WindowAdapter implements ActionListener, Item
 			if (select_otp == 0) {
 				JOptionPane.showMessageDialog(null, "결제방식을 선택해주세요");
 			} else {
-				System.out.println("메소드를 부를때 들어가는 값" + select_otp);
 				select_pay sp = new select_pay();
 				m_dao = ManagerDAO.getInstance();
 				List<ResMgrVO> list;
