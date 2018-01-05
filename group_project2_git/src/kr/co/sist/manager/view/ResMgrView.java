@@ -235,7 +235,6 @@ public class ResMgrView extends JFrame {
 		line_panel.add(list_btn.get(btn_count));
 		btn_count++;
 
-		// System.out.println("btn = " + btn_count);
 	}// admin_line_btn
 
 	public JPanel ResMgrView(int count, List<ResMgrVO> list) {

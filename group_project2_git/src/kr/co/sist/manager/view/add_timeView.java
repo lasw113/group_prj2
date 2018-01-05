@@ -144,7 +144,6 @@ public class add_timeView extends JFrame {
 		List<ResMgrVO> list;
 
 		index = i / 5;
-		// System.out.println(index);
 		try {
 			list = m_dao.selectAll();
 			if (index == 0) {

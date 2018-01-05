@@ -126,9 +126,7 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		JButton button = (JButton) ae.getSource();
-		System.out.println(button.getName());
 		for (int i = 0; i < 9; i++) {
-			System.out.println(cmv[i].getRoom_id());
 			if (cmv[i].getRoom_id().equals(button.getName())) {
 				cmv[i].setVisible(true);
 				button.setIcon(btnImageBefore[i]);
@@ -147,7 +145,6 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 		while (true) {
 			for (int i = 0; i < serverport.length; i++) {
 				if (listServer.get(i).chk != false) {
-					System.out.println(listServer.get(i));
 					listServer.remove(i);
 					ServerHelper sh = new ServerHelper(this, btnRoom[i], serverport[i], isInLabel[i]);
 					listServer.add(sh);

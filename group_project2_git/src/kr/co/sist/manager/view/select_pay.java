@@ -26,7 +26,6 @@ public class select_pay extends JFrame {
 	public void select_pay(int cnt, int btn_cnt) {
 		number = cnt;
 		btn_number = btn_cnt;
-		System.out.println("¹Þ¾Æ¿Â index " + number);
 		JPanel total_panel = new JPanel();
 		JPanel panel = new JPanel();
 		JPanel panel2 = new JPanel();

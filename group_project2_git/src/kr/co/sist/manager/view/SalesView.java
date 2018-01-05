@@ -35,7 +35,6 @@ public class SalesView extends JPanel {
 		Date date= new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String today = sdf.format(date);
-		System.out.println(today);
 		lblDate= new JLabel(today);
 //		btnRe = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/renew.png"));
 		btnRe = new JButton(new ImageIcon(url2));
