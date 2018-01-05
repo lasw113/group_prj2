@@ -67,8 +67,6 @@ public class add_timeView extends JFrame {
 
 			DB_InTime = m_dao.Get_Intime(rmvv.getRoom_id(), rmvv.getRes_id());
 
-			System.out.println("퇴실시간 : " + out_time);
-			System.out.println("DB에서 가져온 시간 : " + DB_InTime);
 
 			if (DB_InTime == 0) {
 				possible_time = 22 - out_time;
@@ -146,7 +144,6 @@ public class add_timeView extends JFrame {
 		List<ResMgrVO> list;
 
 		index = i / 5;
-		System.out.println("해당되는 index : " + index);
 		// System.out.println(index);
 		try {
 			list = m_dao.selectAll();

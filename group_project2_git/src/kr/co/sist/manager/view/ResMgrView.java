@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,6 +49,17 @@ public class ResMgrView extends JFrame {
 	private List<ResMgrVO> list_count;
 
 	ManagerDAO m_dao;
+	
+	URL url1=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/null_btn.png");
+	URL url2=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/be_btn.png");
+	URL url3=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/room_in_btn.png");
+	URL url4=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/room_in_color.png");
+	URL url5=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/out_btn.png");
+	URL url6=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/re_canle.png");
+	URL url7=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/change_btn.png");
+	URL url8=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/renewal_btn.png");
+	URL url9=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/갱신.png");
+	URL url10=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/jul/로그인 그라데이션.png");
 
 	@SuppressWarnings("static-access")
 	public void admin_line_name(int i, JPanel line_panel, List<ResMgrVO> list) {
@@ -148,8 +160,8 @@ public class ResMgrView extends JFrame {
 
 		// 버튼 추가 0 5 10 15
 
-		String path = System.getProperty("user.dir");
-		// btnLogin = new JButton(new
+//		String path = System.getProperty("user.dir");
+//		btnLogin = new JButton(new ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/로그인 그라데이션.png"));
 		// ImageIcon(path+"/src/kr/co/sist/studyroom/img/jul/로그인 그라데이션.png"));
 
 		ResMgrVO rmvv;
@@ -157,7 +169,8 @@ public class ResMgrView extends JFrame {
 
 		// 있음 없음
 		if (rmvv.getRequest() == null) {
-			JButton btn = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/null_btn.png"));
+			JButton btn = new JButton(new ImageIcon(url1));
+//			JButton btn = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/null_btn.png"));
 			// btn.setFont(new Font("고딕", Font.BOLD, 10));
 			// btn.setBackground(new Color(196, 255, 122));
 			list_btn.add(btn);
@@ -166,7 +179,7 @@ public class ResMgrView extends JFrame {
 			btn_count++;
 
 		} else {
-			JButton btn = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/be_btn.png"));
+			JButton btn = new JButton(new ImageIcon(url2));
 			// btn.setFont(new Font("고딕", Font.BOLD, 10));
 			// btn.setBackground(new Color(196, 255, 122));
 			list_btn.add(btn);
@@ -178,16 +191,17 @@ public class ResMgrView extends JFrame {
 		line_panel.add(gap1);
 
 		// 입실
-		System.out.println(rmvv.getCheckin() + "체크여부 확인 !!!!!!!!!!!  == " + i);
 		if ("y".equals(rmvv.getCheckin())) {
-			JButton btton = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/room_in_btn.png"));
+			JButton btton = new JButton(new ImageIcon(url3));
+//			JButton btton = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/room_in_btn.png"));
 			// btton.setBackground(new Color(255, 128, 0));
 			// btton.setFont(new Font("고딕", Font.BOLD, 10));
 			list_btn.add(btton);
 			line_panel.add(list_btn.get(btn_count));
 			btn_count++;
 		} else {
-			JButton btton = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/room_in_color.png"));
+			JButton btton = new JButton(new ImageIcon(url4));
+//			JButton btton = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/room_in_color.png"));
 			btton.setFont(new Font("고딕", Font.BOLD, 10));
 			btton.setBackground(new Color(196, 255, 122));
 			list_btn.add(btton);
@@ -196,7 +210,8 @@ public class ResMgrView extends JFrame {
 		}
 
 		// 퇴실
-		JButton btton2 = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/out_btn.png"));
+		JButton btton2 = new JButton(new ImageIcon(url5));
+//		JButton btton2 = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/out_btn.png"));
 		// btton2.setFont(new Font("고딕", Font.BOLD, 10));
 		// btton2.setBackground(new Color(196, 255, 122));
 		list_btn.add(btton2);
@@ -204,7 +219,8 @@ public class ResMgrView extends JFrame {
 		btn_count++;
 
 		// 예약취소
-		JButton btton3 = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/re_canle.png"));
+		JButton btton3 = new JButton(new ImageIcon(url6));
+//		JButton btton3 = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/re_canle.png"));
 		// btton3.setFont(new Font("고딕", Font.BOLD, 10));
 		// btton3.setBackground(new Color(196, 255, 122));
 		list_btn.add(btton3);
@@ -212,7 +228,7 @@ public class ResMgrView extends JFrame {
 		btn_count++;
 
 		// 변경
-		JButton btton4 = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/change_btn.png"));
+		JButton btton4 = new JButton(new ImageIcon(url7));
 		// btton4.setFont(new Font("고딕", Font.BOLD, 10));
 		// btton4.setBackground(new Color(196, 255, 122));
 		list_btn.add(btton4);
@@ -254,7 +270,8 @@ public class ResMgrView extends JFrame {
 
 		String path = System.getProperty("user.dir");
 
-		btnrenew = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/renewal_btn.png"));
+		btnrenew = new JButton(new ImageIcon(url8));
+//		btnrenew = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/renewal_btn.png"));
 		btnrenew.setSize(70,70);
 
 		// date를 테두리치는 코드
@@ -375,7 +392,8 @@ public class ResMgrView extends JFrame {
 				JLabel now_date = new JLabel("  " + dTime + "  ");
 				// 갱신
 				String path = System.getProperty("user.dir");
-				btnrenew = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/갱신.png"));
+				btnrenew = new JButton(new ImageIcon(url9));
+//				btnrenew = new JButton(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/갱신.png"));
 
 
 				// date를 테두리치는 코드
@@ -440,13 +458,11 @@ public class ResMgrView extends JFrame {
 			} else {// 아니면 아래코드 실행
 
 				cnt = list.size();
-				System.out.println("데이터 행의 수" + cnt);
 
 				// rmv.ResMgrView(cnt, list);
 				return rmv.ResMgrView(cnt, list);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return totalpanel;
@@ -479,8 +495,6 @@ public class ResMgrView extends JFrame {
 				int count = list.size();
 				list_btn = new ArrayList<>();
 				list_Jbl = new ArrayList<>();
-				System.out.println("setresview 부르기");
-				System.out.println(list_Jbl.size());
 
 				// 윈도우 크기설정
 				setSize(999, 600);
@@ -519,7 +533,6 @@ public class ResMgrView extends JFrame {
 				setResizable(false);
 
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} // end catch
 		}
