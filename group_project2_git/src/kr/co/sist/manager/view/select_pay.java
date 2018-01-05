@@ -3,8 +3,10 @@ package kr.co.sist.manager.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.net.URL;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,9 +32,10 @@ public class select_pay extends JFrame {
 		JPanel panel = new JPanel();
 		JPanel panel2 = new JPanel();
 
+		URL url1=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/select_pay_check.png");
 		
 
-		btn = new JButton("확인");
+		btn = new JButton(new ImageIcon(url1));
 
 		JLabel view = new JLabel("결제방법을 선택해주세요");
 		card = new JRadioButton("카드");

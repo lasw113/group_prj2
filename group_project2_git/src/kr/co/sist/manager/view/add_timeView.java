@@ -2,9 +2,11 @@ package kr.co.sist.manager.view;
 
 import java.awt.Color;
 import java.awt.TextArea;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -86,8 +88,11 @@ public class add_timeView extends JFrame {
 				combo.setEditable(false);
 			}
 
-			btn_check = new JButton("확인");
-			btn_cancle = new JButton("취소");
+			URL url1=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/add_time_ok.png");
+			URL url2=getClass().getClassLoader().getResource("kr/co/sist/studyroom/img/add_time_close.png");
+			
+			btn_check = new JButton(new ImageIcon(url1));
+			btn_cancle = new JButton(new ImageIcon(url2));
 
 			// 버튼 위치
 			btn_check.setBounds(125, 300, 70, 30);
