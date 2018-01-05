@@ -72,7 +72,7 @@ public class MyInfoFrm extends JPanel{
 		lblEmail = new JLabel("이메일");
 		lblPhone = new JLabel("핸드폰");
 		lblMileage=new JLabel("마일리지");
-		lblPassGuide=new JLabel("*비밀번호 수정시에는 비밀번호만 입력해주세요");
+		lblPassGuide=new JLabel("*비밀번호 수정시에는 비밀번호를 입력해주세요(단, 비밀번호만 수정 가능)");
 		lblPassGuide.setForeground(Color.RED);
 		
 		
@@ -93,7 +93,7 @@ public class MyInfoFrm extends JPanel{
 		jtfMileage.setBounds(640, 95, 80, 25);
 		
 		lblPass.setBounds(130, 150, 150, 15);
-		lblPassGuide.setBounds(130, 178, 280, 15);
+		lblPassGuide.setBounds(130, 178, 435, 15);
 		jtfPass.setBounds(250, 145, 145, 25);
 		
 		lblChkPass.setBounds(520, 150, 90, 15);

@@ -86,8 +86,8 @@ public class MyInfoEvt implements ActionListener {
 		icv = new InfoChangeVO();
 
 		// 비밀번호입력 또는 비밀번호 확인 창에 내용 입력했을 때 비밀번호 수정메소드 호출
-		if (!(new String(mif.getJtfChkPass().getPassword()).equals(""))
-				|| !(new String(mif.getJtfPass().getPassword()).equals(""))) {
+		if (!("".equals(new String(mif.getJtfChkPass().getPassword())))
+				|| !("".equals(new String(mif.getJtfPass().getPassword())))) {
 			changeMypass();
 			return;
 		}
@@ -176,10 +176,10 @@ public class MyInfoEvt implements ActionListener {
 				} // end for
 
 				icv.setId(LoginFrmEvt.id);
-				icv.setName(mif.getJtfName().getText());
-				icv.setBirth(mif.getJtfBirth().getText());
+				icv.setName(name);
+				icv.setBirth(birth);
 				icv.setPhone(phone);
-				icv.setEmail(mif.getJtfEmail().getText());
+				icv.setEmail(email);
 				icv.setPass_ans(chPassAns);
 
 				// 비밀번호 질문내용을 인덱스로 받아오기

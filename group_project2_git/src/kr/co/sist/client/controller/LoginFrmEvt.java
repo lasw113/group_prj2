@@ -27,8 +27,7 @@ public class LoginFrmEvt implements ActionListener {
 	private void chkLogin() {// 로그인 메서드
 		id = lf.getJtfId().getText();
 		pass = new String(lf.getJtfPass().getPassword());
-		String logPw = new String(lf.getJtfPass().getPassword());
-		if (logPw.equals("null")) {
+		if (pass.equals("null")) {
 			JOptionPane.showMessageDialog(lf, "이미 탈퇴된 회원입니다.");
 			lf.getJtfId().setText("");
 			lf.getJtfPass().setText("");
@@ -42,7 +41,7 @@ public class LoginFrmEvt implements ActionListener {
 			return;
 		}
 		// 비밀번호가 입력되지 않을경우 .
-		if ("".equals(logPw)) {
+		if ("".equals(pass)) {
 			JOptionPane.showMessageDialog(lf, "비밀번호를 입력하세요");
 			lf.getJtfPass().requestFocus();
 			return;
@@ -52,7 +51,7 @@ public class LoginFrmEvt implements ActionListener {
 		c_dao = ClientDAO.getInstance();
 
 		lv.setId(id);
-		lv.setPassword(logPw);
+		lv.setPassword(pass);
 
 		try {
 			boolean logChk = c_dao.selectLogin(lv);
