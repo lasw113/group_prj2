@@ -375,11 +375,4 @@ public class JoinFrm extends JDialog {
 	public void setDcbPassHint(DefaultComboBoxModel<String> dcbPassHint) {
 		this.dcbPassHint = dcbPassHint;
 	}
-
-	public static void main(String[] args) {
-		/*
-		 * LoginFrm lf = new LoginFrm(); JoinFrm jf = new JoinFrm(lf);
-		 */
-	}// main
-
 }// class

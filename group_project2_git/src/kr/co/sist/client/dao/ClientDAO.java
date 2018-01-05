@@ -213,7 +213,6 @@ public class ClientDAO {
 					+ "values (?,?,?,?,?,0,?,?,to_char(sysdate,'yyyymmdd'),?)";
 			pstmt=con.prepareStatement(insertMember);
 		//4.
-			System.out.println(insertMember);
 			pstmt.setString(1, jv.getId());
 			pstmt.setString(2, jv.getPass());
 			pstmt.setString(3, jv.getName());
@@ -331,7 +330,6 @@ public class ClientDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()){
 				schPass=rs.getString("pass");
-				System.out.println(schPass);
 			}
 		}finally{
 			// 5.
@@ -503,7 +501,16 @@ public class ClientDAO {
 	}//dropMyInfo
 	
 	
- /***********************************************************/
+//////////////////////////////////////////////////김수정////////////////////////////////////////////////
+	/**
+	 * 해당 아이디로 같은 시간에 다른방을 예약할 수도 있기때문에 방이름도
+	 * 입력받아 id와 room_id로 검색하여 해당방을 이용하는 예약자가 1명의
+	 * 데이터가 발생하면 맞는 사용자.
+	 * @param id
+	 * @param room_id
+	 * @return 1 입실한 예약 사용자. 1을제외한수 예약오류
+	 * @throws SQLException
+	 */
 	public int rightUser(String id,String room_id) throws SQLException{
 		int cnt=0;
 		Connection con = null;
@@ -518,23 +525,20 @@ public class ClientDAO {
 				" from room_res " + 
 				" where id=? and checkin='y' and res_date=to_char(sysdate,'yyyy-mm-dd') " + 
 				" and (to_char(sysdate,'hh24')>=in_time and to_char(sysdate,'hh24')< out_time)and room_id=? ";
-		//누나꺼 여기 문제 있다. 9시는 안돼 문자열끼리 비교라 10시에는 9시예약된거 못들어가
-				
+		
 		pstmt=con.prepareStatement(right_User);
 		pstmt.setString(1, id);
 		pstmt.setString(2, room_id);
 		
 		rs=pstmt.executeQuery();
-		System.out.println(right_User);
 		rs.next();
-			System.out.println(rs.getInt(1));
 			cnt=rs.getInt(1);
 		}finally {
 			dbClose(con,pstmt,rs);
-		}
+		}//end finally
 		return cnt;
-	}
-	
+	}//rightUser
+//////////////////////////////////////////////////김수정////////////////////////////////////////////////
 	//////////////////////////////////////////김태영////////////////////////////////////////
 
 	public SelectUserVO selectUserInfo(String id, String room_id) throws SQLException {

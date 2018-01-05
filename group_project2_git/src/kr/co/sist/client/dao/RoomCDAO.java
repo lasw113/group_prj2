@@ -305,7 +305,6 @@ public class RoomCDAO {
 			rs = pstmt.executeQuery();
 
 			HistoryVO hvo = new HistoryVO();
-			System.out.println("??????????");
 			while (rs.next()) {
 				hvo = new HistoryVO(rs.getString("res_name"), rs.getString("room_id"), rs.getString("in_time"),
 						rs.getString("out_time"), rs.getString("res_date"), rs.getInt("p_cnt"), rs.getInt("price"));
@@ -327,10 +326,6 @@ public class RoomCDAO {
 			StringBuilder updateRes = new StringBuilder();
 			updateRes.append("update member ")
 					.append("set mileage = mileage +nvl((select use_mile from res_info where res_id=?),0)")// 마일리지 사용
-																											// 안하면
-																											// null이라서
-																											// null값 처리
-																											// 했엉^^
 					.append("where id =?");
 			pstmt = con.prepareStatement(updateRes.toString());
 			// 바인드 변수에 값 넣기

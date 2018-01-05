@@ -121,7 +121,6 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		ca.set(year, month - 1, 1);
 		lastDay = ca.getActualMaximum(Calendar.DATE);
 		rif.getDcmbDay().removeAllElements();
-		System.out.println(month + " / " + y_month + " / " + day);
 		if (month == y_month) {
 			for (int i = day; i <= lastDay; i++) {
 				rif.getDcmbDay().addElement(i + "");
@@ -146,7 +145,6 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 			}
 
 			String date = year + "-" + month + "-" + day;
-			System.out.println(date);
 			SelectTimeChkVO stc_vo = new SelectTimeChkVO(date, room_id);
 			List<SelectTimeVO> listTime;
 			listTime = r_dao.selectTimeChk(stc_vo);
@@ -187,7 +185,6 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 					} else {
 						in = String.valueOf(Integer.parseInt(in) + 9);
 					}
-					System.out.println(in + " / " + out);
 					SelectRoomResVO srr_vo = new SelectRoomResVO(date, in, out, room_num, p_cnt);
 					ClientMainFrm cmf = null;
 					new SelectUserFrm(srr_vo, cmf, rif.getId());
@@ -267,11 +264,9 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 		if (rif.getJcbMonth() == ae.getSource()) {
 
 			if (rif.getJcbMonth().getSelectedIndex() != -1) {
-				System.out.println("Å¸Áö?");
 				int month = Integer.parseInt((String) rif.getJcbMonth().getSelectedItem());
 				Calendar ca = Calendar.getInstance();
 				year = ca.get(Calendar.YEAR);
-				System.out.println(year + " / " + month);
 				setDay(year, month);
 				if ((y_month) == 13) {
 					if (rif.getJcbMonth().getSelectedItem().equals("1")) {

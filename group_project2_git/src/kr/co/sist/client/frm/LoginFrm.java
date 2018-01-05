@@ -128,10 +128,4 @@ public class LoginFrm extends JFrame {
 	public JLabel getLblPass() {
 		return lblPass;
 	}
-	
-	public static void main(String[] args) {
-		new LoginFrm();
-		
-	}// main
-
 }// class

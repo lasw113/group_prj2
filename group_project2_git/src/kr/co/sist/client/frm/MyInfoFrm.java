@@ -166,7 +166,6 @@ public class MyInfoFrm extends JPanel{
 		setBackground(Color.WHITE);
 		
 		setBounds(100, 100, 750, 550);
-		//setResizable(false);
 		setVisible(true);
 		
 		
@@ -379,10 +378,4 @@ public class MyInfoFrm extends JPanel{
 	public void setDcbPhoneF(DefaultComboBoxModel<String> dcbPhoneF) {
 		this.dcbPhoneF = dcbPhoneF;
 	}
-	
-	
-	/*public static void main(String[] args) {
-		new MyInfoFrm();
-	}//main
-*/
 }//class

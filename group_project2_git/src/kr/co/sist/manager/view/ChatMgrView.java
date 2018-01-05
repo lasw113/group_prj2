@@ -22,13 +22,13 @@ public class ChatMgrView extends JDialog {
 	private JLabel lblRoom_id,lblImage;
 	private static ManagerView mv;
 	private String room_id;
-	private int p_num;
+	private int p_num; //포트번호 저장 변수
 
-	public ChatMgrView(String room_id, int ss, ReqMgrView rmv) {
+	public ChatMgrView(String room_id, int portNum, ReqMgrView rmv) {
 		super(mv, "건의사항 - 관리자");
 		this.room_id = room_id;
-		p_num = ss;
-		String path = System.getProperty("user.dir");		
+		p_num = portNum;
+//		String path = System.getProperty("user.dir");		
 
 		jtfMessage = new JTextField();
 		lblRoom_id = new JLabel("방이름");

@@ -28,9 +28,10 @@ public class ClientMainFrmEvt extends MouseAdapter{
 	private RoomInfoFrm rif;
 	private ClientMainFrm cmf;
 	private ResChkFrm rcf;
+	private RequestFrm rf;
 	private String id, pass;
 	private String room_id;
-	private boolean isIn;
+	private boolean isIn; //입실여부 판별 결과 변수
 	private ClientDAO c_dao;
 
 	public ClientMainFrmEvt(ClientMainFrm cmf) {
@@ -69,21 +70,21 @@ public class ClientMainFrmEvt extends MouseAdapter{
 			break;
 
 		case REQUEST_TAB:
-			// 주문탭이 클릭되면 로그인 여부를 판별하여
-			if (isIn) {
+			// 건의사항 탭이 클릭되면 입실여부를 판별하여 채팅을 사용할 수 있게 한다.
+			if (isIn && rf.isFlagMgrIn() ) { //입실여부 판별 수행했으면 다시 입실여부 판별 하지 않도록 한다.
 				break;
-			}
-			if (isRight()) {
+			}//end if
+			if (isRight()) { //입실여부 판별 수행
 				JOptionPane.showMessageDialog(cmf, "환영합니다.잠시만 기다려주세요");
-				RequestFrm rf = new RequestFrm(this);
+				rf= new RequestFrm(this);
 				if (rf.isFlagMgrIn()) {
 					tempTab.remove(2);// 탭을 삭제 후
 					tempTab.insertTab("  건 의 사 항  ", null, rf, null, 2);// 디자인을 가진 컴포넌트 배치
 					// 탭이 메뉴로 넘어가는 걸 막는다.
 					tempTab.setSelectedIndex(2);
-				}
+				}//end if
 				break;
-			}
+			}//end if
 			JOptionPane.showMessageDialog(cmf, "사용중이 아닙니다. 사용불가합니다.");
 			break;
 
@@ -119,26 +120,28 @@ public class ClientMainFrmEvt extends MouseAdapter{
 		}
 	}
 
+	/**
+	 * 이용중인 방이름을 입력받아 입실 여부 판별하는 일
+	 * @return true 입실 false 입실x
+	 */
 	private boolean isRight() {
 		String room = JOptionPane.showInputDialog(cmf, "이용 중인 방이름을 입력해주세요.");
 		int cnt = 0;
 		c_dao = ClientDAO.getInstance();
 
 		try {
-			System.out.println(id);
-			System.out.println(room);
 			room_id = room;
-			cnt = c_dao.rightUser(id, room);
-			if (cnt == 1) {
-				isIn = true;
+			cnt = c_dao.rightUser(id, room); 
+			//id와 방이름을 매개변수로 받아서 맞는 사용자인지 판별
+			if (cnt == 1) { 
+				isIn = true; //입실한 회원 
 			} else {
-				isIn = false;
+				isIn = false; //입실하지 않은 회원
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return isIn;
-
 	}// isRight
 
 	public String getId() {
@@ -164,5 +167,4 @@ public class ClientMainFrmEvt extends MouseAdapter{
 	public void setIn(boolean isIn) {
 		this.isIn = isIn;
 	}
-
 }

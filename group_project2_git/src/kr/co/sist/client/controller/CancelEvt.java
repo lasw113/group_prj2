@@ -27,8 +27,6 @@ public class CancelEvt implements ActionListener {
 		boolean flag = false;
 
 		admin_pass = new String(cf.getJpwPass().getPassword()).trim();
-		System.out.println(admin_pass);
-		System.out.println(pass);
 
 		if (pass.equals(admin_pass)) {
 			flag = true;
@@ -62,7 +60,6 @@ public class CancelEvt implements ActionListener {
 				case JOptionPane.OK_OPTION:
 					cacelRes(cf.getId(), cf.getRes_id());
 					cf.getRcfe().resChk();
-					System.out.println("예약취소");
 				case JOptionPane.NO_OPTION:
 					cf.dispose();
 				case JOptionPane.CANCEL_OPTION:

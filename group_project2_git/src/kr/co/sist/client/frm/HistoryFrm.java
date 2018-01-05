@@ -26,7 +26,7 @@ public class HistoryFrm extends JDialog {
 	private String id;
 
 	public HistoryFrm(ResChkFrm rcf, ResChkFrmEvt rcfe, String id) {
-		this.rcf = rcf;// 이거 왜하는거지??
+		this.rcf = rcf;
 		this.id = id;
 		String[] resHis = { "날짜", "이름", "방번호", "인원수", "이용금액", "예약시간" };
 		String[][] resData = { { "", "", "", "", "", "" } };
