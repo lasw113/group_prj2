@@ -17,7 +17,8 @@ import kr.co.sist.client.vo.UpdateMileVO;
 public class SelectUserFrmEvt implements ActionListener {
 
 	private SelectUserFrm suf;
-	private int mille, updateMile;
+	private int mille, updateMile, price;
+	private boolean flag;
 
 	private SelectUserVO su_vo;
 
@@ -37,7 +38,7 @@ public class SelectUserFrmEvt implements ActionListener {
 			String phoneL = su_vo.getPhone().substring(9, 13);
 
 			mille = Integer.parseInt(su_vo.getMillege());
-			int price = (Integer.parseInt(su_vo.getPrice())
+			price = (Integer.parseInt(su_vo.getPrice())
 					* (Integer.parseInt(suf.getOut_time()) - Integer.parseInt(suf.getIn_time())) * suf.getP_cnt());
 			suf.getJtfName().setText(su_vo.getName());
 			suf.getJcbPhoneF().setSelectedItem(phoneF);
@@ -55,17 +56,17 @@ public class SelectUserFrmEvt implements ActionListener {
 	private void useMillege() {// 사용 마일리지 적용
 		try {
 			int useMile = Integer.parseInt(suf.getJtfMillege().getText());
-			int price = (Integer.parseInt(su_vo.getPrice())
-					* (Integer.parseInt(suf.getOut_time()) - Integer.parseInt(suf.getIn_time())) * suf.getP_cnt())
-					- useMile;
+			int use_price = price - useMile;
 			int afterMile = Integer.parseInt(su_vo.getMillege()) - useMile;
-			if (useMile <= mille && useMile >= 0 && useMile <=Integer.parseInt(su_vo.getPrice())) {
-				suf.getJtfPrice().setText(String.valueOf(price));
+			System.out.println(Integer.parseInt(su_vo.getPrice()));
+			if (useMile <= mille && useMile >= 0 && useMile <= price) {
+				suf.getJtfPrice().setText(String.valueOf(use_price));
 				suf.getLblCanUse().setText("사용가능마일리지 : " + afterMile);
 				updateMile = useMile;
 			} else {
 				JOptionPane.showMessageDialog(suf, "사용 가능한 마일리지 금액이 아닙니다.");
 				suf.getJtfMillege().setText("0");
+				suf.getJtfPrice().setText(String.valueOf(price));
 			}
 		} catch (NumberFormatException nfe) {
 			JOptionPane.showMessageDialog(suf, "숫자만 가능합니다.");
@@ -74,15 +75,53 @@ public class SelectUserFrmEvt implements ActionListener {
 		} // end catch
 	}// useMillege
 
-	private boolean isNotEmpty() {// 사용자 정보가 적혀있지 않다면 메세지 띄우기
-		boolean flag = false;
+	private void isNotEmpty() {// 사용자 정보가 적혀있지 않다면 메세지 띄우기
+		flag = false;
 
-		if (suf.getJtfEmail().getText().equals("") || suf.getJtfName().getText().equals("")
-				|| suf.getJtfPhoneL().getText().equals("") || suf.getJtfPhoneM().getText().equals("")) {
-			JOptionPane.showMessageDialog(suf, "모든 정보를 입력해주세요");
-			flag = true;
+		if ("".equals(suf.getJtfName().getText())) {
+			JOptionPane.showMessageDialog(suf, "예약자명을 반드시 입력해주세요");
+			return;
 		} // end if
-		return flag;
+
+		if ("".equals(suf.getJtfPhoneM().getText()) || "".equals(suf.getJtfPhoneL().getText())) {
+			// 폰번호를 입력하지 않았을때
+			JOptionPane.showMessageDialog(suf, "핸드폰 번호를 반드시 입력해주세요.");
+			return;
+		} // end if
+
+		for (int i = 0; i < suf.getJtfPhoneM().getText().length(); i++) {
+			char c1 = suf.getJtfPhoneM().getText().charAt(i);
+			if ((c1 < 48 || c1 > 57) || (suf.getJtfPhoneM().getText().length() != 4)) {// 폰번호 가운데가 숫자가 아니고 4자리가 아닌경우
+				JOptionPane.showMessageDialog(suf, "핸드폰 번호는 4자리 숫자만 입력해주세요");
+				suf.getJtfPhoneM().requestFocus();
+				return;
+
+			} // end if
+		} // end for
+
+		for (int i = 0; i < suf.getJtfPhoneL().getText().length(); i++) {
+			char c2 = suf.getJtfPhoneL().getText().charAt(i);
+			if ((c2 < 48 || c2 > 57) || (suf.getJtfPhoneL().getText().length() != 4)) {// 폰번호 마지막이 숫자가 아니고 4자리가 아닌경우
+				JOptionPane.showMessageDialog(suf, "핸드폰 번호는 4자리 숫자만 입력해주세요");
+				suf.getJtfPhoneL().requestFocus();
+				return;
+			} // end if
+		} // end for
+
+		if ("".equals(suf.getJtfEmail().getText())) {
+			JOptionPane.showMessageDialog(suf, "이메일을 반드시 입력해주세요.");
+			suf.getJtfEmail().requestFocus();
+			return;
+		} // end if
+
+		// 메일 유효성검사
+		if (suf.getJtfEmail().getText().indexOf("@") == -1 || suf.getJtfEmail().getText().indexOf(".") == -1) {
+			JOptionPane.showMessageDialog(suf, "올바르지 않은 이메일입니다.");
+			suf.getJtfEmail().requestFocus();
+			return;
+		} // end if
+
+		flag = true;
 	}// isNotEmpty
 
 	private boolean reservation() {// 예약 정보를 DB에 insert
@@ -123,9 +162,10 @@ public class SelectUserFrmEvt implements ActionListener {
 		} // end if
 
 		if (suf.getBtnRes() == ae.getSource()) {// 예약 하기 버튼
-			if(isNotEmpty()) {
+			isNotEmpty();
+			if (!flag) {
 				return;
-			}//end if
+			} // end if
 			if (reservation()) {
 				JOptionPane.showMessageDialog(suf, "예약 완료되었습니다.");
 				suf.dispose();
