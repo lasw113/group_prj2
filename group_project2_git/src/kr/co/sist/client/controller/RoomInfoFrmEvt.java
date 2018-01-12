@@ -46,16 +46,16 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 			rif.getLblRCnt().setText(ri_vo.getP_min() + "명~" + ri_vo.getP_max() + "명");
 			rif.getJtaInfo().setText(ri_vo.getRoomInfo());
 			rif.getLblImg().setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + ri_vo.getImage()));
-			List<String> Equip = r_dao.selectEquip(room_id);
+			List<String> equip = r_dao.selectEquip(room_id);
 
 			for (int i = 0; i < rif.getLblEquipment().length; i++) {// 비품 초기화
 				rif.getLblEquipment()[i].setText("");
 				rif.getLblEquipment()[i].setIcon(null);
 				rif.getLblEquipment()[i].setToolTipText(null);
 			} // end for
-			for (int i = 0; i < Equip.size(); i++) {// 비품 채우기
-				rif.getLblEquipment()[i].setText(Equip.get(i));
-				rif.getLblEquipment()[i].setToolTipText(Equip.get(i));
+			for (int i = 0; i < equip.size(); i++) {// 비품 채우기
+				rif.getLblEquipment()[i].setText(equip.get(i));
+				rif.getLblEquipment()[i].setToolTipText(equip.get(i));
 				if (rif.getLblEquipment()[i].getText().equals("컴퓨터")) {
 					rif.getLblEquipment()[i]
 							.setIcon(new ImageIcon(path + "/src/kr/co/sist/studyroom/img/" + "computer.png"));
@@ -146,7 +146,7 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 
 			String date = year + "-" + month + "-" + day;
 			SelectTimeChkVO stc_vo = new SelectTimeChkVO(date, room_id);
-			List<SelectTimeVO> listTime;
+			List<SelectTimeVO> listTime = null;
 			listTime = r_dao.selectTimeChk(stc_vo);
 			for (int i = 0; i < rif.getDtmTime().getColumnCount(); i++) {// 테이블 초기화
 				rif.getDtmTime().setValueAt("", 0, i);
@@ -166,7 +166,7 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 	}// setResChk
 
 	private void goNext() {// 다음 버튼 눌리면 날짜, 입실, 퇴실, 방번호, 인원 저장하고 사용자 정보창 띄우기
-		if (!(in == null) && !(out == null)) {
+		if (in != null && out != null) {
 			for (int j = Integer.parseInt(in); j < Integer.parseInt(out); j++) {
 				if (rif.getJtTime().getValueAt(0, j).equals("")) {
 					JOptionPane.showMessageDialog(rif, "빈 시간이 있습니다.");
@@ -235,8 +235,11 @@ public class RoomInfoFrmEvt extends MouseAdapter implements ActionListener, Item
 				out = String.valueOf(i + 1);
 			} // end if
 		} // end for
-		if (!(in == null) && !(out == null)) {
-			for (int i = Integer.parseInt(in); i < Integer.parseInt(out); i++) {
+		int chkIn = Integer.parseInt(in);
+		int chkOut = Integer.parseInt(out);
+
+		if (in != null && out != null) {
+			for (int i = chkIn; i < chkOut; i++) {
 				if (!rif.getJtTime().getValueAt(0, col).equals("")) {
 					rif.getJtTime().setValueAt("예약", 0, i);
 				} // end if
