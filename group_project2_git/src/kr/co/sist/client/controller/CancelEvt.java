@@ -16,7 +16,7 @@ public class CancelEvt implements ActionListener {
 
 	private CancelFrm cf;
 
-	private String admin_pass;
+	private String con_pass;
 
 	public CancelEvt(CancelFrm cf, ResChkFrm rcf) throws IOException {
 		this.cf = cf;
@@ -27,9 +27,9 @@ public class CancelEvt implements ActionListener {
 	public boolean chkPass(String pass) {
 		boolean flag = false;
 
-		admin_pass = new String(cf.getJpwPass().getPassword()).trim();
+		con_pass = new String(cf.getJpwPass().getPassword()).trim();
 
-		if (pass.equals(admin_pass)) {
+		if (pass.equals(con_pass)) {
 			flag = true;
 		} // end if
 
@@ -68,7 +68,7 @@ public class CancelEvt implements ActionListener {
 					cf.dispose();
 				}// end switch
 			} else {
-				if (admin_pass.equals("")) {
+				if (con_pass.equals("")) {
 					JOptionPane.showMessageDialog(cf, "비밀번호를 입력해주세요");
 					return;
 				} // end if

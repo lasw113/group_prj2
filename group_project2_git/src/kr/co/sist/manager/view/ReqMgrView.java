@@ -29,10 +29,8 @@ public class ReqMgrView extends JPanel implements Runnable, ActionListener {
 	public ImageIcon[] btnImageBefore;
 	public ImageIcon[] btnImageAfter;
 	public ImageIcon inImg1, inImg2, whiteImg;
-	private int temp;
 
 	public ReqMgrView() {
-		temp=-1;
 		serverport = new int[9];
 		btnImageBefore = new ImageIcon[9];
 		btnImageAfter = new ImageIcon[9];

@@ -57,11 +57,11 @@ public class ServerHelper extends Thread{
 
 		try {
 			btnDisp.setToolTipText(btnDisp.getName()+"접속자가 있습니다~~");
+			String msg="";
 			while(true) {
 				//메세지를 읽어들여 대화창에 설정한다. 
-				String msg="";
 				msg =disReadStream.readUTF();
-				if(cmv[cmvIndex].isVisible()==true) {
+				if(cmv[cmvIndex].isVisible()) {
 					btnDisp.setIcon(rmv.btnImageBefore[cmvIndex]);
 					isInLabel.setIcon(rmv.whiteImg);
 				}else {

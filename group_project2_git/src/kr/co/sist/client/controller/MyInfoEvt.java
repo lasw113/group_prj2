@@ -13,6 +13,7 @@ import kr.co.sist.client.frm.MyInfoFrm;
 import kr.co.sist.client.vo.ChangePassVO;
 import kr.co.sist.client.vo.DeleteVO;
 import kr.co.sist.client.vo.InfoChangeVO;
+import kr.co.sist.client.vo.MyInfoVO;
 
 public class MyInfoEvt implements ActionListener {
 
@@ -31,16 +32,17 @@ public class MyInfoEvt implements ActionListener {
 		c_dao = ClientDAO.getInstance();
 
 		// 아이디,이름,생년월일,폰번호,이메일
-		String infoId = c_dao.selectMyInfo(LoginFrmEvt.id).getId();
-		String infoName = c_dao.selectMyInfo(LoginFrmEvt.id).getName();
-		String infoBirth = c_dao.selectMyInfo(LoginFrmEvt.id).getBirth();
-		int infoMileage = c_dao.selectMyInfo(LoginFrmEvt.id).getMileage();
-		String fidPhoneF = c_dao.selectMyInfo(LoginFrmEvt.id).getPhone().substring(0, 3);
-		String fidPhoneM = c_dao.selectMyInfo(LoginFrmEvt.id).getPhone().substring(4, 8);
-		String fidPhoneL = c_dao.selectMyInfo(LoginFrmEvt.id).getPhone().substring(9);
-		String infoEmail = c_dao.selectMyInfo(LoginFrmEvt.id).getEmail();
-		String infoPassIndex = c_dao.selectMyInfo(LoginFrmEvt.id).getPass_index(); // member 테이블의 pass_hint
-		String infoPassAns = c_dao.selectMyInfo(LoginFrmEvt.id).getPass_ans();
+		MyInfoVO miv = c_dao.selectMyInfo(LoginFrmEvt.id);
+		String infoId = miv.getId();
+		String infoName = miv.getName();
+		String infoBirth = miv.getBirth();
+		int infoMileage = miv.getMileage();
+		String fidPhoneF = miv.getPhone().substring(0, 3);
+		String fidPhoneM =miv.getPhone().substring(4, 8);
+		String fidPhoneL = miv.getPhone().substring(9);
+		String infoEmail = miv.getEmail();
+		String infoPassIndex = miv.getPass_index(); // member 테이블의 pass_hint
+		String infoPassAns = miv.getPass_ans();
 
 		DefaultComboBoxModel<String> dcbm = mif.getDcbPassHint();
 		List<String> listQu = c_dao.passHint();// pass_q테이블의 p_question

@@ -71,7 +71,7 @@ public class FindIDFrmEvt implements ActionListener {
 		try {
 			id = c_dao.findID(fiv);
 
-			if ("".equals(id.trim())) {
+			if ("".equals(id)) {
 				// 일치하는 회원정보가 없을때
 				JOptionPane.showMessageDialog(fidf, "일치하는 회원정보가 없습니다.");
 				return;

@@ -23,7 +23,7 @@ public class ChatMgrViewEvt implements ActionListener  {
 				if(cmv.getP_num()==rmv.listServer.get(j).getPort()) {
 					rmv.listServer.get(j).sendMsg(manager);
 					
-					if(rmv.listServer.get(j).isChkClientIn()==true) {
+					if(rmv.listServer.get(j).isChkClientIn()) {
 						cmv.getJtaChat().append(manager);
 					}//end if
 					

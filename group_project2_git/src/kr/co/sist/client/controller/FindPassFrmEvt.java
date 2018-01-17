@@ -16,7 +16,7 @@ public class FindPassFrmEvt implements ActionListener {
 	private FindPassFrm fpf;
 	private FindPassVO fpv;
 	private ClientDAO c_dao;
-	private String Pass;
+	private String pass;
 	private boolean flag;
 
 	public FindPassFrmEvt(FindPassFrm fpf) {
@@ -111,20 +111,20 @@ public class FindPassFrmEvt implements ActionListener {
 
 		try {
 
-			Pass = c_dao.findPass(fpv);
+			pass = c_dao.findPass(fpv);
 
 			// 비밀번호 다보여주지 않고 1/2만 *(echo char)생성
-			int passLen = Pass.length();
+			int passLen = pass.length();
 
-			Pass = Pass.substring(0, passLen / 2);
-			for (int i = Pass.length(); i < passLen; i++) {
-				Pass += "*";
+			pass = pass.substring(0, passLen / 2);
+			for (int i = pass.length(); i < passLen; i++) {
+				pass += "*";
 			}
 
-			if ("".equals(Pass.trim())) { // 일치하는 회원정보가 없을때
+			if ("".equals(pass.trim())) { // 일치하는 회원정보가 없을때
 				JOptionPane.showMessageDialog(fpf, "일치하는 회원정보가 없습니다.");
 			} else {
-				JOptionPane.showMessageDialog(fpf, "회원님의 비밀번호는 " + Pass + " 입니다.");
+				JOptionPane.showMessageDialog(fpf, "회원님의 비밀번호는 " + pass + " 입니다.");
 			} // end if
 		} catch (SQLException se) {
 			se.printStackTrace();

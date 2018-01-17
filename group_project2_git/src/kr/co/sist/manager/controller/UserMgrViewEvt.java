@@ -21,7 +21,7 @@ public class UserMgrViewEvt extends MouseAdapter implements ActionListener {
 
 	private String id;
 
-	private static final int DOUBLE_CLICK = 2;
+	public static final int DOUBLE_CLICK = 2;
 
 	public UserMgrViewEvt(UserMgrView mgv, String id) {
 		this.mgv = mgv;

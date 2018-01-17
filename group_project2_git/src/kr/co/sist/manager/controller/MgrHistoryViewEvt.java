@@ -26,13 +26,13 @@ public class MgrHistoryViewEvt {
 		ManagerDAO m_dao=ManagerDAO.getInstance();
 		
 		try {
-			List<HistoryVO> MgrHis=m_dao.searchHis(mhv.getId());
+			List<HistoryVO> mgrHis=m_dao.searchHis(mhv.getId());
 			tempHis.setRowCount(0);
 			Object[] rowData=null;
 			//회원의 히스토리가 존재한다면
 			HistoryVO hvo=null;
-			for(int i=0; i < MgrHis.size(); i++) {
-				hvo=MgrHis.get(i);
+			for(int i=0; i < mgrHis.size(); i++) {
+				hvo=mgrHis.get(i);
 				rowData=new Object[6];
 				rowData[0]=hvo.getRes_date();//날짜
 				rowData[1]=hvo.getRes_name();//이름

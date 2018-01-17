@@ -449,7 +449,7 @@ public class ClientDAO {
 		
 		//4. 
 			 cnt=pstmt.executeUpdate();
-			  if(cnt!=0){ 
+			  if(cnt ==1){ 
                   result=true;
 			   }else{
 				   result=false;

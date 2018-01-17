@@ -251,7 +251,7 @@ public class RoomCDAO {
 	}// end searchName
 
 	// 예약을 조회하는 일
-	public List<ResChkVO> ResChk(String id) throws SQLException {
+	public List<ResChkVO> resChk(String id) throws SQLException {
 		List<ResChkVO> listRes = new ArrayList<ResChkVO>();
 
 		Connection con = null;

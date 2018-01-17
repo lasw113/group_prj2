@@ -33,7 +33,7 @@ public class ResChkFrmEvt extends MouseAdapter implements ActionListener {
 
 		try {
 			// 예약을 조회
-			List<ResChkVO> listRes = r_cdao.ResChk(rcf.getId());
+			List<ResChkVO> listRes = r_cdao.resChk(rcf.getId());
 			tempRes.setRowCount(0);
 			Object[] rowData = null;
 			// 조회된 예약이 존재한다면
